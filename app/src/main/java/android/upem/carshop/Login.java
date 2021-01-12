@@ -1,13 +1,21 @@
 package android.upem.carshop;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
+
+import java.util.concurrent.Executor;
 
 public class Login extends AppCompatActivity {
 
@@ -16,6 +24,8 @@ public class Login extends AppCompatActivity {
     EditText passlogin;
     Button buttonlogin;
     DatabseHelper db;
+    ImageView fingerprint;
+    BiometricPrompt biometricPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,7 @@ public class Login extends AppCompatActivity {
         emaillogin = findViewById(R.id.email);
         passlogin = findViewById(R.id.password);
         buttonlogin = findViewById(R.id.login);
+        fingerprint = findViewById(R.id.fingerprint);
 
         registerbtn = findViewById(R.id.registerbtn);
         registerbtn.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +58,57 @@ public class Login extends AppCompatActivity {
                 else {
                     Toast.makeText(Login.this, "Erreur login", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        BiometricManager biometricManager = BiometricManager.from(this);
+        switch (biometricManager.canAuthenticate()) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                Toast.makeText(Login.this, "You can use the fingerprint", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                Toast.makeText(Login.this, "Unvailable", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                Toast.makeText(Login.this, "Your device cant use this function", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                Toast.makeText(Login.this, "You don't have FingerPrint in your device", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        Executor executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(Login.this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(Login.this, "FingerPrint Erreur", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(Login.this, "FingerPrint Sucess", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(Login.this, "FingerPrint Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Login")
+                .setDescription("Use your fingerprint")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+
+        fingerprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                biometricPrompt.authenticate(promptInfo);
             }
         });
     }
