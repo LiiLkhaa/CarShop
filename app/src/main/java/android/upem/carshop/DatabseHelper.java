@@ -59,4 +59,21 @@ public class DatabseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+
+    public boolean checkEmail(String email) {
+        String [] columns = { COL_1 };
+        SQLiteDatabase db = getReadableDatabase();
+        String selection = COL_3 + "=?";
+        String [] selectionArg =  { email };
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArg, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+        if (count>0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

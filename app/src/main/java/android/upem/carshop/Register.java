@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ public class Register extends AppCompatActivity {
     EditText fullname;
     Button buttonregister;
     DatabseHelper db;
+    ImageView fingerprint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class Register extends AppCompatActivity {
         passregister = findViewById(R.id.passwordregister);
         fullname = findViewById(R.id.fullname);
         buttonregister = findViewById(R.id.register);
+        fingerprint = findViewById(R.id.fingerprint);
+
 
         logintbn = findViewById(R.id.loginbtn);
         logintbn.setOnClickListener(new View.OnClickListener() {

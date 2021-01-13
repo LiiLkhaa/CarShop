@@ -64,13 +64,12 @@ public class Login extends AppCompatActivity {
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
-                Toast.makeText(Login.this, "You can use the fingerprint", Toast.LENGTH_SHORT).show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
                 Toast.makeText(Login.this, "Unvailable", Toast.LENGTH_SHORT).show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                Toast.makeText(Login.this, "Your device cant use this function", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Your device can't use this function", Toast.LENGTH_SHORT).show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
                 Toast.makeText(Login.this, "You don't have FingerPrint in your device", Toast.LENGTH_SHORT).show();
@@ -108,7 +107,14 @@ public class Login extends AppCompatActivity {
         fingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                biometricPrompt.authenticate(promptInfo);
+                String email = emaillogin.getText().toString().trim();
+                Boolean res = db.checkEmail(email);
+                if (res == true) {
+                    biometricPrompt.authenticate(promptInfo);
+                }
+                else {
+                    Toast.makeText(Login.this, "Email introuvable", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

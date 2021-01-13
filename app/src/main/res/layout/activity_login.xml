@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="251dp"
         android:layout_height="104dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +45,7 @@
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.051" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <EditText
         android:id="@+id/password"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.249" />
+        app:layout_constraintVertical_bias="0.192" />
 
     <TextView
         android:id="@+id/registerbtn"
@@ -102,9 +102,10 @@
 
     <ImageView
         android:id="@+id/fingerprint"
-        android:layout_width="71dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="40dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
