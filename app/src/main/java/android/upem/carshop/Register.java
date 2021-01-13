@@ -3,12 +3,20 @@ package android.upem.carshop;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.upem.carshop.models.User;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class Register extends AppCompatActivity {
 
@@ -19,6 +27,7 @@ public class Register extends AppCompatActivity {
     Button buttonregister;
     DatabseHelper db;
     ImageView fingerprint;
+    String url="http://192.168.1.94:8080/user/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,23 @@ public class Register extends AppCompatActivity {
 
                 long val = db.addUser(name, email, pass);
                 if (val > 0) {
+                    try {
+                        User user=new User(name,email,pass);
+                        URLConnection urlConnection = (HttpURLConnection) ((new URL(url+"add").openConnection()));
+                        urlConnection.setDoOutput(true);
+                        urlConnection.setRequestProperty("Content-Type", "application/json");
+                        urlConnection.setRequestProperty("Accept", "application/json");
+                        ((HttpURLConnection) urlConnection).setRequestMethod("POST");
+                        urlConnection.connect();
+                        OutputStream outputStream = urlConnection.getOutputStream();
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                        writer.write(user.toJSON());
+                        writer.close();
+                        outputStream.close();
+                    }
+                    catch (Exception e){
+
+                    }
                     Toast.makeText(Register.this, "Successfull Register", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), Login.class));
                 }

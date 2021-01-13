@@ -15,6 +15,8 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.Executor;
 
 public class Login extends AppCompatActivity {
@@ -53,7 +55,9 @@ public class Login extends AppCompatActivity {
                 String pass = passlogin.getText().toString().trim();
                 Boolean res = db.checkUser(email, pass);
                 if (res == true) {
+
                     Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     Toast.makeText(Login.this, "Erreur login", Toast.LENGTH_SHORT).show();
