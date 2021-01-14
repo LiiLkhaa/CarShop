@@ -1,7 +1,7 @@
 package android.upem.carshop.models;
 
 public class User {
-    private long id=0;
+    private long id;
     private String name;
     private String email;
     private String password;
