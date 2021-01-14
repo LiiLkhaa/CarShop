@@ -55,7 +55,8 @@ public class Login extends AppCompatActivity {
                 String pass = passlogin.getText().toString().trim();
                 Boolean res = db.checkUser(email, pass);
                 if (res == true) {
-
+                    Intent carItem = new Intent(Login.this, CarItem.class);
+                    startActivity(carItem);
                     Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
 
                 }
