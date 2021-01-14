@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity {
     Button buttonregister;
     DatabseHelper db;
     ImageView fingerprint;
-    String url="http://192.168.1.94:8080/user/";
+    String url="https://carsho.herokuapp.com/User/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
