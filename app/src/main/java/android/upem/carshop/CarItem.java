@@ -78,15 +78,16 @@ public class CarItem extends AppCompatActivity {
             try {
                 JSONObject json=new JSONObject(carJson);
 
-                Car car=new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.get("img"),Double.parseDouble(json.getString("price")),json.getString("description"));
+                Car car=new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),Double.parseDouble(json.getString("price")),json.getString("description"));
 
                 model.setText(car.getModel());
                 description.setText(car.getDescription());
                 price.setText(car.getPrice()+"");
                 name.setText(car.getName());
-                String url = "https://mega.nz/file/CJYwmZDQ#BW8xGWSjk5XlHLsNlFF4sKw0lVTyMFSSRXQ0rywsyIc";
-                Picasso.get().load(url).into(imageView);
-                //Log.e("iMG","################################ " +car.getImg().length);
+
+                Picasso.with(CarItem.this).load(car.getImg()).into(imageView);
+                
+                Log.e("iMG","################################ " +car.getImg());
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());
             }

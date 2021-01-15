@@ -4,14 +4,14 @@ public class Car {
     private Long id;
     private String name;
     private String model;
-    private byte[] img;
+    private String img;
     private double price;
     private String description;
 
     public Car() {
     }
 
-    public Car(Long id, String name, String model, byte[] img, double price, String description) {
+    public Car(Long id, String name, String model, String img, double price, String description) {
         this.id = id;
         this.name = name;
         this.model = model;
@@ -19,14 +19,7 @@ public class Car {
         this.price = price;
         this.description = description;
     }
-    public Car(Long id, String name, String model, Object img, double price, String description) {
-        this.id = id;
-        this.name = name;
-        this.model = model;
-        //this.img =(byte[]) img;
-        this.price = price;
-        this.description = description;
-    }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -40,7 +33,7 @@ public class Car {
         this.model = model;
     }
 
-    public void setImg(byte[] img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
@@ -64,7 +57,7 @@ public class Car {
         return model;
     }
 
-    public byte[] getImg() {
+    public String getImg() {
         return img;
     }
 
