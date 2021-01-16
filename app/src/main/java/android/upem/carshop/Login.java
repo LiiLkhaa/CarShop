@@ -3,6 +3,7 @@ package android.upem.carshop;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,6 +55,16 @@ public class Login extends AppCompatActivity {
                 String email = emaillogin.getText().toString().trim();
                 String pass = passlogin.getText().toString().trim();
                 Boolean res = db.checkUser(email, pass);
+                if (TextUtils.isEmpty(email)) {
+                    emaillogin.setError("Email is required");
+                }
+                if (TextUtils.isEmpty(pass)) {
+                    emaillogin.setError("Password is required");
+                }
+                if(pass.length() < 6) {
+                    passlogin.setError("Password must be at least 6 characters");
+                    return;
+                }
                 if (res == true) {
                     Intent carItem = new Intent(Login.this, CarItem.class);
                     startActivity(carItem);
@@ -86,13 +97,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(Login.this, "FingerPrint Erreur", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "FingerPrint Error", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(Login.this, "FingerPrint Sucess", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Connected With FingerPrint", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -104,7 +115,7 @@ public class Login extends AppCompatActivity {
 
         final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Login")
-                .setDescription("Use your fingerprint")
+                .setDescription("Use your FingerPrint")
                 .setNegativeButtonText("Cancel")
                 .build();
 
@@ -118,7 +129,7 @@ public class Login extends AppCompatActivity {
                     biometricPrompt.authenticate(promptInfo);
                 }
                 else {
-                    Toast.makeText(Login.this, "Email introuvable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Email unavailable", Toast.LENGTH_SHORT).show();
                 }
             }
         });
