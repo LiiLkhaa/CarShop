@@ -9,19 +9,28 @@ public class Car {
     private String img;
     private double price;
     private String description;
-
+    private String adress;
     public Car() {
     }
 
-    public Car(Long id, String name, String model, String img, double price, String description) {
+    public Car(Long id, String name, String model, String img, double price, String description,String adress) {
         this.id = id;
         this.name = name;
         this.model = model;
         this.img = img;
         this.price = price;
         this.description = description;
+        this.adress = adress;
     }
 
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 
     public void setId(Long id) {
         this.id = id;
