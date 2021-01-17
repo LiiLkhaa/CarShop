@@ -49,7 +49,6 @@ public class User {
 
     public String toJSON(){
         return "    {\n" +
-                "        \"id\": \"" + this.id + "\",\n" +
                 "        \"name\": \"" + this.name + "\",\n" +
                 "        \"email\": \"" + this.email + "\",\n" +
                 "        \"password\": \"" + this.password + "\"\n" +
