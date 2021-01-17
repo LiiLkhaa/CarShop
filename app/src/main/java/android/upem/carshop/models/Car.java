@@ -1,5 +1,7 @@
 package android.upem.carshop.models;
 
+import org.json.JSONObject;
+
 public class Car {
     private Long id;
     private String name;
@@ -67,5 +69,10 @@ public class Car {
 
     public String getDescription() {
         return description;
+    }
+
+
+    public static Car CarParserJson(JSONObject json){
+        return new Car();
     }
 }
