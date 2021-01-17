@@ -189,7 +189,7 @@ public class Login extends AppCompatActivity {
 
             }
             else {
-                Toast.makeText(Login.this, "Erreur login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Error login", Toast.LENGTH_SHORT).show();
             }
         }
         catch (Exception e){

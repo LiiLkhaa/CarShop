@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:background="#9CC5E8">
+    android:layout_height="176dp"
+    android:background="#9CC5E8"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher_round"
+        />
+
+    <TextView
+        android:id="@+id/emailmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="Email@google.com"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/fullnamemenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hamid"
+        android:textSize="18sp"
+        />
+</LinearLayout>

@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/item1"
-        android:title="Voitures"
-        ></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <item
-        android:id="@+id/item2"
-        android:title="Panier"
-        ></item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/car"
+            android:icon="@drawable/ic_car"
+            android:title="Voitures"></item>
 
-    <item
-        android:id="@+id/item3"
-        android:title="Compte"
-        ></item>
+        <item
+            android:id="@+id/panier"
+            android:icon="@drawable/ic_panier"
+            android:title="Panier"></item>
+
+        <item
+            android:id="@+id/deconection"
+            android:icon="@drawable/ic_disco"
+            android:title="Disconnect"></item>
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_setting"
+                android:title="Compte"></item>
+            <item
+                android:id="@+id/send"
+                android:icon="@drawable/ic_send"
+                android:title="Contact Us"></item>
+        </menu>
+    </item>
 </menu>
