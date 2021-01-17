@@ -20,9 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarShop">
-<<<<<<< HEAD
-        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar">
-=======
+        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar" >
+
+        </activity>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -36,24 +36,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".HomeScreen"></activity>
-        <activity android:name=".CarItem" />
-        <activity android:name=".Register" />
-        <activity android:name=".MapsActivity" />
         <activity android:name=".Login">
->>>>>>> 73a23494e3f229e6622ba4668d5868658030f481
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CarItem" />
-        <activity android:name=".Register" />
-        <activity android:name=".Login">
-
+        <activity android:name=".CarItem" >
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Register" ></activity>
+        <activity android:name=".MainActivity" ></activity>
     </application>
 
 </manifest>
