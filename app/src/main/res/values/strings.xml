@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CarShop</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open_navigation">Open Navigation</string>
+    <string name="close_navigation">Close Navigation</string>
 </resources>
