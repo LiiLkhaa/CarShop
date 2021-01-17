@@ -2,40 +2,34 @@ package android.upem.carshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.upem.carshop.Adapters.CarAdapter;
 import android.upem.carshop.models.Car;
-import android.upem.carshop.models.User;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarItem extends AppCompatActivity {
-    TextView model;
-    TextView name;
-    TextView price;
-    TextView description;
-    ImageView imageView;
+    RecyclerView recyclerView;
     Button buttonMap;
     Car car;
     private Fragment mapFragment;
@@ -44,11 +38,7 @@ public class CarItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_item);
-        model=findViewById(R.id.textView4);
-        name=findViewById(R.id.textView8);
-        price=findViewById(R.id.textView6);
-        description=findViewById(R.id.textView7);
-        imageView=findViewById(R.id.imageView3);
+        recyclerView=findViewById(R.id.recyclerViewtest);
         buttonMap=findViewById(R.id.buttonMap);
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +55,11 @@ public class CarItem extends AppCompatActivity {
 
     public class GetCar extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
-
-
-
         @Override
         protected String doInBackground(Void... voids) {
             StringBuilder result = new StringBuilder();
             try {
-                URL url = new URL("https://carsho.herokuapp.com/Car/get/1");
+                URL url = new URL("https://carsho.herokuapp.com/Car/getAllCars");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -96,22 +83,20 @@ public class CarItem extends AppCompatActivity {
         @Override
         protected void onPostExecute(String carJson) {
             try {
-                JSONObject json=new JSONObject(carJson);
-
-                car=new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),Double.parseDouble(json.getString("price")),json.getString("description"),json.getString("adress"));
-
-                model.setText(car.getModel());
-                description.setText(car.getDescription());
-                price.setText(car.getPrice()+"");
-                name.setText(car.getName());
-
-                Picasso.with(CarItem.this).load(car.getImg()).into(imageView);
-                
-                Log.e("iMG","################################ " +car.getImg());
+                List<Car> carList=new ArrayList<>();
+                JSONArray carsJsonArray=new JSONArray(carJson);
+                for (int i=0;i<carsJsonArray.length();i++){
+                    carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
+                    Log.e("JSON","################################ " +carsJsonArray.getJSONObject(i));
+                }
+                CarAdapter carAdapter=new CarAdapter(carList ,CarItem.this);
+                recyclerView.setLayoutManager(new GridLayoutManager(CarItem.this,2));
+                recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());
             }
         }
 
     }
+
 }

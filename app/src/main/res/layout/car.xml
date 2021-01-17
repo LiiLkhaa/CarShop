@@ -10,14 +10,13 @@
         android:id="@+id/description"
         android:layout_width="129dp"
         android:layout_height="23dp"
-        android:layout_marginTop="128dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/carimg"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/carimg"
-        app:layout_constraintTop_toTopOf="@+id/carimg"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintTop_toBottomOf="@+id/price"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/model"
@@ -61,11 +60,10 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/carimg"
         app:layout_constraintStart_toStartOf="@+id/carimg"
-        app:layout_constraintTop_toTopOf="@+id/carimg"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
