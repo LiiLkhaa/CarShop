@@ -1,16 +1,21 @@
 package android.upem.carshop;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.upem.carshop.models.Car;
 import android.upem.carshop.models.User;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -33,6 +38,9 @@ public class CarItem extends AppCompatActivity {
     TextView price;
     TextView description;
     ImageView imageView;
+    Button buttonMap;
+    Car car;
+    private Fragment mapFragment;
     String url="http://carsho.herokuapp.com/Car/get/1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +51,25 @@ public class CarItem extends AppCompatActivity {
         price=findViewById(R.id.textView6);
         description=findViewById(R.id.textView7);
         imageView=findViewById(R.id.imageView3);
+        buttonMap=findViewById(R.id.buttonMap);
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("adress",car.getAdress());
+                startActivity(intent);
+
+            }
+        });
         new GetCar().execute();
     }
 
+
     public class GetCar extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
+
+
+
         @Override
         protected String doInBackground(Void... voids) {
             StringBuilder result = new StringBuilder();
@@ -78,7 +100,7 @@ public class CarItem extends AppCompatActivity {
             try {
                 JSONObject json=new JSONObject(carJson);
 
-                Car car=new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),Double.parseDouble(json.getString("price")),json.getString("description"));
+                car=new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),Double.parseDouble(json.getString("price")),json.getString("description"),json.getString("adress"));
 
                 model.setText(car.getModel());
                 description.setText(car.getDescription());
