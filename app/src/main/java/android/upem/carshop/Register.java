@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.upem.carshop.models.User;
 import android.util.Log;
 import android.view.View;
@@ -62,6 +63,19 @@ public class Register extends AppCompatActivity {
                 String pass = passregister.getText().toString().trim();
 
                 long val = db.addUser(name, email, pass);
+                if (TextUtils.isEmpty(name)) {
+                    fullname.setError("Name is required");
+                }
+                if (TextUtils.isEmpty(email)) {
+                    emailregister.setError("Email is required");
+                }
+                if (TextUtils.isEmpty(pass)) {
+                    passregister.setError("Password is required");
+                }
+                if(pass.length() < 6) {
+                    passregister.setError("Password must be at least 6 characters");
+                    return;
+                }
                 if (val > 0) {
                     new Register.UserSQL().execute();
                     Toast.makeText(Register.this, "Successfull Register", Toast.LENGTH_SHORT).show();
