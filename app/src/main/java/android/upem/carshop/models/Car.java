@@ -1,5 +1,6 @@
 package android.upem.carshop.models;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Car {
@@ -82,6 +83,10 @@ public class Car {
 
 
     public static Car CarParserJson(JSONObject json){
-        return new Car();
+        try {
+            return new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),Double.parseDouble(json.getString("price")),json.getString("description"),json.getString("adress"));
+        } catch (JSONException e) {
+            return  null;
+        }
     }
 }
