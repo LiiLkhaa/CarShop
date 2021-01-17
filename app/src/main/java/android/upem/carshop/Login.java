@@ -2,8 +2,12 @@ package android.upem.carshop;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.upem.carshop.models.User;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +20,11 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Executor;
@@ -52,28 +61,7 @@ public class Login extends AppCompatActivity {
         buttonlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emaillogin.getText().toString().trim();
-                String pass = passlogin.getText().toString().trim();
-                Boolean res = db.checkUser(email, pass);
-                if (TextUtils.isEmpty(email)) {
-                    emaillogin.setError("Email is required");
-                }
-                if (TextUtils.isEmpty(pass)) {
-                    emaillogin.setError("Password is required");
-                }
-                if(pass.length() < 6) {
-                    passlogin.setError("Password must be at least 6 characters");
-                    return;
-                }
-                if (res == true) {
-                    Intent carItem = new Intent(Login.this, CarItem.class);
-                    startActivity(carItem);
-                    Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    Toast.makeText(Login.this, "Erreur login", Toast.LENGTH_SHORT).show();
-                }
+                new AsyncLogin().execute();
             }
         });
 
@@ -134,4 +122,80 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public class AsyncLogin extends AsyncTask<Void, Void, String> {
+        String url="https://carsho.herokuapp.com/User/Login";
+        @Override
+        protected String doInBackground(Void... voids) {
+            String email = emaillogin.getText().toString().trim();
+            String pass = passlogin.getText().toString().trim();
+            StringBuilder sb = new StringBuilder();
+            try {
+                User user=new User("",email,pass);
+                String data = user.toJSON();
+                HttpURLConnection urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Accept", "application/json");
+                urlConnection.setRequestMethod("POST");
+                Log.e("data hnaa", data);
+                urlConnection.connect();
+                OutputStream outputStream = urlConnection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                writer.write(data);
+                writer.close();
+                outputStream.close();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+
+                String line = null;
+
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                bufferedReader.close();
+
+            }
+            catch (Exception e){
+                Log.e("Erreur kayn hnaaaa", e.getMessage());
+            }
+            Log.e("###################### ", sb.toString());
+            return sb.toString();
+        }
+
+    @Override
+    protected void onPostExecute(String login) {
+        try {
+            Boolean res = Boolean.parseBoolean(login);
+            String email = emaillogin.getText().toString().trim();
+            String pass = passlogin.getText().toString().trim();
+            if (TextUtils.isEmpty(email)) {
+                emaillogin.setError("Email is required");
+            }
+            if (TextUtils.isEmpty(pass)) {
+                emaillogin.setError("Password is required");
+            }
+            if(pass.length() < 6) {
+                passlogin.setError("Password must be at least 6 characters");
+                return;
+            }
+            if (res == true) {
+                Intent carItem = new Intent(Login.this, CarItem.class);
+                startActivity(carItem);
+                Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Toast.makeText(Login.this, "Erreur login", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
+    }
+
 }
