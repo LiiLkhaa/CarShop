@@ -193,7 +193,7 @@ public class Login extends AppCompatActivity {
             }
         }
         catch (Exception e){
-
+            Log.e(" Erreur######### ", e.toString());
         }
     }
     }
