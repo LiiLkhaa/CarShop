@@ -28,7 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarItem extends AppCompatActivity {
+public class CarItem extends AppCompatActivity    {
     RecyclerView recyclerView;
     Button buttonMap;
     Car car;
