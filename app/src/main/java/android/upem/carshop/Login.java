@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class Login extends AppCompatActivity {
     DatabseHelper db;
     ImageView fingerprint;
     BiometricPrompt biometricPrompt;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class Login extends AppCompatActivity {
         passlogin = findViewById(R.id.password);
         buttonlogin = findViewById(R.id.login);
         fingerprint = findViewById(R.id.fingerprint);
+        progressBar = findViewById(R.id.progressBar);
 
         registerbtn = findViewById(R.id.registerbtn);
         registerbtn.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +186,7 @@ public class Login extends AppCompatActivity {
                 return;
             }
             if (res == true) {
+                progressBar.setVisibility(View.VISIBLE);
                 Intent carItem = new Intent(Login.this, CarItem.class);
                 startActivity(carItem);
                 Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();

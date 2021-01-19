@@ -3,6 +3,7 @@ package android.upem.carshop;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.upem.carshop.Adapters.CarAdapter;
@@ -55,9 +56,10 @@ public class PassForgotten extends AppCompatActivity {
         int code1=Integer.parseInt(editNumber.getText().toString());
         if(CODE==code1){
             new changpasswordAsync().execute();
+            startActivity(new Intent(getApplicationContext(), Login.class));
         }
         else {
-            Toast.makeText(PassForgotten.this, "retry", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PassForgotten.this, "Retry", Toast.LENGTH_SHORT).show();
         }
     }
     public class sendEmailAsync extends AsyncTask<Void, Void, String> {
@@ -128,7 +130,7 @@ public class PassForgotten extends AppCompatActivity {
 
             }catch( Exception e) {
                 e.printStackTrace();
-                Log.e("Eroor","################################ " +e.getMessage());
+                Log.e("Eroor","################################# " +e.getMessage());
             }
             finally {
                 urlConnection.disconnect();
@@ -139,7 +141,7 @@ public class PassForgotten extends AppCompatActivity {
         @Override
         protected void onPostExecute(String Json) {
             try {
-                Toast.makeText(PassForgotten.this, "password changed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PassForgotten.this, "Password Changed", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.e("EROR","################################ " +e.getMessage());
             }
