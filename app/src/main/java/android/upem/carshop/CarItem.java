@@ -90,7 +90,7 @@ public class CarItem extends AppCompatActivity    {
                     Log.e("JSON","################################ " +carsJsonArray.getJSONObject(i));
                 }
                 CarAdapter carAdapter=new CarAdapter(carList ,CarItem.this);
-                recyclerView.setLayoutManager(new GridLayoutManager(CarItem.this,2));
+                recyclerView.setLayoutManager(new LinearLayoutManager(CarItem.this));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());

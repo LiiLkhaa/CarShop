@@ -52,6 +52,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         int id = item.getItemId();
 
@@ -70,6 +71,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 break;
 
      /*   switch (item.getItemId()){
+
+        switch (item.getItemId()){
+
             case R.id.panier:
                 Intent panierIntent = new Intent(this, MainActivity.class);
                 startActivity(panierIntent);
@@ -79,10 +83,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 startActivity(voituresIntent);
                 break;
 
-        }*/
-      //  drawerLayout.closeDrawer(GravityCompat.START);
 
-    }
+        }*/
+            //  drawerLayout.closeDrawer(GravityCompat.START);
+
+        }
+
         return true;
+
+
     }
 }
