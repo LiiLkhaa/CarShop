@@ -198,4 +198,9 @@ public class Login extends AppCompatActivity {
     }
     }
 
+    public void forgetPassword(View view){
+        Intent PassInt = new Intent(Login.this,PassForgotten.class);
+        startActivity(PassInt);
+    }
+
 }
