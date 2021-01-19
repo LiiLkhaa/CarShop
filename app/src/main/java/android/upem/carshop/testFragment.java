@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.upem.carshop.Adapters.CarAdapter;
@@ -86,7 +87,7 @@ public class testFragment extends Fragment {
                     Log.e("JSON","################################ " +carsJsonArray.getJSONObject(i));
                 }
                 CarAdapter carAdapter=new CarAdapter(carList ,getContext());
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());
