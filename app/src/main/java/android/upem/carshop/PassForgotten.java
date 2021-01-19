@@ -98,7 +98,7 @@ public class PassForgotten extends AppCompatActivity {
                 editTextTextPassword2.setVisibility(View.VISIBLE);
                 button3.setVisibility(View.VISIBLE);
                 editNumber.setVisibility(View.VISIBLE);
-                Toast.makeText(PassForgotten.this, "email send", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PassForgotten.this, "Email Sent", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.e("EROR","################################ " +e.getMessage());
             }

@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         db = new DatabseHelper(this);
-        emaillogin = findViewById(R.id.email);
+        emaillogin = findViewById(R.id.editTextTextEmailAddress);
         passlogin = findViewById(R.id.password);
         buttonlogin = findViewById(R.id.login);
         fingerprint = findViewById(R.id.fingerprint);
