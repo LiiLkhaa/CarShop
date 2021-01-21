@@ -1,6 +1,8 @@
 package android.upem.carshop.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.upem.carshop.MainActivity;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
 import android.view.LayoutInflater;
@@ -8,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -25,18 +29,27 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         TextView price;
         TextView description;
         ImageView imageView;
+        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             model=itemView.findViewById(R.id.model);
             name=itemView.findViewById(R.id.name);
             price=itemView.findViewById(R.id.price);
             imageView=itemView.findViewById(R.id.carimg);
-            description=itemView.findViewById(R.id.description);
+            cardView= itemView.findViewById(R.id.cardView);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   context.startActivity(new Intent(context, MainActivity.class));
+                }
+            });
+           // description=itemView.findViewById(R.id.description);
         }
+
 
         private void update(Car car) {
             model.setText(car.getModel());
-            description.setText(car.getDescription());
+           // description.setText(car.getDescription());
             price.setText(car.getPrice()+"");
             name.setText(car.getName());
             Picasso.with(context).load(car.getImg()).into(imageView);
@@ -57,6 +70,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
         viewHolder.update(cars.get(i));
     }
 
