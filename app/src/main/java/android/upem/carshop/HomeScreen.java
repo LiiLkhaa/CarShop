@@ -49,9 +49,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
     //Inofs User
     TextView nameUser, emailUser;
-    String email_user;
-    //Params Users
-    List<User> listUsers;
+    String email_user, name_user;
+
+    User myUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,23 +70,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        //User
-            nameUser = findViewById(R.id.fullNameHeaderNv);
-
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-        //  headerView.setTag("test");
 
+        //to get the mail for user connected
         email_user = getIntent().getStringExtra("Email");
 
-        emailUser.setText(email_user);
-        nameUser.setText("Saad");
-
-        listUsers = new ArrayList<>();
-
         new getUser().execute();
-
     }
 
     @Override
@@ -156,9 +147,12 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             try {
 
                 JSONObject userJSON=new JSONObject(s);
-                User myUser = User.UserParserJSON(userJSON);
+                 myUser = User.UserParserJSON(userJSON);
                 Toast.makeText(getBaseContext(), "User Name"+ myUser.getName(), Toast.LENGTH_LONG).show();
                 Log.e("Name", "email user : "+ myUser.getName());
+                //test
+                emailUser.setText(myUser.getEmail());
+                 nameUser.setText(myUser.getName());
 
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());
@@ -166,6 +160,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         }
 
     }
+
 
     }
 
