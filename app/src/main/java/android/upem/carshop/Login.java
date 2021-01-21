@@ -187,7 +187,7 @@ public class Login extends AppCompatActivity {
             }
             if (res == true) {
                 progressBar.setVisibility(View.VISIBLE);
-                Intent carItem = new Intent(Login.this, CarItem.class);
+                Intent carItem = new Intent(Login.this, HomeScreen.class);
                 startActivity(carItem);
                 Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
 

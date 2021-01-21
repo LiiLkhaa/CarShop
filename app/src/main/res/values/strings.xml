@@ -2,4 +2,6 @@
     <string name="app_name">CarShop</string>
     <string name="open_navigation">Open Navigation</string>
     <string name="close_navigation">Close Navigation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

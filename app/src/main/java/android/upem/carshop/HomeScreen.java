@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +52,28 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.car:
+                Fragment registerDonor = new testFragment();
+                fragmentTransaction.replace(R.id.fragment_container, registerDonor);
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                break;
+            case R.id.panier:
+                Fragment panierFragmnt = new PanierFragment();
+                fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                break;
+
+     /*   switch (item.getItemId()){
+
         switch (item.getItemId()){
+
             case R.id.panier:
                 Intent panierIntent = new Intent(this, MainActivity.class);
                 startActivity(panierIntent);
@@ -60,10 +83,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 startActivity(voituresIntent);
                 break;
 
+
+        }*/
+            //  drawerLayout.closeDrawer(GravityCompat.START);
+
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+
         return true;
+
+
     }
-
-
 }
