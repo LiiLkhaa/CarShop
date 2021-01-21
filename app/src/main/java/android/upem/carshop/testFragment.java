@@ -30,8 +30,6 @@ import java.util.List;
 
 
 public class testFragment extends Fragment {
-
-
     View myView;
     RecyclerView recyclerView;
 
@@ -45,7 +43,7 @@ public class testFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.fragment_test, container, false);
-       recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
+         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
         return myView;
     }
 

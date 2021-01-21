@@ -21,6 +21,16 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -28,6 +38,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class Login extends AppCompatActivity {
@@ -41,10 +53,13 @@ public class Login extends AppCompatActivity {
     BiometricPrompt biometricPrompt;
     ProgressBar progressBar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         db = new DatabseHelper(this);
         emaillogin = findViewById(R.id.editTextTextEmailAddress);
@@ -188,6 +203,7 @@ public class Login extends AppCompatActivity {
             if (res == true) {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent carItem = new Intent(Login.this, HomeScreen.class);
+                carItem.putExtra("Email", email);
                 startActivity(carItem);
                 Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
 
@@ -206,5 +222,22 @@ public class Login extends AppCompatActivity {
         Intent PassInt = new Intent(Login.this,PassForgotten.class);
         startActivity(PassInt);
     }
+    //test for getting the name of the user
+    public class AsyncNameUser extends AsyncTask<Void, Void, String> {
+        String url="https://carsho.herokuapp.com/User/getUserByName/imad";
+        @Override
+        protected String doInBackground(Void... voids) {
+
+          return null ;
+        }
+
+        @Override
+        protected void onPostExecute(String login) {
+
+        }
+    }
+
+
+
 
 }

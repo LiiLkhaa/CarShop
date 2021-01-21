@@ -108,8 +108,6 @@ public class PassForgotten extends AppCompatActivity {
 
     }
 
-
-
     public class changpasswordAsync extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
         @Override

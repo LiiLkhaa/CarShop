@@ -1,5 +1,7 @@
 package android.upem.carshop.models;
 
+import org.json.JSONObject;
+
 public class User {
     private long id;
     private String name;
@@ -53,5 +55,15 @@ public class User {
                 "        \"email\": \"" + this.email + "\",\n" +
                 "        \"password\": \"" + this.password + "\"\n" +
                 "    }";
+    }
+
+    public static User UserParserJSON(JSONObject json){
+        try {
+            return new User(json.getString("name"),json.getString("email"),json.getString("password"));
+        }
+        catch (Exception e){
+
+        }
+        return null;
     }
 }

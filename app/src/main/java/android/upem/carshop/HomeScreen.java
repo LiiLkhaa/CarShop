@@ -8,19 +8,50 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.upem.carshop.Adapters.CarAdapter;
+import android.upem.carshop.models.Car;
+import android.upem.carshop.models.User;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
+    //Inofs User
+    TextView nameUser, emailUser;
+    String email_user;
+    //Params Users
+    List<User> listUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +69,23 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        //User
+            nameUser = findViewById(R.id.fullNameHeaderNv);
+
+        View headerView = navigationView.getHeaderView(0);
+        emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
+        nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
+        //  headerView.setTag("test");
+
+        email_user = getIntent().getStringExtra("Email");
+
+        emailUser.setText(email_user);
+        nameUser.setText("Saad");
+
+        listUsers = new ArrayList<>();
+
+        new getUser().execute();
 
     }
 
@@ -70,27 +118,54 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 drawerLayout.closeDrawers();
                 break;
 
-     /*   switch (item.getItemId()){
+    }
+        return true;
+}
 
-        switch (item.getItemId()){
-
-            case R.id.panier:
-                Intent panierIntent = new Intent(this, MainActivity.class);
-                startActivity(panierIntent);
-                break;
-            case R.id.car:
-                Intent voituresIntent = new Intent(this, CarItem.class);
-                startActivity(voituresIntent);
-                break;
+    public class getUser extends AsyncTask<Void, Void, String> {
+        HttpURLConnection urlConnection;
+        @Override
+        protected String doInBackground(Void... voids) {
 
 
-        }*/
-            //  drawerLayout.closeDrawer(GravityCompat.START);
+            StringBuilder result = new StringBuilder();
+            try {
+                URL url = new URL("https://carsho.herokuapp.com/User/getByEmail/"+email_user);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
 
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+            }catch( Exception e) {
+                e.printStackTrace();
+                Log.e("Eroor","################################ " +e.getMessage());
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+
+            return result.toString();
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+
+                JSONObject userJSON=new JSONObject(s);
+                User myUser = User.UserParserJSON(userJSON);
+                Toast.makeText(getBaseContext(), "User Name"+ myUser.getName(), Toast.LENGTH_LONG).show();
+                Log.e("Name", "email user : "+ myUser.getName());
+
+            } catch (JSONException e) {
+                Log.e("EROR","################################ " +e.getMessage());
+            }
         }
 
-        return true;
-
+    }
 
     }
-}
+
