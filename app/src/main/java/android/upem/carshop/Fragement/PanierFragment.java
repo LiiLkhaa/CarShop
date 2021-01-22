@@ -1,9 +1,10 @@
-package android.upem.carshop;
+package android.upem.carshop.Fragement;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.upem.carshop.R;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

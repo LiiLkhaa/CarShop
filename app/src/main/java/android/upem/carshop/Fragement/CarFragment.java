@@ -1,20 +1,19 @@
-package android.upem.carshop;
+package android.upem.carshop.Fragement;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.upem.carshop.Adapters.CarAdapter;
+import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class testFragment extends Fragment {
+public class CarFragment extends Fragment {
     View myView;
     RecyclerView recyclerView;
 
@@ -42,7 +41,7 @@ public class testFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.fragment_test, container, false);
+        myView = inflater.inflate(R.layout.fragment_car, container, false);
          recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
         return myView;
     }

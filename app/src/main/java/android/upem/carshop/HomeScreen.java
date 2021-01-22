@@ -8,12 +8,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.upem.carshop.Adapters.CarAdapter;
-import android.upem.carshop.models.Car;
+import android.upem.carshop.Fragement.CarFragment;
+import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.models.User;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,7 +27,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,8 +36,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -97,7 +93,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.car:
-                Fragment registerDonor = new testFragment();
+                Fragment registerDonor = new CarFragment();
                 fragmentTransaction.replace(R.id.fragment_container, registerDonor);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
