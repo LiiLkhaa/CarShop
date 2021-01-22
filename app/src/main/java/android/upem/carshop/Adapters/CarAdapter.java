@@ -2,6 +2,7 @@ package android.upem.carshop.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.upem.carshop.CarActivity;
 import android.upem.carshop.MainActivity;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
@@ -40,7 +41,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   context.startActivity(new Intent(context, MainActivity.class));
+                   context.startActivity(new Intent(context, CarActivity.class));
                 }
             });
            // description=itemView.findViewById(R.id.description);
