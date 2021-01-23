@@ -97,8 +97,6 @@ public class CarFragment extends Fragment {
                     carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
                     Log.e("JSON","################################ " +carsJsonArray.getJSONObject(i));
                     nameCarFromFragmntCar = carList.get(i).getName();
-                   // Intent intent = new Intent(getContext(), CarActivity.class);
-
 
                 }
                 CarAdapter carAdapter=new CarAdapter(carList ,getContext());

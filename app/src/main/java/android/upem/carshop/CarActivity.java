@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.squareup.picasso.Picasso;
+
 
 public class CarActivity extends AppCompatActivity   {
     private Context context;
@@ -40,65 +42,14 @@ public class CarActivity extends AppCompatActivity   {
         description = findViewById(R.id.description);
         imageView = findViewById(R.id.carimg);
 
- //FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-      //  Fragment registerDonor = new CarFragment();
-      //  fragmentTransaction.add(R.id.fragment_container, registerDonor);
-      //  fragmentTransaction.commit();
         name.setText(getIntent().getStringExtra("nameCar"));
         model.setText(getIntent().getStringExtra("modelCar"));
         price.setText(getIntent().getStringExtra("priceCar"));
         description.setText(getIntent().getStringExtra("descriptionCar"));
-       //imageView.setImageResource();
+       Picasso.with(getBaseContext()).load(getIntent().getStringExtra("imageCar")).into(imageView);
 
     }
 
 
-   /* public class GetCar extends AsyncTask<Void, Void, String> {
-        HttpURLConnection urlConnection;
-        String urlc = "https://carsho.herokuapp.com/Car/get/1";
-        @Override
-        protected String doInBackground(Void... voids) {
-            StringBuilder result = new StringBuilder();
-            try {
-                URL url = new URL(urlc);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String line;
 
-
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-            }catch( Exception e) {
-                e.printStackTrace();
-                Log.e("Eroor","################################ " +e.getMessage());
-            }
-            finally {
-                urlConnection.disconnect();
-            }
-
-            return result.toString();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            //super.onPostExecute(s);
-            name.setText(car.getName());
-            model.setText(car.getModel());
-            description.setText(car.getDescription());
-            price.setText(car.getPrice()+"");
-            Picasso.with(context).load(car.getImg()).into(imageView);
-        }
-    }
-*/
 }
