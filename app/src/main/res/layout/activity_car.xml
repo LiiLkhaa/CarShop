@@ -115,7 +115,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="113dp"
-
+                    android:id="@+id/description"
                     android:background="@drawable/border"
                     android:text="description"
                     android:textColor="@color/black"
