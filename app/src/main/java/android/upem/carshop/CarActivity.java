@@ -1,32 +1,23 @@
 package android.upem.carshop;
 
 import android.content.Context;
-import android.os.AsyncTask;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.upem.carshop.Adapters.CarAdapter;
+
 import android.upem.carshop.models.Car;
-import android.util.Log;
+
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.cardview.widget.CardView;
 
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-public class CarActivity extends AppCompatActivity{
+public class CarActivity extends AppCompatActivity   {
     private Context context;
     public Car car;
 
@@ -35,10 +26,12 @@ public class CarActivity extends AppCompatActivity{
     TextView price;
     TextView description;
     ImageView imageView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GetCar().execute();
+       // new GetCar().execute();
         setContentView(R.layout.activity_car);
 
         model = findViewById(R.id.model);
@@ -47,12 +40,20 @@ public class CarActivity extends AppCompatActivity{
         description = findViewById(R.id.description);
         imageView = findViewById(R.id.carimg);
 
-
-
+ //FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+      //  Fragment registerDonor = new CarFragment();
+      //  fragmentTransaction.add(R.id.fragment_container, registerDonor);
+      //  fragmentTransaction.commit();
+        name.setText(getIntent().getStringExtra("nameCar"));
+        model.setText(getIntent().getStringExtra("modelCar"));
+        price.setText(getIntent().getStringExtra("priceCar"));
+        description.setText(getIntent().getStringExtra("descriptionCar"));
+       //imageView.setImageResource();
 
     }
 
-    public class GetCar extends AsyncTask<Void, Void, String> {
+
+   /* public class GetCar extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
         String urlc = "https://carsho.herokuapp.com/Car/get/1";
         @Override
@@ -99,5 +100,5 @@ public class CarActivity extends AppCompatActivity{
             Picasso.with(context).load(car.getImg()).into(imageView);
         }
     }
-
+*/
 }

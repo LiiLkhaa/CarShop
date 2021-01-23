@@ -3,7 +3,6 @@ package android.upem.carshop.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.upem.carshop.CarActivity;
-import android.upem.carshop.MainActivity;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,6 +24,7 @@ import java.util.List;
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
     private List<Car>cars;
     private Context context;
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView model;
         TextView name;
@@ -37,13 +38,35 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             name=itemView.findViewById(R.id.name);
             price=itemView.findViewById(R.id.price);
             imageView=itemView.findViewById(R.id.carimg);
-            cardView= itemView.findViewById(R.id.cardView);
-            cardView.setOnClickListener(new View.OnClickListener() {
+           cardView= itemView.findViewById(R.id.cardView);
+              cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   context.startActivity(new Intent(context, CarActivity.class));
+                    int pos = getAdapterPosition();
+                    Intent startDetailCars = new Intent(context, CarActivity.class);
+                    Toast.makeText(context, "positionn : "+pos, Toast.LENGTH_LONG).show();
+                    for (int i=0; i<cars.size();i++){
+
+                    if(pos == i){
+                        startDetailCars.putExtra("nameCar", cars.get(pos).getName());
+                        String price = String.valueOf(cars.get(pos).getPrice());
+                        startDetailCars.putExtra("priceCar", price);
+                        startDetailCars.putExtra("modelCar", cars.get(pos).getModel());
+                        startDetailCars.putExtra("imageCar", cars.get(pos).getImg());
+                        startDetailCars.putExtra("descriptionCar", cars.get(pos).getDescription());
+
+                        context.startActivity(startDetailCars);
+                    }
+
+                 }
+                    // context.startActivity(new Intent(context, CarActivity.class));
+
+
                 }
+
+
             });
+
            // description=itemView.findViewById(R.id.description);
         }
 

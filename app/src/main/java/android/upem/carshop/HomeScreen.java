@@ -142,7 +142,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 Toast.makeText(getBaseContext(), "User Name"+ myUser.getName(), Toast.LENGTH_LONG).show();
                 Log.e("Name", "email user : "+ myUser.getName());
                 //test
-                emailUser.setText(myUser.getEmail());
+                 emailUser.setText(myUser.getEmail());
                  nameUser.setText(myUser.getName());
 
             } catch (JSONException e) {
