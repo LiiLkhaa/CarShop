@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     Intent startDetailCars = new Intent(context, CarActivity.class);
-                    Toast.makeText(context, "positionn : "+pos, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context, "positionn : "+pos, Toast.LENGTH_LONG).show();
                     for (int i=0; i<cars.size();i++){
 
                     if(pos == i){
