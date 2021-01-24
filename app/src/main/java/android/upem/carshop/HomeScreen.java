@@ -20,11 +20,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
@@ -144,7 +139,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
                 JSONObject userJSON=new JSONObject(s);
                  myUser = User.UserParserJSON(userJSON);
-                Toast.makeText(getBaseContext(), "User Name"+ myUser.getName(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "User Name"+ myUser.getName(), Toast.LENGTH_LONG).show();
                 Log.e("Name", "email user : "+ myUser.getName());
                 //test
                 emailUser.setText(myUser.getEmail());
