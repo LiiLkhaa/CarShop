@@ -7,12 +7,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="680dp"
+        android:layout_width="wrap_content"
+        android:layout_height="713dp"
         android:layout_margin="4dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="3dp"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="20dp">
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,9 +36,9 @@
                 android:weightSum="3">
 
                 <LinearLayout
-                    android:layout_width="70dp"
+                    android:layout_width="13dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.4"
                     android:orientation="vertical"
                     android:padding="10dp">
 
@@ -53,15 +53,15 @@
 
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:layout_width="16dp"
+                    android:layout_height="61dp"
                     android:layout_margin="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_weight=".7"
 
                     android:orientation="vertical"
-                    android:padding="10dp"
-                    >
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/model"
@@ -72,16 +72,17 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_margin="6dp"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/price"
-                        android:layout_width="wrap_content"
+                        android:layout_width="114dp"
                         android:layout_height="wrap_content"
                         android:text="price"
                         android:textAlignment="center"
@@ -91,8 +92,8 @@
 
                     <TextView
                         android:id="@+id/textView4"
-                        android:layout_width="96dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="$"
                         android:textColor="#2196F3"
@@ -104,11 +105,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="128dp"
-                android:layout_weight="1.5"
-                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="246dp"
+                android:layout_weight=".7"
                 android:orientation="vertical"
+                android:padding="10dp"
                 android:weightSum="2">
 
                 <TextView
@@ -120,7 +121,7 @@
                     android:textStyle="bold"></TextView>
 
                 <TextView
-
+                    android:scrollbars = "vertical"
                     android:id="@+id/description"
                     android:layout_width="349dp"
                     android:layout_height="100dp"
