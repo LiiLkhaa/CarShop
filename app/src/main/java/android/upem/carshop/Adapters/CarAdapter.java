@@ -37,7 +37,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             name=itemView.findViewById(R.id.name);
             price=itemView.findViewById(R.id.price);
             imageView=itemView.findViewById(R.id.carimg);
-           cardView= itemView.findViewById(R.id.cardView);
+            description=itemView.findViewById(R.id.description);
+             cardView= itemView.findViewById(R.id.cardView);
               cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -56,17 +57,14 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
 
                         context.startActivity(startDetailCars);
                     }
-
                  }
                     // context.startActivity(new Intent(context, CarActivity.class));
 
-
                 }
-
 
             });
 
-           // description=itemView.findViewById(R.id.description);
+
         }
 
 
