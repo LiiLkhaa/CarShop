@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.text.method.ScrollingMovementMethod;
 import android.upem.carshop.models.Car;
 
 import android.view.View;
@@ -40,6 +41,7 @@ public class CarActivity extends AppCompatActivity   {
         name = findViewById(R.id.name);
         price = findViewById(R.id.price);
         description = findViewById(R.id.description);
+        description.setMovementMethod(new ScrollingMovementMethod());
         imageView = findViewById(R.id.carimg);
 
         name.setText(getIntent().getStringExtra("nameCar"));
