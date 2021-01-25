@@ -21,9 +21,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 
@@ -63,27 +66,20 @@ public class CarActivity extends AppCompatActivity {
 
     }
 
+//need to open fragmnt from this activity : hard one 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.home:
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 Fragment registerDonor = new CarFragment();
                 fragmentTransaction.replace(R.id.fragment_container, registerDonor);
                 fragmentTransaction.commit();
 
-                break;
-
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
-
-    }
-
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
     }
 
 }
