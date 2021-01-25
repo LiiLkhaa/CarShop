@@ -102,8 +102,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 drawerLayout.closeDrawers();
                 break;
             case R.id.send:
+
                 Intent intent = new Intent(this, ContactUs.class);
                 startActivity(intent);
+
+                Intent contactIntent = new Intent(HomeScreen.this, ContactUs.class);
+                startActivity(contactIntent);
+                break;
+
 
     }
         return true;
