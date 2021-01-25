@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.upem.carshop.Fragement.CarFragment;
@@ -37,6 +38,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
 
     //Inofs User
     TextView nameUser, emailUser;
@@ -99,6 +101,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 break;
+            case R.id.send:
+                Intent intent = new Intent(this, ContactUs.class);
+                startActivity(intent);
 
     }
         return true;

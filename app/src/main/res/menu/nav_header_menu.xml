@@ -7,17 +7,17 @@
         <item
             android:id="@+id/car"
             android:icon="@drawable/ic_car"
-            android:title="Voitures"></item>
+            android:title="Cars"></item>
 
         <item
             android:id="@+id/panier"
             android:icon="@drawable/ic_panier"
-            android:title="Panier"></item>
+            android:title="cart"></item>
 
         <item
             android:id="@+id/deconection"
             android:icon="@drawable/ic_disco"
-            android:title="Disconnect"></item>
+            android:title="Log out"></item>
     </group>
 
     <item android:title="Other">
@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_setting"
-                android:title="Compte"></item>
+                android:title="Account"></item>
             <item
                 android:id="@+id/send"
                 android:icon="@drawable/ic_send"
