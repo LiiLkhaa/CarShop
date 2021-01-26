@@ -3,6 +3,8 @@ package android.upem.carshop.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Car {
     private Long id;
     private String name;
@@ -88,5 +90,24 @@ public class Car {
         } catch (JSONException e) {
             return  null;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return Double.compare(car.price, price) == 0 &&
+                Objects.equals(id, car.id) &&
+                Objects.equals(name, car.name) &&
+                Objects.equals(model, car.model) &&
+                Objects.equals(img, car.img) &&
+                Objects.equals(description, car.description) &&
+                Objects.equals(adress, car.adress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, model, img, price, description, adress);
     }
 }

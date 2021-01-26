@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -24,7 +26,7 @@ import java.util.List;
 public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolder> {
     private List<Car> cars;
     private Context context;
-
+    private String email;
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageviewPanie;
         TextView name;
@@ -39,19 +41,26 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
             supp=itemView.findViewById(R.id.supp);
         }
         public void update(Car car){
+            Picasso.with(context).load(car.getImg()).into(imageviewPanie);
+            model.setText(car.getModel());
+            price.setText(car.getPrice()+"");
+            name.setText(car.getName());
             supp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new DeleteCarPanierAsunc().execute();
+                    new DeleteCarPanierAsunc().execute(car.getId());
+                    cars.remove(getAdapterPosition());
+                    notifyDataSetChanged();
                 }
             });
         }
     }
 
-    public PanierAdapter(List<Car> cars,Context context) {
+    public PanierAdapter(List<Car> cars,Context context,String email) {
         super();
         this.cars = cars;
         this.context=context;
+        this.email=email;
     }
 
     @NonNull
@@ -62,7 +71,6 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull PanierAdapter.ViewHolder viewHolder, int i) {
-
         viewHolder.update(cars.get(i));
     }
 
@@ -70,14 +78,13 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
     public int getItemCount() {
         return cars.size();
     }
-    public class DeleteCarPanierAsunc extends AsyncTask<String, Void, String> {
+    public class DeleteCarPanierAsunc extends AsyncTask<Long, Void, String> {
         HttpURLConnection urlConnection;
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(Long... ids) {
             StringBuilder result = new StringBuilder();
             try {
-
-                String u="https://carsho.herokuapp.com/Cart/deleteCarFromCart/";
+                String u="https://carsho.herokuapp.com/Cart/deleteCarFromCart/"+email+"/"+ids[0];
                 URL url = new URL(u);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");

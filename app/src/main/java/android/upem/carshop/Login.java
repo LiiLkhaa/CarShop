@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 public class Login extends AppCompatActivity {
-
     TextView registerbtn;
     EditText emaillogin;
     EditText passlogin;
@@ -48,10 +47,6 @@ public class Login extends AppCompatActivity {
     ImageView fingerprint;
     BiometricPrompt biometricPrompt;
     ProgressBar progressBar;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

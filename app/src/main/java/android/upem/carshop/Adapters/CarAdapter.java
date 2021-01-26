@@ -38,15 +38,14 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             price=itemView.findViewById(R.id.price);
             imageView=itemView.findViewById(R.id.carimg);
             description=itemView.findViewById(R.id.description);
-             cardView= itemView.findViewById(R.id.cardView);
-              cardView.setOnClickListener(new View.OnClickListener() {
+            cardView= itemView.findViewById(R.id.cardView);
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     Intent startDetailCars = new Intent(context, CarActivity.class);
                     //Toast.makeText(context, "positionn : "+pos, Toast.LENGTH_LONG).show();
                     for (int i=0; i<cars.size();i++){
-
                     if(pos == i){
                         startDetailCars.putExtra("nameCar", cars.get(pos).getName());
                         String price = String.valueOf(cars.get(pos).getPrice());
@@ -54,7 +53,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
                         startDetailCars.putExtra("modelCar", cars.get(pos).getModel());
                         startDetailCars.putExtra("imageCar", cars.get(pos).getImg());
                         startDetailCars.putExtra("descriptionCar", cars.get(pos).getDescription());
-
                         context.startActivity(startDetailCars);
                     }
                  }
