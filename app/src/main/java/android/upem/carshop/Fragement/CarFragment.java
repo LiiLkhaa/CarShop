@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.upem.carshop.Adapters.CarAdapter;
 import android.upem.carshop.CarActivity;
 import android.upem.carshop.R;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -39,8 +42,9 @@ public class CarFragment extends Fragment {
     View myView;
     RecyclerView recyclerView;
     String nameCarFromFragmntCar;
+    CarAdapter carAdapter;
 
-    List<Car> carList;
+    List<Car> carList = new ArrayList<>();
 
 
     @Override
@@ -56,8 +60,36 @@ public class CarFragment extends Fragment {
         myView = inflater.inflate(R.layout.fragment_car, container, false);
          recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
         // sendDataNameCar.someEvent(carList.get(0).getName());
+        EditText editText = myView.findViewById(R.id.searching);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
 
         return myView;
+    }
+
+    private void filter(String text) {
+        ArrayList<Car> filteredlist = new ArrayList<>();
+
+        for (Car car : carList) {
+            if (car.getName().toLowerCase().contains(text.toLowerCase()) || car.getModel().toLowerCase().contains(text.toLowerCase())) {
+                filteredlist.add(car);
+            }
+        }
+        carAdapter.filterlist(filteredlist);
     }
 
     public class GetCar extends AsyncTask<Void, Void, String> {
@@ -91,7 +123,6 @@ public class CarFragment extends Fragment {
         @Override
         protected void onPostExecute(String carJson) {
             try {
-                 carList=new ArrayList<>();
                 JSONArray carsJsonArray=new JSONArray(carJson);
                 for (int i=0;i<carsJsonArray.length();i++){
                     carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
@@ -99,7 +130,7 @@ public class CarFragment extends Fragment {
                     nameCarFromFragmntCar = carList.get(i).getName();
 
                 }
-                CarAdapter carAdapter=new CarAdapter(carList ,getContext());
+                carAdapter=new CarAdapter(carList ,getContext());
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {

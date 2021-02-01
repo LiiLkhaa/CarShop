@@ -8,14 +8,29 @@
 
     >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewtestOne"
-        android:layout_width="359dp"
-        android:layout_height="644dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/searching"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/round_border"
+        android:drawableStart="@drawable/ic_search"
+        android:layout_margin="16dp"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Search.."
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.367" />
+        app:layout_constraintTop_toTopOf="parent"></EditText>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewtestOne"
+        android:layout_width="match_parent"
+        android:layout_height="614dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searching" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

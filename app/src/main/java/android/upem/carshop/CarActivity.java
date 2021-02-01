@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.text.method.ScrollingMovementMethod;
+import android.upem.carshop.Adapters.CarAdapter;
 import android.upem.carshop.Fragement.CarFragment;
 import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.models.Car;
@@ -14,6 +15,7 @@ import android.upem.carshop.models.Car;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;

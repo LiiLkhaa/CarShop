@@ -109,6 +109,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 startActivity(contactIntent);
                 break;
 
+            case R.id.logout:
+                Intent logout = new Intent(this, Login.class);
+                startActivity(logout);
+
 
     }
         return true;

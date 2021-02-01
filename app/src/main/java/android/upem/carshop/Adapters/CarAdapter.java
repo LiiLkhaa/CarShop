@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
@@ -98,5 +99,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         return cars.size();
     }
 
+    public void filterlist(ArrayList<Car> filteredlist) {
+        cars = filteredlist;
+        notifyDataSetChanged();
+    }
 
 }
