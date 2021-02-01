@@ -21,12 +21,11 @@
         android:theme="@style/Theme.CarShop">
 
         <activity android:name=".PassForgotten"></activity>
-        <activity android:name=".MainActivity"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
         <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
 
@@ -47,7 +46,7 @@
         </activity>
         <activity android:name=".Register" ></activity>
         <activity android:name=".MapsActivity" ></activity>
-
+        <activity android:name=".MainActivity" ></activity>
         <activity android:name=".CarActivity" ></activity>
         <activity android:name=".ContactUs" ></activity>
 
