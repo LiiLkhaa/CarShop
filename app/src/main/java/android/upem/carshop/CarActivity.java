@@ -72,7 +72,7 @@ public class CarActivity extends AppCompatActivity {
     }
 
 //need to open fragmnt from this activity : hard one
-  /* @Override
+   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
@@ -81,13 +81,13 @@ public class CarActivity extends AppCompatActivity {
                 CarFragment carFragment = new CarFragment();
                fragmentManager.beginTransaction().replace(R.id.testFrame, carFragment).commit();
 */
-      /*  Intent startCarFragment = new Intent(getBaseContext(), HomeScreen.class);
+        Intent startCarFragment = new Intent(getBaseContext(), HomeScreen.class);
         startActivity(startCarFragment);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
 
 
