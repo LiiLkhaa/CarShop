@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -33,7 +32,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            model=itemView.findViewById(R.id.model);
+            model=itemView.findViewById(R.id.modelincart);
             name=itemView.findViewById(R.id.name);
             price=itemView.findViewById(R.id.price);
             imageView=itemView.findViewById(R.id.carimg);

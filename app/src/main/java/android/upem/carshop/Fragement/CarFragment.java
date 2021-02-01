@@ -54,7 +54,7 @@ public class CarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.fragment_car, container, false);
-         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
+        recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
         // sendDataNameCar.someEvent(carList.get(0).getName());
 
         return myView;

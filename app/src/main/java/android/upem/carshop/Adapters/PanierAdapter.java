@@ -36,7 +36,8 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageviewPanie=itemView.findViewById(R.id.imageviewPanie);
-            name=itemView.findViewById(R.id.model);
+            name=itemView.findViewById(R.id.name);
+            model=itemView.findViewById(R.id.modelincart);
             price=itemView.findViewById(R.id.price);
             supp=itemView.findViewById(R.id.supp);
         }
