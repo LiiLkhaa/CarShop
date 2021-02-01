@@ -12,10 +12,10 @@
         <item
             android:id="@+id/panier"
             android:icon="@drawable/ic_panier"
-            android:title="cart"></item>
+            android:title="Cart"></item>
 
         <item
-            android:id="@+id/deconection"
+            android:id="@+id/logout"
             android:icon="@drawable/ic_disco"
             android:title="Log out"></item>
     </group>

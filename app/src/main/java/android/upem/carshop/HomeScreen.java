@@ -43,7 +43,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     //Inofs User
     TextView nameUser, emailUser;
     String email_user, name_user;
-
     User myUser;
 
     @Override
@@ -66,10 +65,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-
-        //to get the mail for user connected
-        email_user = getIntent().getStringExtra("Email");
-
+        //email_user = getIntent().getStringExtra("Email");// hadi hiya li khasha tkon
+        email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
+        Log.e("email_user","######### " +email_user);
 
         new getUser().execute();
     }
@@ -97,7 +95,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 drawerLayout.closeDrawers();
                 break;
             case R.id.panier:
-                Fragment panierFragmnt = new PanierFragment();
+                Fragment panierFragmnt =  PanierFragment.newInstance(email_user);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -106,6 +104,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 Intent contactIntent = new Intent(HomeScreen.this, ContactUs.class);
                 startActivity(contactIntent);
                 break;
+
+            case R.id.logout:
+                Intent logout = new Intent(this, Login.class);
+                startActivity(logout);
 
 
     }
@@ -159,7 +161,5 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         }
 
     }
-
-
     }
 
