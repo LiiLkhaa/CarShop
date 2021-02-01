@@ -14,6 +14,7 @@ import android.upem.carshop.models.Car;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
@@ -40,7 +42,8 @@ public class CarActivity extends AppCompatActivity {
     TextView description;
     ImageView imageView;
 
-
+// test Fragmnt from activity : button test
+    Button btnAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,22 +67,28 @@ public class CarActivity extends AppCompatActivity {
         description.setText(getIntent().getStringExtra("descriptionCar"));
        Picasso.with(getBaseContext()).load(getIntent().getStringExtra("imageCar")).into(imageView);
 
+
+
     }
 
-//need to open fragmnt from this activity : hard one 
-    @Override
+//need to open fragmnt from this activity : hard one
+   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
             case android.R.id.home:
-                Fragment registerDonor = new CarFragment();
-                fragmentTransaction.replace(R.id.fragment_container, registerDonor);
-                fragmentTransaction.commit();
-
+             /*   FragmentManager fragmentManager = getSupportFragmentManager();
+                CarFragment carFragment = new CarFragment();
+               fragmentManager.beginTransaction().replace(R.id.testFrame, carFragment).commit();
+*/
+        Intent startCarFragment = new Intent(getBaseContext(), HomeScreen.class);
+        startActivity(startCarFragment);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

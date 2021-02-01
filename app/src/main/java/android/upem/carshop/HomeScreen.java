@@ -70,6 +70,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         //to get the mail for user connected
         email_user = getIntent().getStringExtra("Email");
 
+
         new getUser().execute();
     }
 

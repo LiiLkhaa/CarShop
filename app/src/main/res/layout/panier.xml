@@ -22,12 +22,12 @@
             android:weightSum="5.5">
 
             <ImageView
+                android:id="@+id/imageviewPanie"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="4"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mercedes">
-            </ImageView>
+                android:src="@drawable/mercedes"></ImageView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -82,6 +82,7 @@
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/supp"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_baseline_delete_24"></ImageView>
