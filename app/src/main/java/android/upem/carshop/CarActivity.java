@@ -3,34 +3,19 @@ package android.upem.carshop;
 import android.content.Context;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.text.method.ScrollingMovementMethod;
-import android.upem.carshop.Adapters.CarAdapter;
-import android.upem.carshop.Fragement.CarFragment;
-import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.models.Car;
 
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 
@@ -53,7 +38,7 @@ public class CarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_car);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        model = findViewById(R.id.model);
+        model = findViewById(R.id.modelincart);
         name = findViewById(R.id.name);
         price = findViewById(R.id.price);
         description = findViewById(R.id.description);
