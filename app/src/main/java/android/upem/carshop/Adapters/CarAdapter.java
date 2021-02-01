@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.upem.carshop.CarActivity;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import java.util.List;
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
     private List<Car>cars;
     private Context context;
-
+    String email;
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView model;
         TextView name;
@@ -30,6 +31,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         TextView description;
         ImageView imageView;
         CardView cardView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             model=itemView.findViewById(R.id.modelincart);
@@ -46,11 +48,14 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
                     //Toast.makeText(context, "positionn : "+pos, Toast.LENGTH_LONG).show();
                     for (int i=0; i<cars.size();i++){
                     if(pos == i){
+                        Log.e("EROR","###### Adapter" +cars.get(pos).getId());
                         startDetailCars.putExtra("nameCar", cars.get(pos).getName());
                         String price = String.valueOf(cars.get(pos).getPrice());
                         startDetailCars.putExtra("priceCar", price);
+                        startDetailCars.putExtra("id", cars.get(pos).getId().toString());
                         startDetailCars.putExtra("modelCar", cars.get(pos).getModel());
                         startDetailCars.putExtra("imageCar", cars.get(pos).getImg());
+                        startDetailCars.putExtra("email", email);
                         startDetailCars.putExtra("descriptionCar", cars.get(pos).getDescription());
                         context.startActivity(startDetailCars);
                     }
@@ -66,7 +71,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
 
 
         private void update(Car car) {
+
             model.setText(car.getModel());
+            //Log.e("EROR","###### Adapter" +car.getId());
            // description.setText(car.getDescription());
             price.setText(car.getPrice()+"");
             name.setText(car.getName());
@@ -74,10 +81,11 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         }
     }
 
-    public CarAdapter(List<Car> cars,Context context) {
+    public CarAdapter(List<Car> cars,Context context,String email) {
         super();
         this.cars = cars;
         this.context=context;
+        this.email=email;
     }
 
     @NonNull
@@ -88,7 +96,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
         viewHolder.update(cars.get(i));
     }
 

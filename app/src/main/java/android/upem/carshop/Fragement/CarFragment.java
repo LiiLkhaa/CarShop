@@ -39,9 +39,18 @@ public class CarFragment extends Fragment {
     View myView;
     RecyclerView recyclerView;
     String nameCarFromFragmntCar;
-
+    String email;
     List<Car> carList;
+    public CarFragment(String email){
+        this.email=email;
+    }
 
+    public static CarFragment newInstance(String email) {
+        CarFragment fragment = new CarFragment(email);
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +108,7 @@ public class CarFragment extends Fragment {
                     nameCarFromFragmntCar = carList.get(i).getName();
 
                 }
-                CarAdapter carAdapter=new CarAdapter(carList ,getContext());
+                CarAdapter carAdapter=new CarAdapter(carList ,getContext(),email);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {
