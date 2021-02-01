@@ -42,10 +42,19 @@ public class CarFragment extends Fragment {
     View myView;
     RecyclerView recyclerView;
     String nameCarFromFragmntCar;
+    String email;
+    List<Car> carList;
     CarAdapter carAdapter;
+    public CarFragment(String email){
+        this.email=email;
+    }
 
-    List<Car> carList = new ArrayList<>();
-
+    public static CarFragment newInstance(String email) {
+        CarFragment fragment = new CarFragment(email);
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +86,6 @@ public class CarFragment extends Fragment {
                 filter(s.toString());
             }
         });
-
         return myView;
     }
 
@@ -123,6 +131,7 @@ public class CarFragment extends Fragment {
         @Override
         protected void onPostExecute(String carJson) {
             try {
+                 carList=new ArrayList<>();
                 JSONArray carsJsonArray=new JSONArray(carJson);
                 for (int i=0;i<carsJsonArray.length();i++){
                     carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
@@ -130,7 +139,7 @@ public class CarFragment extends Fragment {
                     nameCarFromFragmntCar = carList.get(i).getName();
 
                 }
-                carAdapter=new CarAdapter(carList ,getContext());
+                carAdapter=new CarAdapter(carList ,getContext(),email);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {
