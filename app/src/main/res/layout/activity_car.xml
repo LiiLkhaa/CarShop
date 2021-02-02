@@ -129,7 +129,7 @@
 
                     android:background="@drawable/round_bg"
                     android:maxLines="1"
-                    android:onClick="addCarToCart"
+
                     android:text="ajouter au panier"
                     android:textSize="18sp"></Button>
 

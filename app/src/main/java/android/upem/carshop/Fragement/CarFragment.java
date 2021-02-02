@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -45,6 +46,8 @@ public class CarFragment extends Fragment {
     String email;
     List<Car> carList;
     CarAdapter carAdapter;
+
+
     public CarFragment(String email){
         this.email=email;
     }
@@ -70,6 +73,7 @@ public class CarFragment extends Fragment {
         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
         // sendDataNameCar.someEvent(carList.get(0).getName());
         EditText editText = myView.findViewById(R.id.searching);
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -88,6 +92,8 @@ public class CarFragment extends Fragment {
         });
         return myView;
     }
+
+
 
     private void filter(String text) {
         ArrayList<Car> filteredlist = new ArrayList<>();

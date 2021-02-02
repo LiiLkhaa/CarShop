@@ -9,31 +9,46 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="282dp"
+        android:layout_height="305dp"
         android:layout_margin="4dp"
-        app:cardElevation="2dp"
-        app:cardUseCompatPadding="true"
         app:cardCornerRadius="10dp"
-        >
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="295dp"
             android:orientation="vertical"
             android:weightSum="5.5">
 
-            <ImageView
-                android:id="@+id/carimg"
-                android:layout_width="400dp"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                android:scaleType="centerCrop"
-                android:src="@drawable/mercedes" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/carimg"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/mercedes"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/addCartImage"
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="100dip"
+                    android:background="@drawable/ic_baseline_add_shopping_cart_24" />
+
+
+            </FrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.5"
+                android:layout_height="87dp"
+
                 android:weightSum="2">
 
                 <LinearLayout
