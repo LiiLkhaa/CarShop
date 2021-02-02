@@ -87,6 +87,7 @@ public class CarActivity extends AppCompatActivity {
                fragmentManager.beginTransaction().replace(R.id.testFrame, carFragment).commit();
 */
         Intent startCarFragment = new Intent(getBaseContext(), HomeScreen.class);
+        startCarFragment.putExtra("Email", email);
         startActivity(startCarFragment);
                 return true;
         }
