@@ -41,38 +41,25 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             imageView=itemView.findViewById(R.id.carimg);
             description=itemView.findViewById(R.id.description);
             cardView= itemView.findViewById(R.id.cardView);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    Intent startDetailCars = new Intent(context, CarActivity.class);
-                    //Toast.makeText(context, "positionn : "+pos, Toast.LENGTH_LONG).show();
-                    for (int i=0; i<cars.size();i++){
-                    if(pos == i){
-                        Log.e("EROR","###### Adapter" +cars.get(pos).getId());
-                        startDetailCars.putExtra("nameCar", cars.get(pos).getName());
-                        String price = String.valueOf(cars.get(pos).getPrice());
-                        startDetailCars.putExtra("priceCar", price);
-                        startDetailCars.putExtra("id", cars.get(pos).getId().toString());
-                        startDetailCars.putExtra("modelCar", cars.get(pos).getModel());
-                        startDetailCars.putExtra("imageCar", cars.get(pos).getImg());
-                        startDetailCars.putExtra("email", email);
-                        startDetailCars.putExtra("descriptionCar", cars.get(pos).getDescription());
-                        context.startActivity(startDetailCars);
-                    }
-                 }
-                    // context.startActivity(new Intent(context, CarActivity.class));
-
-                }
-
-            });
-
-
         }
 
 
         private void update(Car car) {
-
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent startDetailCars = new Intent(context, CarActivity.class);
+                    startDetailCars.putExtra("nameCar", car.getName());
+                    String price = String.valueOf(car.getPrice());
+                    startDetailCars.putExtra("priceCar", price);
+                    startDetailCars.putExtra("id", car.getId().toString());
+                    startDetailCars.putExtra("modelCar", car.getModel());
+                    startDetailCars.putExtra("imageCar", car.getImg());
+                    startDetailCars.putExtra("email", email);
+                    startDetailCars.putExtra("descriptionCar", car.getDescription());
+                    context.startActivity(startDetailCars);
+                }
+            });
             model.setText(car.getModel());
             //Log.e("EROR","###### Adapter" +car.getId());
            // description.setText(car.getDescription());

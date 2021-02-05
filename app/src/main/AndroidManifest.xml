@@ -21,10 +21,6 @@
         android:theme="@style/Theme.CarShop">
 
         <activity android:name=".PassForgotten"></activity>
-        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar" >
-
-        </activity>
-
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -39,6 +35,10 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".Login" android:theme="@style/Theme.CarShop.NoActionBar">
+
+        </activity>
+
+        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

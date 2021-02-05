@@ -1,12 +1,16 @@
 package android.upem.carshop;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.text.method.ScrollingMovementMethod;
+import android.upem.carshop.Fragement.CarFragment;
+import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.models.Car;
 
 import android.util.Log;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.squareup.picasso.Picasso;
@@ -57,7 +62,7 @@ public class CarActivity extends AppCompatActivity {
         description = findViewById(R.id.description);
         description.setMovementMethod(new ScrollingMovementMethod());
         imageView = findViewById(R.id.carimg);
-
+        btnAdd = findViewById(R.id.pay);
           name.setText(getIntent().getStringExtra("nameCar"));
         //here i added this one to show the name of the car we want to show its details as a name of the activity
           model.setText(getIntent().getStringExtra("modelCar"));
@@ -82,6 +87,7 @@ public class CarActivity extends AppCompatActivity {
                fragmentManager.beginTransaction().replace(R.id.testFrame, carFragment).commit();
 */
         Intent startCarFragment = new Intent(getBaseContext(), HomeScreen.class);
+        startCarFragment.putExtra("Email", email);
         startActivity(startCarFragment);
                 return true;
         }
@@ -89,8 +95,41 @@ public class CarActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //not working or called yet
     public void addCarToCart(View view){
+        btnAdd = findViewById(R.id.pay);
         new AddCarPanierAsunc().execute();
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            Fragment registerDonor = CarFragment.newInstance(email);
+                            fragmentTransaction.replace(R.id.fragment_container, registerDonor);
+                            fragmentTransaction.commit();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            Fragment panierFragmnt =  PanierFragment.newInstance(email);
+                            fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
+                            fragmentTransaction.commit();
+
+                            break;
+                    }
+                }
+            };
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("voulez vous continuer l'achat?").setPositiveButton("continuer l'achat ", dialogClickListener)
+                        .setNegativeButton("aller au panier", dialogClickListener).show();
+
+            }
+        });
+
     }
 
     public class AddCarPanierAsunc extends AsyncTask<Long, Void, String> {

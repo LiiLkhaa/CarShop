@@ -65,12 +65,15 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-        //email_user = getIntent().getStringExtra("Email");// hadi hiya li khasha tkon
-        email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
-        Log.e("email_user","######### " +email_user);
+        email_user = getIntent().getStringExtra("Email");// hadi hiya li khasha tkon
+        //email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
+
 
         new getUser().execute();
+        Log.e("email_user","######### " +email_user);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -102,6 +105,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 break;
             case R.id.send:
                 Intent contactIntent = new Intent(HomeScreen.this, ContactUs.class);
+                contactIntent.putExtra("Email",email_user);
                 startActivity(contactIntent);
                 break;
 
@@ -161,5 +165,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         }
 
     }
-    }
+
+}
 
