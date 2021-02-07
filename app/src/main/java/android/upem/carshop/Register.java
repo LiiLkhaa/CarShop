@@ -32,7 +32,7 @@ public class Register extends AppCompatActivity {
     EditText fullname;
     Button buttonregister;
     DatabseHelper db;
-    ImageView fingerprint;
+    ImageView fingerprint, imageUser;
     String url="https://carsho.herokuapp.com/User/add/";
 
     @Override
@@ -46,7 +46,13 @@ public class Register extends AppCompatActivity {
         fullname = findViewById(R.id.fullname);
         buttonregister = findViewById(R.id.register);
         fingerprint = findViewById(R.id.fingerprint);
-
+        imageUser = findViewById(R.id.iconAccount);
+        imageUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "Name uyser :"+ fullname.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
         logintbn = findViewById(R.id.loginbtn);
         logintbn.setOnClickListener(new View.OnClickListener() {
             @Override

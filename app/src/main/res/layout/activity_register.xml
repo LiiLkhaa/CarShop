@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.212" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iconAccount"
         android:layout_width="114dp"
         android:layout_height="108dp"
         android:layout_marginTop="52dp"
@@ -37,7 +37,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/iconAccount" />
 
     <EditText
         android:id="@+id/fullname"

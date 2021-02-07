@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -20,7 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarShop">
 
+
         <activity android:name=".PassForgotten"></activity>
+
+
+        <activity android:name=".UpdateAccountActivity"></activity>
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -34,21 +40,25 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+
         <activity android:name=".Login" android:theme="@style/Theme.CarShop.NoActionBar">
-
-        </activity>
-
-        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar">
+
         </activity>
         <activity android:name=".Register" ></activity>
         <activity android:name=".MapsActivity" ></activity>
         <activity android:name=".MainActivity" ></activity>
         <activity android:name=".CarActivity" ></activity>
         <activity android:name=".ContactUs" ></activity>
+
+
+
 
     </application>
 

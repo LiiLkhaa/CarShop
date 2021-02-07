@@ -136,8 +136,6 @@ public class Login extends AppCompatActivity {
 
     }
 
-
-
     public class AsyncLogin extends AsyncTask<Void, Void, String> {
         String url="https://carsho.herokuapp.com/User/Login";
         @Override

@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -50,6 +49,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -66,11 +66,19 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
         email_user = getIntent().getStringExtra("Email");// hadi hiya li khasha tkon
+
         //email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
 
 
         new getUser().execute();
         Log.e("email_user","######### " +email_user);
+
+       // email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
+       // Log.e("email_user","######### " +email_user);
+
+         new getUser().execute();
+       // emailUser.setText(myUser.getEmail());
+
     }
 
 
@@ -112,6 +120,18 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             case R.id.logout:
                 Intent logout = new Intent(this, Login.class);
                 startActivity(logout);
+                break;
+            case R.id.settings:
+
+                Fragment accountFragmnt = new AccountActivityFragment();
+                fragmentTransaction.replace(R.id.fragment_container, accountFragmnt);
+                Bundle data = new Bundle();
+                data.putString("Email", emailUser.getText().toString());
+                data.putString("Name", nameUser.getText().toString());
+                accountFragmnt.setArguments(data);
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                break;
 
 
     }
@@ -156,8 +176,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 //Toast.makeText(getBaseContext(), "User Name"+ myUser.getName(), Toast.LENGTH_LONG).show();
                 Log.e("Name", "email user : "+ myUser.getName());
                 //test
-                 emailUser.setText(myUser.getEmail());
-                 nameUser.setText(myUser.getName());
+
+                emailUser.setText(myUser.getEmail());
+                nameUser.setText(myUser.getName());
 
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());

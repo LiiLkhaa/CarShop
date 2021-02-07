@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_setting"
-                android:title="Account"></item>
+                android:title="My Account"></item>
             <item
                 android:id="@+id/send"
                 android:icon="@drawable/ic_send"
