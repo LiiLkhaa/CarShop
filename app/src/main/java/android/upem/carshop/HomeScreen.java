@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -12,15 +13,21 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.upem.carshop.Adapters.ImageAdapter;
+import android.upem.carshop.Fragement.AccountActivityFragment;
 import android.upem.carshop.Fragement.CarFragment;
 import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.models.User;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +38,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,6 +52,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     TextView nameUser, emailUser;
     String email_user, name_user;
     User myUser;
+    SliderView sliderView;
+    CardView slidercard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +90,46 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
          new getUser().execute();
        // emailUser.setText(myUser.getEmail());
 
+        slidercard = findViewById(R.id.slidercard);
+        //slider
+        sliderView = findViewById(R.id.imageSlider);
+
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.mercedescla);
+        images.add(R.drawable.porshe);
+        images.add(R.drawable.rang);
+        images.add(R.drawable.tesla);
+        ImageAdapter imageAdapter = new ImageAdapter(images);
+
+        sliderView.setSliderAdapter(imageAdapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.startAutoCycle();
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.cart_panier:
+                Fragment panierFragmnt =  PanierFragment.newInstance(email_user);
+                fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
+                fragmentTransaction.commit();
+                drawerLayout.closeDrawers();
+                slidercard.setVisibility(View.INVISIBLE);
+                break;
+        }
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
@@ -104,12 +152,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 fragmentTransaction.replace(R.id.fragment_container, registerDonor);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
+                slidercard.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
                 Fragment panierFragmnt =  PanierFragment.newInstance(email_user);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
+                slidercard.setVisibility(View.INVISIBLE);
                 break;
             case R.id.send:
                 Intent contactIntent = new Intent(HomeScreen.this, ContactUs.class);
@@ -131,6 +181,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 accountFragmnt.setArguments(data);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
+                slidercard.setVisibility(View.INVISIBLE);
                 break;
 
 

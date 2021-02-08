@@ -42,14 +42,14 @@
 
 
         <activity android:name=".Login" android:theme="@style/Theme.CarShop.NoActionBar">
+
+        </activity>
+
+        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar" android:windowSoftInputMode="adjustPan"> >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar">
-
         </activity>
         <activity android:name=".Register" ></activity>
         <activity android:name=".MapsActivity" ></activity>
