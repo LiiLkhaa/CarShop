@@ -46,9 +46,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
-
-    //Inofs User
     TextView nameUser, emailUser;
     String email_user, name_user;
     User myUser;
@@ -134,6 +131,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+
             drawerLayout.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPressed();

@@ -127,7 +127,6 @@ public class CarActivity extends Fragment {
             }
         }
     }
-
 }
 
 /*

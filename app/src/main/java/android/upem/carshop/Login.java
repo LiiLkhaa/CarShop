@@ -79,6 +79,7 @@ public class Login extends AppCompatActivity {
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
+
                 break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
                 Toast.makeText(Login.this, "Unvailable", Toast.LENGTH_SHORT).show();
@@ -102,6 +103,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
+                String email = emaillogin.getText().toString().trim();
+                Intent carItem = new Intent(Login.this, HomeScreen.class);
+                carItem.putExtra("Email", email);
+                startActivity(carItem);
                 Toast.makeText(Login.this, "Connected With FingerPrint", Toast.LENGTH_SHORT).show();
             }
 
