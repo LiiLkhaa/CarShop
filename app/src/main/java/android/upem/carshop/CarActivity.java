@@ -133,6 +133,7 @@ public class CarActivity extends Fragment {
         protected void onPostExecute(String s) {
             Boolean res = Boolean.parseBoolean(s);
             if(res==true){
+                new  HomeScreen.GetSizeCarInCart().execute(email);
                 Toast.makeText(getContext(), "Successfull add", Toast.LENGTH_SHORT).show();
             }
         }

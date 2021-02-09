@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.navigation.NavigationView;
@@ -56,8 +57,11 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     SliderView sliderView;
     CardView slidercard;
     NotificationBadge badge;
+    static NotificationBadge[] badges=new NotificationBadge[1];
     PanierAdapter panierAdapter;
     Fragment carFragment;
+    PanierFragment panierFragmnt;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,13 +99,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         images.add(R.drawable.rang);
         images.add(R.drawable.tesla);
         ImageAdapter imageAdapter = new ImageAdapter(images);
-
         sliderView.setSliderAdapter(imageAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         sliderView.startAutoCycle();
-
-
     }
 
     @Override
@@ -116,7 +117,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         View view = menu.findItem(R.id.cart_panier).getActionView();
         badge = view.findViewById(R.id.badge_cart);
         //badge.setText("3");
-        updateCartCount();
+        badges[0]=badge;
         return true;
     }
 
@@ -125,13 +126,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //if(panierAdapter.getItemCount() == 0){
-                   // badge.setVisibility(View.INVISIBLE);
-               // }
-                //else {
-                   // badge.setVisibility(View.VISIBLE);
-                    //badge.setText();
-               // }
+                new GetSizeCarInCart().execute(email_user);
+                Log.println(Log.INFO,"GetSizeCarInCart","1");
             }
         });
     }
@@ -139,7 +135,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     @Override
     protected void onResume() {
         super.onResume();
-        updateCartCount();
+        new GetSizeCarInCart().execute(email_user);
+        Log.println(Log.INFO,"onResume","1");
     }
 
     @Override
@@ -184,7 +181,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 slidercard.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
-                Fragment panierFragmnt =  PanierFragment.newInstance(email_user);
+                panierFragmnt =  PanierFragment.newInstance(email_user);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -285,5 +282,41 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         email_user=savedInstanceState.getString("email");
         Log.e("onRestoreInstanceState","################################ " +savedInstanceState.getString("email"));
     }
+
+
+
+    public static class GetSizeCarInCart extends AsyncTask<String, Void, String> {
+        HttpURLConnection urlConnection;
+        @Override
+        protected String doInBackground(String... email) {
+            StringBuilder result = new StringBuilder();
+            try {
+                String u="https://carsho.herokuapp.com/Cart/getSizeCarInCart/"+email[0];
+                URL url = new URL(u);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+            }catch( Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            badges[0].setText(s);
+        }
+    }
+
+
 }
 

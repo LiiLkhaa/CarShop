@@ -170,6 +170,7 @@ public class CarFragment extends Fragment {
         super.onSaveInstanceState(outState);
         Log.e("onSaveInst Fragment","################################ " +email);
         outState.putString("email",email);
-
     }
+
+
 }

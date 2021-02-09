@@ -44,6 +44,7 @@ public class PanierFragment extends Fragment {
     View myView;
     String email;
     TextView totalCart;
+    PanierAdapter panierAdapter;
     public PanierFragment(String email) {
         this.email =email;
     }
@@ -146,7 +147,7 @@ public class PanierFragment extends Fragment {
                     carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
                     Log.e("JSON","################################ " +carsJsonArray.getJSONObject(i));
                 }
-                PanierAdapter panierAdapter=new PanierAdapter(carList ,getContext(),email);
+                panierAdapter=new PanierAdapter(carList ,getContext(),email);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(panierAdapter);
             } catch (JSONException e) {
@@ -155,4 +156,6 @@ public class PanierFragment extends Fragment {
         }
 
     }
+
+
 }

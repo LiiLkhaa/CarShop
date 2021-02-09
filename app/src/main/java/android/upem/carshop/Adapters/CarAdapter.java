@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.upem.carshop.CarActivity;
 import android.upem.carshop.Fragement.PanierFragment;
+import android.upem.carshop.HomeScreen;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
 import android.util.Log;
@@ -66,16 +67,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*Intent startDetailCars = new Intent(context, CarActivity.class);
-                    startDetailCars.putExtra("nameCar", car.getName());
-                    String price = String.valueOf(car.getPrice());
-                    startDetailCars.putExtra("priceCar", price);
-                    startDetailCars.putExtra("id", car.getId().toString());
-                    startDetailCars.putExtra("modelCar", car.getModel());
-                    startDetailCars.putExtra("imageCar", car.getImg());
-                    startDetailCars.putExtra("email", email);
-                    startDetailCars.putExtra("descriptionCar", car.getDescription());
-                    context.startActivity(startDetailCars);*/
+
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment CarFra =  CarActivity.newInstance(car,email);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, CarFra).addToBackStack(null).commit();
@@ -158,6 +150,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         protected void onPostExecute(String s) {
             Boolean res = Boolean.parseBoolean(s);
             if(res==true){
+                new HomeScreen.GetSizeCarInCart().execute(email);
                 Toast.makeText(context, "Successfull add", Toast.LENGTH_SHORT).show();
             }
         }
