@@ -148,7 +148,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.car:
-                Fragment registerDonor = CarFragment.newInstance(email_user);
+                Fragment registerDonor = CarFragment.newInstance(email_user,drawerLayout,fragmentTransaction);
                 fragmentTransaction.replace(R.id.fragment_container, registerDonor);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();

@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -46,14 +47,16 @@ public class CarFragment extends Fragment {
     String email;
     List<Car> carList;
     CarAdapter carAdapter;
-
-
-    public CarFragment(String email){
+    DrawerLayout drawerLayout;
+    FragmentTransaction fragmentTransaction;
+    public CarFragment(String email,DrawerLayout drawerLayout,FragmentTransaction fragmentTransaction){
         this.email=email;
+        this.drawerLayout=drawerLayout;
+        this.fragmentTransaction=fragmentTransaction;
     }
 
-    public static CarFragment newInstance(String email) {
-        CarFragment fragment = new CarFragment(email);
+    public static CarFragment newInstance(String email,DrawerLayout drawerLayout,FragmentTransaction fragmentTransaction) {
+        CarFragment fragment = new CarFragment(email,drawerLayout,fragmentTransaction);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -73,7 +76,6 @@ public class CarFragment extends Fragment {
         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewtestOne);
         // sendDataNameCar.someEvent(carList.get(0).getName());
         EditText editText = myView.findViewById(R.id.searching);
-
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -92,8 +94,6 @@ public class CarFragment extends Fragment {
         });
         return myView;
     }
-
-
 
     private void filter(String text) {
         ArrayList<Car> filteredlist = new ArrayList<>();
@@ -137,7 +137,7 @@ public class CarFragment extends Fragment {
         @Override
         protected void onPostExecute(String carJson) {
             try {
-                 carList=new ArrayList<>();
+                carList=new ArrayList<>();
                 JSONArray carsJsonArray=new JSONArray(carJson);
                 for (int i=0;i<carsJsonArray.length();i++){
                     carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
@@ -145,7 +145,7 @@ public class CarFragment extends Fragment {
                     nameCarFromFragmntCar = carList.get(i).getName();
 
                 }
-                carAdapter=new CarAdapter(carList ,getContext(),email);
+                carAdapter=new CarAdapter(carList ,getContext(),email,drawerLayout,fragmentTransaction);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {
