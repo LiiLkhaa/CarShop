@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/cart_panier"
         android:icon="@drawable/ic_panier_white"
         android:title="Cart"
         tools:showAsAction="always"
+        tools:actionLayout="@layout/action_notif_cart"
         ></item>
 
     <item
@@ -15,5 +17,35 @@
         android:title="Notification"
         tools:showAsAction="always"
         ></item>
+
+    <item
+        android:id="@+id/devise"
+        android:icon="@drawable/ic_euro"
+        android:title="Devise"
+        tools:showAsAction="always"
+        >
+
+        <menu>
+
+            <item
+                android:id="@+id/dollar"
+                android:title="USD"
+                ></item>
+            <item
+                android:id="@+id/mad"
+                android:title="MAD"
+                ></item>
+            <item
+                android:id="@+id/swiss"
+                android:title="SYS"
+                ></item>
+            <item
+                android:id="@+id/yen"
+                android:title="YAN"
+                ></item>
+
+        </menu>
+
+    </item>
 
 </menu>

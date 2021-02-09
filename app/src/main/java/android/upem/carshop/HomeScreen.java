@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.upem.carshop.Adapters.ImageAdapter;
+import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.Fragement.AccountActivityFragment;
 import android.upem.carshop.Fragement.CarFragment;
 import android.upem.carshop.Fragement.PanierFragment;
@@ -24,7 +25,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.navigation.NavigationView;
+import com.nex3z.notificationbadge.NotificationBadge;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -51,6 +54,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     User myUser;
     SliderView sliderView;
     CardView slidercard;
+    NotificationBadge badge;
+    PanierAdapter panierAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,12 +108,39 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         sliderView.startAutoCycle();
 
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+        View view = menu.findItem(R.id.cart_panier).getActionView();
+        badge = view.findViewById(R.id.badge_cart);
+        //badge.setText("3");
+        updateCartCount();
         return true;
+    }
+
+    private void updateCartCount() {
+        if (badge == null) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //if(panierAdapter.getItemCount() == 0){
+                   // badge.setVisibility(View.INVISIBLE);
+               // }
+                //else {
+                   // badge.setVisibility(View.VISIBLE);
+                    //badge.setText();
+               // }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCartCount();
     }
 
     @Override

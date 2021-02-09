@@ -46,6 +46,7 @@ public class CarActivity extends Fragment {
     ImageView imageView;
     String email;
     String id;
+    Button pay;
 
     // test Fragmnt from activity : button test
     Button btnAdd;
@@ -81,7 +82,16 @@ public class CarActivity extends Fragment {
         price.setText(String.valueOf(car.getPrice()));
         description.setText(car.getDescription());
         Picasso.with(getContext()).load(car.getImg()).into(imageView);
+        pay = myView.findViewById(R.id.pay);
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCarToCart(v);
+            }
+        });
         return myView;
+
+
     }
 
 //need to open fragmnt from this activity : hard one
@@ -123,7 +133,7 @@ public class CarActivity extends Fragment {
         protected void onPostExecute(String s) {
             Boolean res = Boolean.parseBoolean(s);
             if(res==true){
-                //Toast.makeText(CarActivity.this, "Successfull add", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Successfull add", Toast.LENGTH_SHORT).show();
             }
         }
     }
