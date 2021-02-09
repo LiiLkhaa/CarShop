@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.upem.carshop.models.User;
 import android.util.Log;
@@ -47,11 +48,13 @@ public class Login extends AppCompatActivity {
     ImageView fingerprint;
     BiometricPrompt biometricPrompt;
     ProgressBar progressBar;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
 
         db = new DatabseHelper(this);
@@ -186,7 +189,7 @@ public class Login extends AppCompatActivity {
     protected void onPostExecute(String login) {
         try {
             Boolean res = Boolean.parseBoolean(login);
-            String email = emaillogin.getText().toString().trim();
+            email = emaillogin.getText().toString().trim();
             String pass = passlogin.getText().toString().trim();
             if (TextUtils.isEmpty(email)) {
                 emaillogin.setError("Email is required");
@@ -235,7 +238,18 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("email",email);
+    }
 
-
-
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Intent carItem = new Intent(Login.this, HomeScreen.class);
+        Log.e("onRestoreIns Login","################################ " +savedInstanceState.getString("email"));
+        carItem.putExtra("Email", savedInstanceState.getString("email"));
+        startActivity(carItem);
+    }
 }

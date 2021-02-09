@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.upem.carshop.Adapters.ImageAdapter;
 import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.Fragement.AccountActivityFragment;
@@ -50,19 +51,17 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     TextView nameUser, emailUser;
-    String email_user, name_user;
+    String email_user=null, name_user;
     User myUser;
     SliderView sliderView;
     CardView slidercard;
     NotificationBadge badge;
     PanierAdapter panierAdapter;
-
+    Fragment carFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -74,23 +73,17 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
+        if(email_user==null){
+            email_user = getIntent().getStringExtra("Email");
+            Log.e("else","######### " +email_user);
+        }
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-        email_user = getIntent().getStringExtra("Email");// hadi hiya li khasha tkon
-
-        //email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
-
-
+        // hadi hiya li khasha tkon
         new getUser().execute();
-        Log.e("email_user","######### " +email_user);
-
-       // email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
-       // Log.e("email_user","######### " +email_user);
 
          new getUser().execute();
-       // emailUser.setText(myUser.getEmail());
 
         slidercard = findViewById(R.id.slidercard);
         //slider
@@ -109,6 +102,12 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         sliderView.startAutoCycle();
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("onStart","################################ " +"ana t7alit");
     }
 
     @Override
@@ -178,8 +177,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.car:
-                Fragment registerDonor = CarFragment.newInstance(email_user,drawerLayout,fragmentTransaction);
-                fragmentTransaction.replace(R.id.fragment_container, registerDonor);
+                carFragment = CarFragment.newInstance(email_user,drawerLayout,fragmentTransaction);
+                fragmentTransaction.replace(R.id.fragment_container, carFragment);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
@@ -268,5 +267,23 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("email",email_user);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("onDestroy","################################ " +"ana tsadit");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        email_user=savedInstanceState.getString("email");
+        Log.e("onRestoreInstanceState","################################ " +savedInstanceState.getString("email"));
+    }
 }
 
