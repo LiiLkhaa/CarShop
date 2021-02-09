@@ -2,6 +2,7 @@ package android.upem.carshop.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.upem.carshop.CarActivity;
 import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.R;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +47,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         TextView price;
         TextView description;
         ImageView imageView;
+        ImageView imageAddCart;
         CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -49,6 +58,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             imageView=itemView.findViewById(R.id.carimg);
             description=itemView.findViewById(R.id.description);
             cardView= itemView.findViewById(R.id.cardView);
+            imageAddCart = itemView.findViewById(R.id.addCartImage);
         }
 
 
@@ -69,6 +79,12 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment CarFra =  CarActivity.newInstance(car,email);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, CarFra).addToBackStack(null).commit();
+                }
+            });
+            imageAddCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AddCarPanierAsunc().execute(car.getId());
                 }
             });
             model.setText(car.getModel());
@@ -108,6 +124,43 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
     public void filterlist(ArrayList<Car> filteredlist) {
         cars = filteredlist;
         notifyDataSetChanged();
+    }
+
+    public class AddCarPanierAsunc extends AsyncTask<Long, Void, String> {
+        HttpURLConnection urlConnection;
+        @Override
+        protected String doInBackground(Long... ids) {
+            StringBuilder result = new StringBuilder();
+            try {
+                String u="https://carsho.herokuapp.com/Cart/addCarToCart/"+email+"/"+ids[0];
+                URL url = new URL(u);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+            }catch( Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Boolean res = Boolean.parseBoolean(s);
+            if(res==true){
+                Toast.makeText(context, "Successfull add", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }
