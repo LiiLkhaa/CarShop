@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.upem.carshop.Adapters.ImageAdapter;
 import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.Fragement.AccountActivityFragment;
@@ -24,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.navigation.NavigationView;
@@ -49,23 +51,21 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
-
-    //Inofs User
     TextView nameUser, emailUser;
-    String email_user, name_user;
+    String email_user=null, name_user;
     User myUser;
     SliderView sliderView;
     CardView slidercard;
     NotificationBadge badge;
+    static NotificationBadge[] badges=new NotificationBadge[1];
     PanierAdapter panierAdapter;
-
+    Fragment carFragment;
+    PanierFragment panierFragmnt;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,23 +77,17 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
+        if(email_user==null){
+            email_user = getIntent().getStringExtra("Email");
+            Log.e("else","######### " +email_user);
+        }
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-        email_user = getIntent().getStringExtra("Email");// hadi hiya li khasha tkon
-
-        //email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
-
-
+        // hadi hiya li khasha tkon
         new getUser().execute();
-        Log.e("email_user","######### " +email_user);
-
-       // email_user=emailUser.getText().toString();//hadi ghi mo2aqatan 7it makandiroch connection
-       // Log.e("email_user","######### " +email_user);
 
          new getUser().execute();
-       // emailUser.setText(myUser.getEmail());
 
         slidercard = findViewById(R.id.slidercard);
         //slider
@@ -105,13 +99,16 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         images.add(R.drawable.rang);
         images.add(R.drawable.tesla);
         ImageAdapter imageAdapter = new ImageAdapter(images);
-
         sliderView.setSliderAdapter(imageAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         sliderView.startAutoCycle();
+    }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("onStart","################################ " +"ana t7alit");
     }
 
     @Override
@@ -120,7 +117,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         View view = menu.findItem(R.id.cart_panier).getActionView();
         badge = view.findViewById(R.id.badge_cart);
         //badge.setText("3");
-        updateCartCount();
+        badges[0]=badge;
         return true;
     }
 
@@ -129,13 +126,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //if(panierAdapter.getItemCount() == 0){
-                   // badge.setVisibility(View.INVISIBLE);
-               // }
-                //else {
-                   // badge.setVisibility(View.VISIBLE);
-                    //badge.setText();
-               // }
+                new GetSizeCarInCart().execute(email_user);
+                Log.println(Log.INFO,"GetSizeCarInCart","1");
             }
         });
     }
@@ -143,7 +135,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     @Override
     protected void onResume() {
         super.onResume();
-        updateCartCount();
+        new GetSizeCarInCart().execute(email_user);
+        Log.println(Log.INFO,"onResume","1");
     }
 
     @Override
@@ -166,6 +159,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+
             drawerLayout.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPressed();
@@ -180,14 +174,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.car:
-                Fragment registerDonor = CarFragment.newInstance(email_user,drawerLayout,fragmentTransaction);
-                fragmentTransaction.replace(R.id.fragment_container, registerDonor);
+                carFragment = CarFragment.newInstance(email_user,drawerLayout,fragmentTransaction);
+                fragmentTransaction.replace(R.id.fragment_container, carFragment);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
-                Fragment panierFragmnt =  PanierFragment.newInstance(email_user);
+                panierFragmnt =  PanierFragment.newInstance(email_user);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -269,6 +263,60 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         }
 
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("email",email_user);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("onDestroy","################################ " +"ana tsadit");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        email_user=savedInstanceState.getString("email");
+        Log.e("onRestoreInstanceState","################################ " +savedInstanceState.getString("email"));
+    }
+
+
+
+    public static class GetSizeCarInCart extends AsyncTask<String, Void, String> {
+        HttpURLConnection urlConnection;
+        @Override
+        protected String doInBackground(String... email) {
+            StringBuilder result = new StringBuilder();
+            try {
+                String u="https://carsho.herokuapp.com/Cart/getSizeCarInCart/"+email[0];
+                URL url = new URL(u);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+            }catch( Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            badges[0].setText(s);
+        }
+    }
+
 
 }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.upem.carshop.models.User;
 import android.util.Log;
@@ -47,11 +48,13 @@ public class Login extends AppCompatActivity {
     ImageView fingerprint;
     BiometricPrompt biometricPrompt;
     ProgressBar progressBar;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
 
         db = new DatabseHelper(this);
@@ -79,6 +82,7 @@ public class Login extends AppCompatActivity {
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
+
                 break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
                 Toast.makeText(Login.this, "Unvailable", Toast.LENGTH_SHORT).show();
@@ -102,6 +106,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
+                String email = emaillogin.getText().toString().trim();
+                Intent carItem = new Intent(Login.this, HomeScreen.class);
+                carItem.putExtra("Email", email);
+                startActivity(carItem);
                 Toast.makeText(Login.this, "Connected With FingerPrint", Toast.LENGTH_SHORT).show();
             }
 
@@ -181,7 +189,7 @@ public class Login extends AppCompatActivity {
     protected void onPostExecute(String login) {
         try {
             Boolean res = Boolean.parseBoolean(login);
-            String email = emaillogin.getText().toString().trim();
+            email = emaillogin.getText().toString().trim();
             String pass = passlogin.getText().toString().trim();
             if (TextUtils.isEmpty(email)) {
                 emaillogin.setError("Email is required");
@@ -230,7 +238,18 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("email",email);
+    }
 
-
-
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Intent carItem = new Intent(Login.this, HomeScreen.class);
+        Log.e("onRestoreIns Login","################################ " +savedInstanceState.getString("email"));
+        carItem.putExtra("Email", savedInstanceState.getString("email"));
+        startActivity(carItem);
+    }
 }

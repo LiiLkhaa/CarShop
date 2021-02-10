@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.upem.carshop.Fragement.CarFragment;
 import android.upem.carshop.Fragement.PanierFragment;
+import android.upem.carshop.HomeScreen;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
 import android.view.LayoutInflater;
@@ -141,6 +142,12 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
 
             return result.toString();
         }
+
+        @Override
+        protected void onPostExecute(String s) {
+            new HomeScreen.GetSizeCarInCart().execute(email);
+        }
     }
+
 
 }
