@@ -100,6 +100,12 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         this.email=email;
     }
 
+    public PanierAdapter(Context context,String email) {
+        super();
+        this.context=context;
+        this.email=email;
+    }
+
     @NonNull
     @Override
     public PanierAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -149,5 +155,12 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         }
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
 
 }

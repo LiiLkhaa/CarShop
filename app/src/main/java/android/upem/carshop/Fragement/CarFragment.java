@@ -49,16 +49,13 @@ public class CarFragment extends Fragment {
     String email;
     List<Car> carList;
     CarAdapter carAdapter;
-    DrawerLayout drawerLayout;
-    FragmentTransaction fragmentTransaction;
-    public CarFragment(String email,DrawerLayout drawerLayout,FragmentTransaction fragmentTransaction){
+    public CarFragment(String email,CarAdapter carAdapter){
         this.email=email;
-        this.drawerLayout=drawerLayout;
-        this.fragmentTransaction=fragmentTransaction;
+        this.carAdapter=carAdapter;
     }
 
-    public static CarFragment newInstance(String email,DrawerLayout drawerLayout,FragmentTransaction fragmentTransaction) {
-        CarFragment fragment = new CarFragment(email,drawerLayout,fragmentTransaction);
+    public static CarFragment newInstance(String email,CarAdapter carAdapter) {
+        CarFragment fragment = new CarFragment(email,carAdapter);
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -147,7 +144,8 @@ public class CarFragment extends Fragment {
                     nameCarFromFragmntCar = carList.get(i).getName();
 
                 }
-                carAdapter=new CarAdapter(carList ,getContext(),email,drawerLayout,fragmentTransaction);
+                //carAdapter=new CarAdapter(carList ,getContext(),email);
+                carAdapter.setCars(carList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(carAdapter);
             } catch (JSONException e) {

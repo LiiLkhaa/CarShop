@@ -147,21 +147,3 @@ public class CarActivity extends Fragment {
 
 }
 
-/*
-
-
-
-
-
-          name.setText(getIntent().getStringExtra("nameCar"));
-        //here i added this one to show the name of the car we want to show its details as a name of the activity
-          model.setText(getIntent().getStringExtra("modelCar"));
-          this.email=getIntent().getStringExtra("email");
-          this.id=getIntent().getStringExtra("id");
-          this.setTitle( name.getText().toString() + " | "+ model.getText().toString());
-
-        price.setText(getIntent().getStringExtra("priceCar"));
-        description.setText(getIntent().getStringExtra("descriptionCar"));
-        Picasso.with(getBaseContext()).load(getIntent().getStringExtra("imageCar")).into(imageView);
-        Log.e("CarActivity","################################ " +id);
- */

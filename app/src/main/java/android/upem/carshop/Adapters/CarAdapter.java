@@ -38,10 +38,7 @@ import java.util.List;
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
     private List<Car>cars;
     private Context context;
-    DrawerLayout drawerLayout;
-    FragmentTransaction fragmentTransaction;
     String email;
-    Fragment fragment;
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView model;
         TextView name;
@@ -88,13 +85,20 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         }
     }
 
-    public CarAdapter(List<Car> cars,Context context,String email,DrawerLayout drawerLayout,FragmentTransaction fragmentTransaction) {
+    public CarAdapter(List<Car> cars,Context context,String email) {
         super();
         this.cars = cars;
         this.context=context;
         this.email=email;
-        this.drawerLayout=drawerLayout;
-        this.fragmentTransaction=fragmentTransaction;
+    }
+    public CarAdapter(Context context,String email) {
+        super();
+        this.context=context;
+        this.email=email;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 
     @NonNull
@@ -156,4 +160,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         }
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
 }
