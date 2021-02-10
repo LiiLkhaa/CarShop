@@ -49,6 +49,7 @@ public class Login extends AppCompatActivity {
     BiometricPrompt biometricPrompt;
     ProgressBar progressBar;
     String email;
+    User usertest=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,9 +131,8 @@ public class Login extends AppCompatActivity {
         fingerprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emaillogin.getText().toString().trim();
-                Boolean res = db.checkEmail(email);
-                if (res == true) {
+                new getUser().execute();
+                if (usertest != null) {
                     biometricPrompt.authenticate(promptInfo);
                 }
                 else {
@@ -251,5 +251,49 @@ public class Login extends AppCompatActivity {
         Log.e("onRestoreIns Login","################################ " +savedInstanceState.getString("email"));
         carItem.putExtra("Email", savedInstanceState.getString("email"));
         startActivity(carItem);
+    }
+
+
+    public class getUser extends AsyncTask<Void, Void, String> {
+        HttpURLConnection urlConnection;
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+
+            StringBuilder result = new StringBuilder();
+            try {
+                String email = emaillogin.getText().toString().trim();
+                URL url = new URL("https://carsho.herokuapp.com/User/getByEmail/" + email);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Eroor", "################################ " + e.getMessage());
+            } finally {
+                urlConnection.disconnect();
+            }
+
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+
+                JSONObject userJSON = new JSONObject(s);
+                usertest = User.UserParserJSON(userJSON);
+            } catch (JSONException e) {
+                Log.e("EROR", "################################ " + e.getMessage());
+            }
+        }
     }
 }
