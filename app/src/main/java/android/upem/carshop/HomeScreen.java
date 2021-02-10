@@ -162,9 +162,11 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             case R.id.dollar:
                 devise = "USD";
                 new ChangeCurrencyTask().execute(devise);
+                break;
             case R.id.mad:
                 devise = "MAD";
                 new ChangeCurrencyTask().execute(devise);
+                break;
         }
 
         return true;
@@ -249,9 +251,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         @Override
         protected void onPostExecute(String result) {
-
+            Log.e("@result","Solde-2>"+result);
             for(Car c: carAdapter.getCars()){
-                c.setPrice(Double.parseDouble(c.getPrice())*Double.parseDouble(result)+"");//hna ghadir et dyalk
+                c.setPrice(c.getPrisfix()*Double.parseDouble(result));//hna ghadir et dyalk
             }
             carAdapter.notifyDataSetChanged();
             Log.e("@Devise","Solde-2>"+devise);
