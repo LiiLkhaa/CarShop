@@ -14,11 +14,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.upem.carshop.Adapters.CarAdapter;
 import android.upem.carshop.Adapters.ImageAdapter;
 import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.Fragement.AccountActivityFragment;
 import android.upem.carshop.Fragement.CarFragment;
 import android.upem.carshop.Fragement.PanierFragment;
+import android.upem.carshop.models.Car;
 import android.upem.carshop.models.User;
 import android.util.Log;
 import android.view.Menu;
@@ -58,17 +60,16 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     CardView slidercard;
     NotificationBadge badge;
     static NotificationBadge[] badges=new NotificationBadge[1];
-    PanierAdapter panierAdapter;
     Fragment carFragment;
     PanierFragment panierFragmnt;
-    
+    CarAdapter carAdapter;
+    PanierAdapter panierAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         navigationView = findViewById(R.id.navview);
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -85,8 +86,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
         // hadi hiya li khasha tkon
-        new getUser().execute();
-
+        carAdapter=new CarAdapter(this,email_user);
+        panierAdapter=new PanierAdapter(this,email_user);
          new getUser().execute();
 
         slidercard = findViewById(R.id.slidercard);
@@ -108,6 +109,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     @Override
     protected void onStart() {
         super.onStart();
+
         Log.e("onStart","################################ " +"ana t7alit");
     }
 
@@ -146,13 +148,19 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.cart_panier:
-                Fragment panierFragmnt =  PanierFragment.newInstance(email_user);
+                Fragment panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
                 break;
+            case R.id.dollar :
+                for(Car c: carAdapter.getCars()){
+                    c.setPrice(1);//hna ghadir et dyalk
+                }
+                carAdapter.notifyDataSetChanged();
         }
+
         return true;
     }
 
@@ -174,14 +182,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.car:
-                carFragment = CarFragment.newInstance(email_user,drawerLayout,fragmentTransaction);
+                carFragment = CarFragment.newInstance(email_user,carAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, carFragment);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
-                panierFragmnt =  PanierFragment.newInstance(email_user);
+                panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
