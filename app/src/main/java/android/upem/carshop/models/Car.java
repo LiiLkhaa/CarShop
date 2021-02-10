@@ -10,13 +10,13 @@ public class Car {
     private String name;
     private String model;
     private String img;
-    private String price;
+    private double price;
     private String description;
     private String adress;
     public Car() {
     }
 
-    public Car(Long id, String name, String model, String img, String price, String description,String adress) {
+    public Car(Long id, String name, String model, String img, double price, String description,String adress) {
         this.id = id;
         this.name = name;
         this.model = model;
@@ -51,7 +51,7 @@ public class Car {
         this.img = img;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -75,7 +75,7 @@ public class Car {
         return img;
     }
 
-    public String  getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -86,7 +86,7 @@ public class Car {
 
     public static Car CarParserJson(JSONObject json){
         try {
-            return new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),json.getString("price"),json.getString("description"),json.getString("adress"));
+            return new Car(Long.parseLong( json.getString("id")),json.getString("name"),json.getString("model"),json.getString("img"),Double.parseDouble(json.getString("price")),json.getString("description"),json.getString("adress"));
         } catch (JSONException e) {
             return  null;
         }
@@ -97,11 +97,11 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return Objects.equals(id, car.id) &&
+        return Double.compare(car.price, price) == 0 &&
+                Objects.equals(id, car.id) &&
                 Objects.equals(name, car.name) &&
                 Objects.equals(model, car.model) &&
                 Objects.equals(img, car.img) &&
-                Objects.equals(price, car.price) &&
                 Objects.equals(description, car.description) &&
                 Objects.equals(adress, car.adress);
     }

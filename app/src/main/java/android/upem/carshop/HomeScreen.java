@@ -20,7 +20,6 @@ import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.Fragement.AccountActivityFragment;
 import android.upem.carshop.Fragement.CarFragment;
 import android.upem.carshop.Fragement.PanierFragment;
-import android.upem.carshop.handler.HttpHandler;
 import android.upem.carshop.models.Car;
 import android.upem.carshop.models.User;
 import android.util.Log;
@@ -46,7 +45,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,9 +64,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     PanierFragment panierFragmnt;
     CarAdapter carAdapter;
     PanierAdapter panierAdapter;
-    private double rate;
-    private double solde = 15.0;
-    private String devise;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,12 +154,11 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
                 break;
-            case R.id.dollar:
-                devise = "USD";
-                new ChangeCurrencyTask().execute(devise);
-            case R.id.mad:
-                devise = "MAD";
-                new ChangeCurrencyTask().execute(devise);
+            case R.id.dollar :
+                for(Car c: carAdapter.getCars()){
+                    c.setPrice(1);//hna ghadir et dyalk
+                }
+                carAdapter.notifyDataSetChanged();
         }
 
         return true;
@@ -228,44 +222,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     }
         return true;
 }
-    private class ChangeCurrencyTask extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... arg0) {
-            String url = "https://carsho.herokuapp.com/api/currency/"+arg0[0];
-            HttpHandler sh = new HttpHandler();
-            String result = sh.makeServiceCall(url);
-            //rate = Double.parseDouble(result);
-
-
-            return result;
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            for(Car c: carAdapter.getCars()){
-                c.setPrice(Double.parseDouble(c.getPrice())*Double.parseDouble(result)+"");//hna ghadir et dyalk
-            }
-            carAdapter.notifyDataSetChanged();
-            Log.e("@Devise","Solde-2>"+devise);
-            Log.e("@Rate","Solde-2>"+rate);
-
-        }
-    }
-
-    public String getPriceProduct(Double price){
-        Double prix = price*rate;
-        DecimalFormat df = new DecimalFormat("0.00");
-        String result  = df.format(prix)+" " +devise;
-        return result ;
-    }
     public class getUser extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
         @Override
