@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -20,14 +20,15 @@
         android:roundIcon="@mipmap/eiffel_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarShop">
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-        <activity android:name=".PassForgotten"></activity>
-
-
-        <activity android:name=".UpdateAccountActivity"></activity>
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PassForgotten" />
+        <activity android:name=".UpdateAccountActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -40,26 +41,29 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".Login"
+            android:theme="@style/Theme.CarShop.NoActionBar">
 
-        <activity android:name=".Login" android:theme="@style/Theme.CarShop.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".HomeScreen" android:theme="@style/Theme.CarShop.NoActionBar" android:windowSoftInputMode="adjustPan"> >
+        <activity
+            android:name=".HomeScreen"
+            android:theme="@style/Theme.CarShop.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
 
         </activity>
-        <activity android:name=".Register" ></activity>
-        <activity android:name=".MapsActivity" ></activity>
-        <activity android:name=".MainActivity" ></activity>
-        <activity android:name=".CarActivity" ></activity>
-        <activity android:name=".ContactUs" ></activity>
-
-
-
-
+        <activity android:name=".Register" />
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".CarActivity" />
+        <activity android:name=".ContactUs" />
     </application>
 
 </manifest>
