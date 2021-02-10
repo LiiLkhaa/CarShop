@@ -67,7 +67,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     CarAdapter carAdapter;
     PanierAdapter panierAdapter;
     private double rate;
-    private double solde = 15.0;
+
     private String devise;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
