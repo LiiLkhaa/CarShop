@@ -34,6 +34,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
     private List<Car> cars;
     private Context context;
     private String email;
+    private CarAdapter carAdapter;
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageviewPanie;
         TextView name;
@@ -100,6 +101,12 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         this.email=email;
     }
 
+    public PanierAdapter(Context context,String email) {
+        super();
+        this.context=context;
+        this.email=email;
+    }
+
     @NonNull
     @Override
     public PanierAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -108,6 +115,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull PanierAdapter.ViewHolder viewHolder, int i) {
+
         viewHolder.update(cars.get(i));
     }
 
@@ -149,5 +157,12 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         }
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
 
 }

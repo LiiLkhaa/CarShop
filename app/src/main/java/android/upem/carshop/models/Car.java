@@ -13,6 +13,7 @@ public class Car {
     private double price;
     private String description;
     private String adress;
+    private double prisfix;
     public Car() {
     }
 
@@ -24,6 +25,7 @@ public class Car {
         this.price = price;
         this.description = description;
         this.adress = adress;
+        this.prisfix=price;
     }
 
 
@@ -83,6 +85,9 @@ public class Car {
         return description;
     }
 
+    public double getPrisfix() {
+        return prisfix;
+    }
 
     public static Car CarParserJson(JSONObject json){
         try {
