@@ -26,6 +26,10 @@
         >
 
         <menu>
+            <item
+                android:id="@+id/EUR"
+                android:title="EUR"
+                ></item>
 
             <item
                 android:id="@+id/dollar"
@@ -36,12 +40,24 @@
                 android:title="MAD"
                 ></item>
             <item
-                android:id="@+id/swiss"
+                android:id="@+id/SYS"
                 android:title="SYS"
                 ></item>
             <item
-                android:id="@+id/yen"
+                android:id="@+id/YAN"
                 android:title="YAN"
+                ></item>
+            <item
+                android:id="@+id/AUD"
+                android:title="AUD"
+                ></item>
+            <item
+                android:id="@+id/BMD"
+                android:title="BMD"
+                ></item>
+            <item
+                android:id="@+id/IMP"
+                android:title="IMP"
                 ></item>
 
         </menu>

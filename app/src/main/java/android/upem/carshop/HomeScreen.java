@@ -167,6 +167,30 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 devise = "MAD";
                 new ChangeCurrencyTask().execute(devise);
                 break;
+            case R.id.EUR:
+                devise = "EUR";
+                new ChangeCurrencyTask().execute(devise);
+                break;
+            case R.id.SYS:
+                devise = "SYS";
+                new ChangeCurrencyTask().execute(devise);
+                break;
+            case R.id.YAN:
+                devise = "YAN";
+                new ChangeCurrencyTask().execute(devise);
+                break;
+            case R.id.AUD:
+                devise = "AUD";
+                new ChangeCurrencyTask().execute(devise);
+                break;
+            case R.id.BMD:
+                devise = "BMD";
+                new ChangeCurrencyTask().execute(devise);
+                break;
+            case R.id.IMP:
+                devise = "IMP";
+                new ChangeCurrencyTask().execute(devise);
+                break;
         }
 
         return true;
@@ -242,7 +266,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             String url = "https://carsho.herokuapp.com/api/currency/"+arg0[0];
             HttpHandler sh = new HttpHandler();
             String result = sh.makeServiceCall(url);
-            //rate = Double.parseDouble(result);
 
 
             return result;
@@ -251,15 +274,28 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         @Override
         protected void onPostExecute(String result) {
-            Log.e("@result","Solde-2>"+result);
-            for(Car c: carAdapter.getCars()){
-                c.setPrice(c.getPrisfix()*Double.parseDouble(result));//hna ghadir et dyalk
+            if(carAdapter.getCars()!=null){
+                for(Car x: carAdapter.getCars()){
+                    x.setPrice(x.getPrisfix()*Double.parseDouble(result));
+                }
+                carAdapter.notifyDataSetChanged();
             }
-            carAdapter.notifyDataSetChanged();
+
+
+            if(panierAdapter.getCars()!=null){
+                for(Car x: panierAdapter.getCars()){
+                    x.setPrice(x.getPrisfix()*Double.parseDouble(result));
+                }
+                panierAdapter.notifyDataSetChanged();
+            }
+
             Log.e("@Devise","Solde-2>"+devise);
-            Log.e("@Rate","Solde-2>"+rate);
+            Log.e("@result","Solde-1>"+result);
+
 
         }
+
+
     }
 
     public String getPriceProduct(Double price){

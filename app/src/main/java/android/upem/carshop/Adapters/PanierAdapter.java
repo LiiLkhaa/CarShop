@@ -34,6 +34,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
     private List<Car> cars;
     private Context context;
     private String email;
+    private CarAdapter carAdapter;
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageviewPanie;
         TextView name;
@@ -114,6 +115,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull PanierAdapter.ViewHolder viewHolder, int i) {
+
         viewHolder.update(cars.get(i));
     }
 
