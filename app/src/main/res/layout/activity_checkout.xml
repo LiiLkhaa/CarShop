@@ -4,7 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragement.CheckountFragement">
+    tools:context=".CheckoutActivity">
+
+    <EditText
+        android:id="@+id/expdate"
+        android:layout_width="217dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="144dp"
+        android:background="@drawable/round_border"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Exp Date"
+        android:inputType="date"
+        android:maxLength="5"
+        android:padding="10dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/payend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/ccv"
+        android:layout_width="139dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="144dp"
+        android:background="@drawable/round_border"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="CCV"
+        android:inputType="numberDecimal"
+        android:maxLength="3"
+        android:padding="10dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/payend"
+        app:layout_constraintEnd_toStartOf="@+id/expdate"
+        app:layout_constraintHorizontal_bias="0.742"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="217dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/round_border"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/creditcard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/adress"
+        android:layout_width="375dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_border"
+        android:drawableStart="@drawable/ic_location"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Adresse"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.611"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/zipcode"
+        android:layout_width="139dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/round_border"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Zip Code"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:padding="10dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/creditcard"
+        app:layout_constraintEnd_toStartOf="@+id/city"
+        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/fullname"
@@ -21,26 +118,8 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/adress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.611"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="217dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/round_border"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:hint="City"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/creditcard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/creditcard"
@@ -58,87 +137,12 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/ccv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <EditText
-        android:id="@+id/expdate"
-        android:layout_width="217dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="108dp"
-        android:background="@drawable/round_border"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:hint="Exp Date"
-        android:inputType="date"
-        android:padding="10dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/pay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <EditText
-        android:id="@+id/ccv"
-        android:layout_width="139dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="108dp"
-        android:background="@drawable/round_border"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:hint="CCV"
-        android:inputType="numberDecimal"
-        android:padding="10dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/pay"
-        app:layout_constraintEnd_toStartOf="@+id/expdate"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <EditText
-        android:id="@+id/zipcode"
-        android:layout_width="139dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/round_border"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:hint="Zip Code"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/creditcard"
-        app:layout_constraintEnd_toStartOf="@+id/city"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <EditText
-        android:id="@+id/adress"
-        android:layout_width="375dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/round_border"
-        android:drawableStart="@drawable/ic_location"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:hint="Adresse"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.611"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/pay"
+        android:id="@+id/payend"
         android:layout_width="281dp"
         android:layout_height="50dp"
 
@@ -157,10 +161,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:text="Paiement 100% Secure"
         android:drawableStart="@drawable/ic_credit_card"
+        android:text="Paiement 100% Secure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pay" />
+        app:layout_constraintTop_toBottomOf="@+id/payend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package android.upem.carshop.Fragement;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.upem.carshop.Adapters.CarAdapter;
 import android.upem.carshop.Adapters.PanierAdapter;
+import android.upem.carshop.CheckoutActivity;
 import android.upem.carshop.HomeScreen;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -45,6 +48,8 @@ public class PanierFragment extends Fragment {
     String email;
     TextView totalCart;
     PanierAdapter panierAdapter;
+    Button checkout;
+
     public PanierFragment(String email, PanierAdapter panierAdapter) {
         this.email =email;
         this.panierAdapter=panierAdapter;
@@ -70,6 +75,15 @@ public class PanierFragment extends Fragment {
         myView = inflater.inflate(R.layout.fragment_panier, container, false);
         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewPanier);
         totalCart = myView.findViewById(R.id.totalCart);
+        checkout = myView.findViewById(R.id.addCheckout);
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return myView;
     }
