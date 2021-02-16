@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addCart"
+        android:id="@+id/addCheckout"
         android:layout_width="281dp"
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
@@ -38,7 +38,7 @@
         android:text="Total :"
         android:textColor="#9E6D6D"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/addCart"
+        app:layout_constraintBottom_toTopOf="@+id/addCheckout"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_marginBottom="16dp"
         android:text="$"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/addCart"
+        app:layout_constraintBottom_toTopOf="@+id/addCheckout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toEndOf="@+id/totalCart" />
@@ -60,7 +60,7 @@
         android:layout_marginBottom="16dp"
 
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/addCart"
+        app:layout_constraintBottom_toTopOf="@+id/addCheckout"
         app:layout_constraintStart_toEndOf="@+id/textView10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

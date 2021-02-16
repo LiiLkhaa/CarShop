@@ -2,17 +2,13 @@ package android.upem.carshop;
 
 import android.content.Context;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.text.method.ScrollingMovementMethod;
-import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.models.Car;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,10 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -82,7 +75,7 @@ public class CarActivity extends Fragment {
         price.setText(String.valueOf(car.getPrice()));
         description.setText(car.getDescription());
         Picasso.with(getContext()).load(car.getImg()).into(imageView);
-        pay = myView.findViewById(R.id.pay);
+        pay = myView.findViewById(R.id.payend);
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

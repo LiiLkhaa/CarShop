@@ -124,7 +124,7 @@
                     android:textSize="18sp"></TextView>
 
                 <Button
-                    android:id="@+id/pay"
+                    android:id="@+id/payend"
                     android:layout_width="281dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="50dp"
