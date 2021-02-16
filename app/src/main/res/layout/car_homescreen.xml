@@ -8,28 +8,28 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="305dp"
+        android:layout_width="wrap_content"
+        android:layout_height="290dp"
         android:layout_margin="4dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="295dp"
+            android:layout_width="wrap_content"
+            android:layout_height="283dp"
             android:orientation="vertical"
             android:weightSum="5.5">
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="231dp"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/carimg"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="231dp"
                     android:background="@drawable/mercedes"
                     android:scaleType="fitXY" />
 
@@ -39,13 +39,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="87dp"
+                android:layout_height="wrap_content"
 
                 android:weightSum="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1.1"
                     android:orientation="vertical"
                     android:padding="10dp">

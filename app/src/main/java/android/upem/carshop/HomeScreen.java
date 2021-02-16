@@ -77,7 +77,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     PanierAdapter panierAdapter;
     RecyclerView recyclerView;
     private double rate;
-    TextView textCurrency;
+    TextView txt;
     TextView textPrice_CarActivity;
     private String devise;
     @Override
@@ -89,6 +89,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         navigationView = findViewById(R.id.navview);
         drawerLayout = findViewById(R.id.drawerLayout);
         textPrice_CarActivity = findViewById(R.id.price);
+        txt = findViewById(R.id.txt);
         new GetCar().execute();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_navigation, R.string.close_navigation);
@@ -103,7 +104,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-        textCurrency= findViewById(R.id.textCurrency);
         // hadi hiya li khasha tkon
         carAdapter=new CarAdapter(this,email_user);
         panierAdapter=new PanierAdapter(this,email_user);
@@ -174,6 +174,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
+                txt.setVisibility(View.INVISIBLE);
                 break;
             case R.id.dollar:
                 devise = "USD";
@@ -232,6 +234,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
+                txt.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
                 panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
@@ -239,6 +243,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
+                txt.setVisibility(View.INVISIBLE);
                 break;
             case R.id.send:
                 Intent contactIntent = new Intent(HomeScreen.this, ContactUs.class);
@@ -261,6 +267,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
                 slidercard.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
+                txt.setVisibility(View.INVISIBLE);
                 break;
 
 
@@ -288,23 +296,29 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         @Override
         protected void onPostExecute(String result) {
             if(carAdapter.getCars()!=null){
+                DecimalFormat df = new DecimalFormat("0.00");
                 for(Car x: carAdapter.getCars()){
-                    x.setPrice(x.getPrisfix()*Double.parseDouble(result) + " " + devise);
+                    Double a = x.getPrisfix()*Double.parseDouble(result);
+
+                    x.setPrice((df.format(a) + "") + " " + devise);
 
                 }
                 carAdapter.notifyDataSetChanged();
             }
 
-            carAdapter.notifyDataSetChanged();
+
             if(panierAdapter.getCars()!=null){
+                DecimalFormat df = new DecimalFormat("0.00");
                 for(Car x: panierAdapter.getCars()){
-                    x.setPrice(x.getPrisfix()*Double.parseDouble(result) + " " + devise);
+                    Double a = x.getPrisfix()*Double.parseDouble(result);
+
+                    x.setPrice((df.format(a) + "") + " " + devise);
                 }
                 panierAdapter.notifyDataSetChanged();
             }
 
             Log.e("@Devise","Solde-2>"+devise);
-            Log.e("@result","Solde-1>"+result);
+            Log.e("@result","Solde-1>"+(Double.parseDouble(result)*100)/100);
 
 
         }
@@ -312,12 +326,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
     }
 
-    public String getPriceProduct(Double price){
-        Double prix = price*rate;
-        DecimalFormat df = new DecimalFormat("0.00");
-        String result  = df.format(prix)+" " +devise;
-        return result ;
-    }
+
     public class getUser extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
         @Override

@@ -42,7 +42,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="68dp"
+                    android:layout_width="13dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.1"
                     android:orientation="vertical"
@@ -71,27 +71,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".9"
-                    android:gravity="center">
+                >
 
                     <TextView
+                        android:layout_marginTop="20dp"
                         android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="price"
-                        android:textAlignment="center"
+
                         android:textColor="#2196F3"
                         android:textSize="25sp"
                         android:textStyle="bold"></TextView>
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="$"
-                        android:textColor="#2196F3"
-                        android:textSize="25sp"
-                        android:textStyle="bold" />
 
                 </LinearLayout>
 

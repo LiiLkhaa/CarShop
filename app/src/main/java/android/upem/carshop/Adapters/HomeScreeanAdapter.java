@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +24,15 @@ public class HomeScreeanAdapter extends RecyclerView.Adapter<HomeScreeanAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
+        TextView name;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.carimg);
+            name=itemView.findViewById(R.id.name);
         }
         private void update(Car car) {
             Picasso.with(context).load(car.getImg()).into(imageView);
+            name.setText(car.getName());
         }
     }
 
