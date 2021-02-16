@@ -45,7 +45,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         TextView price;
         TextView description;
         ImageView imageView;
-        ImageView imageAddCart;
+
         CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -56,7 +56,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             imageView=itemView.findViewById(R.id.carimg);
             description=itemView.findViewById(R.id.description);
             cardView= itemView.findViewById(R.id.cardView);
-            imageAddCart = itemView.findViewById(R.id.addCartImage);
+
         }
 
 
@@ -70,12 +70,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, CarFra).addToBackStack(null).commit();
                 }
             });
-            imageAddCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AddCarPanierAsunc().execute(car.getId());
-                }
-            });
+
             model.setText(car.getModel());
             //Log.e("EROR","###### Adapter" +car.getId());
             // description.setText(car.getDescription());
@@ -122,43 +117,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    public class AddCarPanierAsunc extends AsyncTask<Long, Void, String> {
-        HttpURLConnection urlConnection;
-        @Override
-        protected String doInBackground(Long... ids) {
-            StringBuilder result = new StringBuilder();
-            try {
-                String u="https://carsho.herokuapp.com/Cart/addCarToCart/"+email+"/"+ids[0];
-                URL url = new URL(u);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String line;
 
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
 
-            }catch( Exception e) {
-                e.printStackTrace();
-            }
-            finally {
-                urlConnection.disconnect();
-            }
-
-            return result.toString();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Boolean res = Boolean.parseBoolean(s);
-            if(res==true){
-                new HomeScreen.GetSizeCarInCart().execute(email);
-                Toast.makeText(context, "Successfull add", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     public List<Car> getCars() {
         return cars;
