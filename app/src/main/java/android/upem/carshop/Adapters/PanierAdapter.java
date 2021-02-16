@@ -3,21 +3,20 @@ package android.upem.carshop.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.upem.carshop.Fragement.CarFragment;
-import android.upem.carshop.Fragement.PanierFragment;
+import android.upem.carshop.CheckoutActivity;
 import android.upem.carshop.HomeScreen;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -34,6 +33,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
     private List<Car> cars;
     private Context context;
     private String email;
+    private CarAdapter carAdapter;
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageviewPanie;
         TextView name;
@@ -41,6 +41,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         TextView price;
         ImageView supp;
         ImageView add;
+        Button checkout;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -114,6 +115,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull PanierAdapter.ViewHolder viewHolder, int i) {
+
         viewHolder.update(cars.get(i));
     }
 

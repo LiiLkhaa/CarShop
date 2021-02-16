@@ -32,6 +32,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/recyclerViewCar_homeScreen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slidercard" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/slidercard"
                     android:layout_width="match_parent"
@@ -60,7 +70,9 @@
                         app:sliderIndicatorSelectedColor="#5A5A5A"
                         app:sliderIndicatorUnselectedColor="#FFF"
                         app:sliderScrollTimeInSec="2"
-                        app:sliderStartAutoCycle="true" />
+                        app:sliderStartAutoCycle="true">
+
+                    </com.smarteist.autoimageslider.SliderView>
 
                 </androidx.cardview.widget.CardView>
 
