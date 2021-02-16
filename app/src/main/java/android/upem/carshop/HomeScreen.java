@@ -9,16 +9,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.upem.carshop.Adapters.CarAdapter;
-import android.upem.carshop.Adapters.HomeScreeanAdapter;
 import android.upem.carshop.Adapters.ImageAdapter;
 import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.Fragement.AccountActivityFragment;
@@ -31,7 +27,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +37,6 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,8 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    String nameCarFromFragmntCar;
-    List<Car> carList;
+
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -71,15 +64,12 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     static NotificationBadge[] badges=new NotificationBadge[1];
     Fragment carFragment;
     PanierFragment panierFragmnt;
-    HomeScreeanAdapter homeScreeanAdapter;
-    CarActivity carActivity;
     CarAdapter carAdapter;
     PanierAdapter panierAdapter;
-    RecyclerView recyclerView;
     private double rate;
-    TextView textCurrency;
     TextView textPrice_CarActivity;
     private String devise;
+    private  CarActivity carActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +78,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         setSupportActionBar(toolbar);
         navigationView = findViewById(R.id.navview);
         drawerLayout = findViewById(R.id.drawerLayout);
-        textPrice_CarActivity = findViewById(R.id.price);
-        new GetCar().execute();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(toggle);
@@ -103,12 +91,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         View headerView = navigationView.getHeaderView(0);
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
-        textCurrency= findViewById(R.id.textCurrency);
         // hadi hiya li khasha tkon
-        carAdapter=new CarAdapter(this,email_user);
+        carActivity=CarActivity.newInstance(email_user);
+        carAdapter=new CarAdapter(this,email_user,carActivity);
         panierAdapter=new PanierAdapter(this,email_user);
-        homeScreeanAdapter = new HomeScreeanAdapter(this);
-
          new getUser().execute();
 
         slidercard = findViewById(R.id.slidercard);
@@ -181,27 +167,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 break;
             case R.id.mad:
                 devise = "MAD";
-                new ChangeCurrencyTask().execute(devise);
-                break;
-            case R.id.EUR:
-                devise = "EUR";
-                new ChangeCurrencyTask().execute(devise);
-                break;
-            case R.id.SYS:
-                devise = "SYS";
-                new ChangeCurrencyTask().execute(devise);
-                break;
-
-            case R.id.AUD:
-                devise = "AUD";
-                new ChangeCurrencyTask().execute(devise);
-                break;
-            case R.id.BMD:
-                devise = "BMD";
-                new ChangeCurrencyTask().execute(devise);
-                break;
-            case R.id.IMP:
-                devise = "IMP";
                 new ChangeCurrencyTask().execute(devise);
                 break;
         }
@@ -279,6 +244,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             String url = "https://carsho.herokuapp.com/api/currency/"+arg0[0];
             HttpHandler sh = new HttpHandler();
             String result = sh.makeServiceCall(url);
+            //rate = Double.parseDouble(result);
 
 
             return result;
@@ -287,29 +253,32 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         @Override
         protected void onPostExecute(String result) {
-            if(carAdapter.getCars()!=null){
-                for(Car x: carAdapter.getCars()){
-                    x.setPrice(x.getPrisfix()*Double.parseDouble(result) + " " + devise);
-
+            try {
+                textPrice_CarActivity =findViewById(R.id.price);
+                if(carAdapter.getCars()!=null){
+                    for(Car x: carAdapter.getCars()){
+                        x.setPrice(x.getPrisfix()*Double.parseDouble(result) + " " + devise);
+                    }
+                    carAdapter.notifyDataSetChanged();
+                }
+                if(carActivity.getCar()!=null){
+                    carActivity.getPrice().setText(carActivity.getCar().getPrisfix()*Double.parseDouble(result) + " " + devise);
                 }
                 carAdapter.notifyDataSetChanged();
-            }
-
-            carAdapter.notifyDataSetChanged();
-            if(panierAdapter.getCars()!=null){
-                for(Car x: panierAdapter.getCars()){
-                    x.setPrice(x.getPrisfix()*Double.parseDouble(result) + " " + devise);
+                if(panierAdapter.getCars()!=null){
+                    for(Car x: panierAdapter.getCars()){
+                        x.setPrice(x.getPrisfix()*Double.parseDouble(result) + " " + devise);
+                    }
+                    panierAdapter.notifyDataSetChanged();
                 }
-                panierAdapter.notifyDataSetChanged();
+
+                Log.e("@Devise","Solde-2>"+devise);
+                Log.e("@result","Solde-1>"+result);
             }
-
-            Log.e("@Devise","Solde-2>"+devise);
-            Log.e("@result","Solde-1>"+result);
-
-
+            catch (Exception e){
+                Log.e("@ChangeCurrencyTask   ",e.getMessage());
+            }
         }
-
-
     }
 
     public String getPriceProduct(Double price){
@@ -420,56 +389,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         }
     }
 
-    public class GetCar extends AsyncTask<Void, Void, String> {
-        HttpURLConnection urlConnection;
-        @Override
-        protected String doInBackground(Void... voids) {
-            StringBuilder result = new StringBuilder();
-            try {
-                URL url = new URL("https://carsho.herokuapp.com/Car/getAllCars");
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String line;
-
-
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-            }catch( Exception e) {
-                e.printStackTrace();
-                Log.e("Eroor","################################ " +e.getMessage());
-            }
-            finally {
-                urlConnection.disconnect();
-            }
-
-            return result.toString();
-        }
-        @Override
-        protected void onPostExecute(String carJson) {
-            try {
-                carList=new ArrayList<>();
-                JSONArray carsJsonArray=new JSONArray(carJson);
-                for (int i=0;i<carsJsonArray.length();i++){
-                    carList.add(Car.CarParserJson(carsJsonArray.getJSONObject(i)));
-                    Log.e("JSON","################################ " +carsJsonArray.getJSONObject(i));
-                    nameCarFromFragmntCar = carList.get(i).getImg();
-                }
-                LinearLayoutManager layoutManager = new LinearLayoutManager(HomeScreen.this,LinearLayoutManager.HORIZONTAL,false);
-                recyclerView = findViewById(R.id.recyclerViewCar_homeScreen);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                homeScreeanAdapter.setCars(carList);
-                recyclerView.setAdapter(homeScreeanAdapter);
-            } catch (JSONException e) {
-                Log.e("EROR","################################ " +e.getMessage());
-            }
-        }
-
-    }
 
 }
 

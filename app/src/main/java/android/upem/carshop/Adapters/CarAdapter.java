@@ -39,6 +39,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
     private List<Car>cars;
     private Context context;
     String email;
+    CarActivity carFra;
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView model;
         TextView name;
@@ -66,8 +67,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
                 public void onClick(View view) {
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    Fragment CarFra =  CarActivity.newInstance(car,email);
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, CarFra).addToBackStack(null).commit();
+                    carFra.setCar(car);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, carFra).addToBackStack(null).commit();
                 }
             });
 
@@ -90,6 +91,12 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
         super();
         this.context=context;
         this.email=email;
+    }
+    public CarAdapter(Context context,String email,CarActivity carFra) {
+        super();
+        this.context=context;
+        this.email=email;
+        this.carFra =carFra;
     }
 
     public void setCars(List<Car> cars) {
