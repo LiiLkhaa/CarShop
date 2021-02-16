@@ -48,9 +48,16 @@ public class CarActivity extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public CarActivity(Car car,String email){
+    private CarActivity(Car car,String email){
         this.car=car;
         this.email=email;
+    }
+    private CarActivity(String email){
+        this.email=email;
+    }
+
+    public TextView getPrice() {
+        return price;
     }
 
     public static CarActivity newInstance(Car car, String email) {
@@ -58,6 +65,20 @@ public class CarActivity extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+    public static CarActivity newInstance( String email) {
+        CarActivity fragment = new CarActivity(email);
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     @Override
