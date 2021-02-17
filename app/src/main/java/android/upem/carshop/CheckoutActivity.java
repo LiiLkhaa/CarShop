@@ -1,12 +1,16 @@
 package android.upem.carshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.upem.carshop.models.Checkout;
 import android.upem.carshop.models.User;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,11 +35,15 @@ public class CheckoutActivity extends AppCompatActivity {
     EditText expdate;
     String url="https://carsho.herokuapp.com/Checkout/addCheckout/";
     Button pay;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.setTitle("Checkout");
+        email= getIntent().getStringExtra("Email");
 
         fullname = findViewById(R.id.fullname);
         adress = findViewById(R.id.adress);
@@ -52,6 +60,21 @@ public class CheckoutActivity extends AppCompatActivity {
                     new CheckoutActivity.CheckoutSQL().execute();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent goBackToHomeScreen = new Intent(CheckoutActivity.this, HomeScreen.class);
+                goBackToHomeScreen.putExtra("Email",email);
+                startActivity(goBackToHomeScreen);
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public class CheckoutSQL extends AsyncTask<Void, Void, Checkout> {

@@ -12,13 +12,6 @@
         ></item>
 
     <item
-        android:id="@+id/cart_notif"
-        android:icon="@drawable/ic_notif"
-        android:title="Notification"
-        tools:showAsAction="always"
-        ></item>
-
-    <item
         android:id="@+id/devise"
         android:icon="@drawable/ic_euro"
         android:title="Devise"
