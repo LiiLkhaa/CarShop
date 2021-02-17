@@ -105,8 +105,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         emailUser =(TextView) headerView.findViewById(R.id.emailHeaderNV);
         nameUser = (TextView) headerView.findViewById(R.id.fullNameHeaderNv);
         // hadi hiya li khasha tkon
-        carAdapter=new CarAdapter(this,email_user);
+        carActivity =CarActivity.newInstance(email_user);
+        carAdapter=new CarAdapter(this,email_user,carActivity);
         panierAdapter=new PanierAdapter(this,email_user);
+
         homeScreeanAdapter = new HomeScreeanAdapter(this);
 
          new getUser().execute();
@@ -295,32 +297,38 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         @Override
         protected void onPostExecute(String result) {
-            if(carAdapter.getCars()!=null){
-                DecimalFormat df = new DecimalFormat("0.00");
-                for(Car x: carAdapter.getCars()){
-                    Double a = x.getPrisfix()*Double.parseDouble(result);
+            try {
+                if(carAdapter.getCars()!=null){
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    for(Car x: carAdapter.getCars()){
+                        Double a = x.getPrisfix()*Double.parseDouble(result);
 
-                    x.setPrice((df.format(a) + "") + " " + devise);
+                        x.setPrice((df.format(a) + "") + " " + devise);
 
+                    }
+                    carAdapter.notifyDataSetChanged();
                 }
-                carAdapter.notifyDataSetChanged();
-            }
 
-
-            if(panierAdapter.getCars()!=null){
-                DecimalFormat df = new DecimalFormat("0.00");
-                for(Car x: panierAdapter.getCars()){
-                    Double a = x.getPrisfix()*Double.parseDouble(result);
-
-                    x.setPrice((df.format(a) + "") + " " + devise);
+                if(carActivity.getCar()!=null){
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    Double a = carActivity.getCar().getPrisfix()*Double.parseDouble(result);
+                    carActivity.getPrice().setText((df.format(a) + "") + " " + devise);
                 }
-                panierAdapter.notifyDataSetChanged();
+
+                if(panierAdapter.getCars()!=null){
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    for(Car x: panierAdapter.getCars()){
+                        Double a = x.getPrisfix()*Double.parseDouble(result);
+                        x.setPrice((df.format(a) + "") + " " + devise);
+                    }
+                    panierAdapter.notifyDataSetChanged();
+                }
+                Log.e("@Devise","Solde-2>"+devise);
+                Log.e("@result","Solde-1>"+(Double.parseDouble(result)*100)/100);
             }
+            catch (Exception e){
 
-            Log.e("@Devise","Solde-2>"+devise);
-            Log.e("@result","Solde-1>"+(Double.parseDouble(result)*100)/100);
-
-
+            }
         }
 
 
