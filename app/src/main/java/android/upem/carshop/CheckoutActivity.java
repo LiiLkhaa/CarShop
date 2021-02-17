@@ -12,8 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -31,12 +33,13 @@ public class CheckoutActivity extends AppCompatActivity {
     EditText expdate;
     String url="https://carsho.herokuapp.com/Checkout/addCheckout/";
     Button pay;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-
+        email = getIntent().getStringExtra("Email");
         fullname = findViewById(R.id.fullname);
         adress = findViewById(R.id.adress);
         zipcode = findViewById(R.id.zipcode);
@@ -49,7 +52,8 @@ public class CheckoutActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    new CheckoutActivity.CheckoutSQL().execute();
+                new sendEmailAsync().execute();
+               // new CheckoutActivity.CheckoutSQL().execute();
             }
         });
     }
@@ -110,6 +114,47 @@ public class CheckoutActivity extends AppCompatActivity {
             Toast.makeText(CheckoutActivity.this, "Successful", Toast.LENGTH_SHORT).show();
             setContentView(R.layout.thankyou);
         }
+    }
+
+
+    public class sendEmailAsync extends AsyncTask<Void, Void, String> {
+        HttpURLConnection urlConnection;
+        @Override
+        protected String doInBackground(Void... voids) {
+            StringBuilder result = new StringBuilder();
+            try {
+
+                String u="https://carsho.herokuapp.com/Notification/notifyByEmail/"+email;
+                URL url = new URL(u);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+            }catch( Exception e) {
+                e.printStackTrace();
+                Log.e("Eroor","################################ " +e.getMessage());
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+
+            return result.toString();
+        }
+        @Override
+        protected void onPostExecute(String Json) {
+            try {
+
+            } catch (Exception e) {
+                Log.e("EROR","################################ " +e.getMessage());
+            }
+        }
+
     }
 
 }
