@@ -1,18 +1,25 @@
 package android.upem.carshop;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.upem.carshop.models.Checkout;
 import android.upem.carshop.models.User;
 import android.util.Log;
@@ -20,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -45,6 +53,9 @@ public class CheckoutActivity extends AppCompatActivity {
     Button pay;
     String email;
 
+    Button opencam;
+    ImageView idcard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +72,23 @@ public class CheckoutActivity extends AppCompatActivity {
         ccv = findViewById(R.id.ccv);
         expdate = findViewById(R.id.expdate);
         pay = findViewById(R.id.payend);
+
+        opencam = findViewById(R.id.opencam);
+        idcard = findViewById(R.id.idimg);
+
+        if (ContextCompat.checkSelfPermission(CheckoutActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(CheckoutActivity.this, new String[] {
+                    Manifest.permission.CAMERA
+            }, 100);
+        }
+
+        opencam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cam = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cam,100);
+            }
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("My notification", "My notification", NotificationManager.IMPORTANCE_DEFAULT);
@@ -79,6 +107,15 @@ public class CheckoutActivity extends AppCompatActivity {
                 notificationManagerCompat.notify(1, builder.build());
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            Bitmap card = (Bitmap) data.getExtras().get("data");
+            idcard.setImageBitmap(card);
+        }
     }
 
     @Override

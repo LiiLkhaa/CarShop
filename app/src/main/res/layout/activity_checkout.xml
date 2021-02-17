@@ -167,4 +167,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payend" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:text="ID Card:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/idimg"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ccv" />
+
+    <ImageView
+        android:id="@+id/idimg"
+        android:layout_width="93dp"
+        android:layout_height="88dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/payend"
+        app:layout_constraintEnd_toStartOf="@+id/opencam"
+        app:layout_constraintTop_toBottomOf="@+id/ccv"
+        app:layout_constraintVertical_bias="0.375"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/opencam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/round_bg"
+        android:maxLines="1"
+        android:text="Camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expdate" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
