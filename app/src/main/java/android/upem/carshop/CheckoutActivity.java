@@ -1,12 +1,22 @@
 package android.upem.carshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.upem.carshop.models.Checkout;
 import android.upem.carshop.models.User;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +49,10 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.setTitle("Checkout");
         email = getIntent().getStringExtra("Email");
+
         fullname = findViewById(R.id.fullname);
         adress = findViewById(R.id.adress);
         zipcode = findViewById(R.id.zipcode);
@@ -49,13 +62,38 @@ public class CheckoutActivity extends AppCompatActivity {
         expdate = findViewById(R.id.expdate);
         pay = findViewById(R.id.payend);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("My notification", "My notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new sendEmailAsync().execute();
-               // new CheckoutActivity.CheckoutSQL().execute();
+                new CheckoutActivity.CheckoutSQL().execute();
+                String message = "Thank you for you purchase, Check your email for more information";
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(CheckoutActivity.this, "My notification");
+                builder.setSmallIcon(R.drawable.eiffel_notif).setContentTitle("Eiffel Cars").setContentText(message).setAutoCancel(true);
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(CheckoutActivity.this);
+                notificationManagerCompat.notify(1, builder.build());
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent goBackToHomeScreen = new Intent(CheckoutActivity.this, HomeScreen.class);
+                goBackToHomeScreen.putExtra("Email",email);
+                startActivity(goBackToHomeScreen);
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public class CheckoutSQL extends AsyncTask<Void, Void, Checkout> {

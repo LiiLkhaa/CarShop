@@ -5,21 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="281dp"
-        android:layout_height="50dp"
-
-        android:layout_marginBottom="60dp"
-
-        android:background="@drawable/round_bg"
-        android:maxLines="1"
-        android:text="Go Home"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></Button>
-
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="205dp"
