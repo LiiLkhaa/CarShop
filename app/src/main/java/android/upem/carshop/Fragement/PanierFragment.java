@@ -81,6 +81,7 @@ public class PanierFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+                intent.putExtra("Email", email);
                 startActivity(intent);
             }
         });
