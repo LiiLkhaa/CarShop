@@ -30,7 +30,6 @@
                     android:id="@+id/carimg"
                     android:layout_width="fill_parent"
                     android:layout_height="231dp"
-                    android:background="@drawable/mercedes"
                     android:scaleType="fitXY" />
 
 

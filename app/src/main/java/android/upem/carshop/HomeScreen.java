@@ -55,6 +55,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     String nameCarFromFragmntCar;
@@ -479,7 +480,15 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 recyclerView = findViewById(R.id.recyclerViewCar_homeScreen);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                homeScreeanAdapter.setCars(carList);
+                List<Car>carList1=new ArrayList<>();
+
+                for(int i=0 ; i<3;i++){
+                    //int r=(int)(Math.random() * (( carList.size()- 0) )) ;
+                    //carList1.add(carList.get(r));
+                    Random randomizer = new Random();
+                    carList1.add(  carList.get(randomizer.nextInt(carList.size())));
+                }
+                homeScreeanAdapter.setCars(carList1);
                 recyclerView.setAdapter(homeScreeanAdapter);
             } catch (JSONException e) {
                 Log.e("EROR","################################ " +e.getMessage());

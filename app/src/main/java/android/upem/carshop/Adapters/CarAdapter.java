@@ -75,7 +75,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             model.setText(car.getModel());
             //Log.e("EROR","###### Adapter" +car.getId());
             // description.setText(car.getDescription());
-            price.setText(car.getPrice()+"");
+            price.setText(car.getPrice());
             name.setText(car.getName());
             Picasso.with(context).load(car.getImg()).into(imageView);
         }
