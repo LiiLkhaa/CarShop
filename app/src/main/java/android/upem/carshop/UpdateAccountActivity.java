@@ -39,20 +39,24 @@ public class UpdateAccountActivity extends AppCompatActivity {
         newEmail.setText(getIntent().getStringExtra("Email"));
 
         newPassword = findViewById(R.id.accountPassword);
-
-
         newConfrimedPassword = findViewById(R.id.accountConfirmPassword);
 
         updateBtn = findViewById(R.id.updateButton);
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            if(newPassword.getText().toString().equals(newConfrimedPassword.getText().toString())){
+            if((newPassword.getText().toString().equals(newConfrimedPassword.getText().toString()))){
 
-                   new UpdateUser().execute();
+              if( (!(newFullName.getText().toString().isEmpty()))){
+                  if (doUpdateBool()) {
+                      clearTextesBoxes();
+                      Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_LONG).show();
+                  }
+                  else {
+                      Toast.makeText(getBaseContext(), "The name shouldn't be empty", Toast.LENGTH_LONG).show();
+                  }
+              }
 
-            }else{
-                Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_LONG).show();
             }
             }
         });
@@ -115,4 +119,18 @@ public class UpdateAccountActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    public void clearTextesBoxes(){
+
+        newFullName.setText("");
+        newConfrimedPassword.setText("");
+        newPassword.setText("");
+        //newEmail.setText("");
+    }
+
+     public boolean doUpdateBool(){
+        new UpdateUser().execute();
+        return true;
+     }
+
 }

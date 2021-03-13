@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.upem.carshop.Adapters.CarAdapter;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +51,8 @@ public class PanierFragment extends Fragment {
     TextView totalCart;
     PanierAdapter panierAdapter;
     Button checkout;
+    //tst cout
+    int cp=0;
 
     public PanierFragment(String email, PanierAdapter panierAdapter) {
         this.email =email;
@@ -66,7 +70,7 @@ public class PanierFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new GetCarFromCart().execute();
-        new GetTotalCart().execute();
+        refreshT();
     }
 
     @Override
@@ -85,10 +89,8 @@ public class PanierFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return myView;
     }
-
 
     public class GetTotalCart extends  AsyncTask<Long, Void, String> {
         HttpURLConnection urlConnection;
@@ -127,7 +129,22 @@ public class PanierFragment extends Fragment {
         }
 
     }
+//Am trying to refresh the data total evrey seconde bech na voidiw lblan
 
+    public void refreshT(){
+       refreshTotal(1000);
+    }
+    public void refreshTotal(int milleSecondes){
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                refreshT();
+                new GetTotalCart().execute();
+            }
+        };
+        handler.postDelayed(r, milleSecondes);
+    }
     public class GetCarFromCart extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
         @Override

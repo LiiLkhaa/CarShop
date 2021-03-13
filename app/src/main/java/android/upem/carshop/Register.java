@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import android.upem.carshop.models.User;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,6 +47,8 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+       //test
+        getInfoUserByGoogleAuth();
 
         db = new DatabseHelper(this);
         emailregister = findViewById(R.id.emailregister);
@@ -93,6 +103,22 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
+public void getInfoUserByGoogleAuth(){
+    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+    if (acct != null) {
+        String personName = acct.getDisplayName();
+        String personGivenName = acct.getGivenName();
+        String personFamilyName = acct.getFamilyName();
+        String personEmail = acct.getEmail();
+        String personId = acct.getId();
+
+        //fullname.setText(personName);
+       Toast.makeText(this, "oihefo" + personName, Toast.LENGTH_LONG).show();
+
+    }
+}
+
     public class UserSQL extends AsyncTask<Void, Void, User> {
 
         @Override
