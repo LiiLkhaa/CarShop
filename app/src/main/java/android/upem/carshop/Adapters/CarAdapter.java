@@ -65,7 +65,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     carFra.setCar(car);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, carFra).addToBackStack(null).commit();
@@ -75,6 +74,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder>{
             model.setText(car.getModel());
             //Log.e("EROR","###### Adapter" +car.getId());
             // description.setText(car.getDescription());
+
             price.setText(car.getPrice());
             name.setText(car.getName());
             Picasso.with(context).load(car.getImg()).into(imageView);
