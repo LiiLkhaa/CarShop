@@ -155,7 +155,7 @@ public class CheckoutActivity extends AppCompatActivity {
             String xpDate = expdate.getText().toString().trim();
 
             try {
-                    Checkout checkout=new Checkout(name,dress,zip,ville,cece,cecv,xpDate);
+                    Checkout checkout=new Checkout(name,dress,zip,ville,cece,cecv,xpDate,email);
                     String data = checkout.toJSON();
                     HttpURLConnection urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
                     urlConnection.setDoOutput(true);
