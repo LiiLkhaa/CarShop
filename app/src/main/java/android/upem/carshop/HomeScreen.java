@@ -297,8 +297,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             String url = "https://carsho.herokuapp.com/api/currency/"+arg0[0];
             HttpHandler sh = new HttpHandler();
             String result = sh.makeServiceCall(url);
-
-
             return result;
         }
 

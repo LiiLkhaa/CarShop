@@ -21,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 
 import java.io.BufferedReader;
@@ -43,12 +45,13 @@ public class Register extends AppCompatActivity {
     ImageView fingerprint, imageUser;
     String url="https://carsho.herokuapp.com/User/add/";
 
+    //Get Infos from google api
+    public GoogleSignInClient googleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-       //test
-        getInfoUserByGoogleAuth();
 
         db = new DatabseHelper(this);
         emailregister = findViewById(R.id.emailregister);
@@ -56,6 +59,20 @@ public class Register extends AppCompatActivity {
         fullname = findViewById(R.id.fullname);
         buttonregister = findViewById(R.id.register);
         fingerprint = findViewById(R.id.fingerprint);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(Register.this);
+        if(account != null){
+            String persoName = account.getDisplayName();
+            String emailPerson = account.getEmail();
+            String passwordPerson = account.getId();
+            fullname.setText(persoName);
+            emailregister.setText(emailPerson);
+            passregister.setText(passwordPerson);
+        }
         imageUser = findViewById(R.id.iconAccount);
         imageUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,21 +120,6 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-
-public void getInfoUserByGoogleAuth(){
-    GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-    if (acct != null) {
-        String personName = acct.getDisplayName();
-        String personGivenName = acct.getGivenName();
-        String personFamilyName = acct.getFamilyName();
-        String personEmail = acct.getEmail();
-        String personId = acct.getId();
-
-        //fullname.setText(personName);
-       Toast.makeText(this, "oihefo" + personName, Toast.LENGTH_LONG).show();
-
-    }
-}
 
     public class UserSQL extends AsyncTask<Void, Void, User> {
 

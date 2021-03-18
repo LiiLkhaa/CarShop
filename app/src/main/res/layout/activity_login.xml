@@ -98,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="New ? Register"
+        android:textStyle="bold"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
