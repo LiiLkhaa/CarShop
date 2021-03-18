@@ -55,7 +55,7 @@ public class PanierFragment extends Fragment {
     TextView totalCart;
     PanierAdapter panierAdapter;
     Button checkout;
-
+    public TextView textcurncy;
 
     public PanierFragment(String email, PanierAdapter panierAdapter) {
         this.email =email;
@@ -72,6 +72,7 @@ public class PanierFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         new GetCarFromCart().execute();
         refreshT();
     }
@@ -83,6 +84,7 @@ public class PanierFragment extends Fragment {
         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewPanier);
         totalCart = myView.findViewById(R.id.totalCart);
         checkout = myView.findViewById(R.id.addCheckout);
+        textcurncy=myView.findViewById(R.id.textView11);
 
        checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +96,9 @@ public class PanierFragment extends Fragment {
           }
         });
         return myView;
+    }
+    public  TextView getTextCurency(){
+        return textcurncy;
     }
 
     public class GetTotalCart extends  AsyncTask<Long, Void, String> {

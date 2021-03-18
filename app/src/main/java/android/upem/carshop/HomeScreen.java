@@ -320,6 +320,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                     Double a = carActivity.getCar().getPrisfix()*Double.parseDouble(result);
                     carActivity.getPrice().setText((df.format(a) + "") + " " + devise);
                 }
+                if(panierFragmnt.textcurncy!=null){
+                    panierFragmnt.textcurncy.setText(devise);
+                }
 
                 if(panierAdapter.getCars()!=null){
                     DecimalFormat df = new DecimalFormat("0.00");
