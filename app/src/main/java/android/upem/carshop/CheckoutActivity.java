@@ -98,13 +98,13 @@ public class CheckoutActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new sendEmailAsync().execute();
-                new CheckoutActivity.CheckoutSQL().execute();
-                String message = "Thank you for you purchase, Check your email for more information";
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(CheckoutActivity.this, "My notification");
-                builder.setSmallIcon(R.drawable.eiffel_notif).setContentTitle("Eiffel Cars").setContentText(message).setAutoCancel(true);
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(CheckoutActivity.this);
-                notificationManagerCompat.notify(1, builder.build());
+                        new sendEmailAsync().execute();
+                        new CheckoutActivity.CheckoutSQL().execute();
+                        String message = "Thank you for you purchase, Check your email for more information";
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(CheckoutActivity.this, "My notification");
+                        builder.setSmallIcon(R.drawable.eiffel_notif).setContentTitle("Eiffel Cars").setContentText(message).setAutoCancel(true);
+                        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(CheckoutActivity.this);
+                        notificationManagerCompat.notify(1, builder.build());
             }
         });
     }
@@ -153,32 +153,32 @@ public class CheckoutActivity extends AppCompatActivity {
             long cece = Long.parseLong(cc.getText().toString().trim());
             int cecv = Integer.parseInt(ccv.getText().toString().trim());
             String xpDate = expdate.getText().toString().trim();
+
             try {
-                Checkout checkout=new Checkout(name,dress,zip,ville,cece,cecv,xpDate);
-                String data = checkout.toJSON();
-                HttpURLConnection urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestProperty("Accept", "application/json");
-                urlConnection.setRequestMethod("POST");
-                Log.e("data hnaa", data);
-                urlConnection.connect();
-                OutputStream outputStream = urlConnection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                writer.write(data);
-                writer.close();
-                outputStream.close();
+                    Checkout checkout=new Checkout(name,dress,zip,ville,cece,cecv,xpDate);
+                    String data = checkout.toJSON();
+                    HttpURLConnection urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setRequestProperty("Accept", "application/json");
+                    urlConnection.setRequestMethod("POST");
+                    Log.e("data hnaa", data);
+                    urlConnection.connect();
+                    OutputStream outputStream = urlConnection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    writer.write(data);
+                    writer.close();
+                    outputStream.close();
 
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
 
-                String line = null;
-                StringBuilder sb = new StringBuilder();
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
+                    String line = null;
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    bufferedReader.close();
                 }
-                bufferedReader.close();
-            }
             catch (Exception e){
                 Log.e("Erreur kayn hnaaaa", e.getMessage());
             }
@@ -188,6 +188,7 @@ public class CheckoutActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Checkout checkout) {
             Toast.makeText(CheckoutActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+           
             setContentView(R.layout.thankyou);
         }
     }
