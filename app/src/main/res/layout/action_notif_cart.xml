@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@android:style/Widget.ActionButton">
+    style="@android:style/Widget.ActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/cart_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_panier_white"
-        ></ImageView>
+        android:layout_gravity="center"
+        android:src="@drawable/ic_panier_white"></ImageView>
 
-    <com.nex3z.notificationbadge.NotificationBadge
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:id="@+id/badge_cart"
-        android:layout_toRightOf="@+id/cart_icon"
-        android:layout_alignTop="@+id/cart_icon"
-        android:layout_marginLeft="-10dp"
-        android:layout_marginTop="-10dp"
+    <TextView
+        android:id="@+id/nottifnumber"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/badget"
+        android:gravity="center"
+        android:text="2"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="13sp"></TextView>
 
-        app:nbMaxTextLength="2"
-        >
 
-    </com.nex3z.notificationbadge.NotificationBadge>
-
-
-</RelativeLayout>
+</FrameLayout>

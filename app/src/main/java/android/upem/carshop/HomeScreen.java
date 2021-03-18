@@ -35,7 +35,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.navigation.NavigationView;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -68,8 +67,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     User myUser;
     SliderView sliderView;
     CardView slidercard;
-    NotificationBadge badge;
-    static NotificationBadge[] badges=new NotificationBadge[1];
+    TextView badge;
+    static TextView[] badges=new TextView[1];
     Fragment carFragment;
     PanierFragment panierFragmnt;
     HomeScreeanAdapter homeScreeanAdapter;
@@ -141,7 +140,15 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
         View view = menu.findItem(R.id.cart_panier).getActionView();
-        badge = view.findViewById(R.id.badge_cart);
+        MenuItem filtermenu = menu.findItem(R.id.cart_panier);
+        filtermenu.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeScreen.this.onOptionsItemSelected(filtermenu);
+            }
+        });
+
+        badge = view.findViewById(R.id.nottifnumber);
         //badge.setText("3");
         badges[0]=badge;
         return true;

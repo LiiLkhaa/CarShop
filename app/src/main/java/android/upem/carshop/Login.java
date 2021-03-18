@@ -146,12 +146,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new getUser().execute();
-                if (usertest != null) {
-                    biometricPrompt.authenticate(promptInfo);
-                }
-                else {
-                    Toast.makeText(Login.this, "Email unavailable", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -343,10 +337,24 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             try {
+                final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                        .setTitle("Login")
+                        .setDescription("Use your FingerPrint")
+                        .setNegativeButtonText("Cancel")
+                        .build();
 
                 JSONObject userJSON = new JSONObject(s);
                 usertest = User.UserParserJSON(userJSON);
+                if (usertest != null) {
+                    biometricPrompt.authenticate(promptInfo);
+                }
+                else {
+                    Toast.makeText(Login.this, "Email unavailable", Toast.LENGTH_SHORT).show();
+                }
+
+
             } catch (JSONException e) {
+                Toast.makeText(Login.this, "Email unavailable", Toast.LENGTH_SHORT).show();
                 Log.e("EROR", "################################ " + e.getMessage());
             }
         }
