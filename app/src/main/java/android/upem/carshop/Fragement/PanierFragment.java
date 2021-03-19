@@ -57,9 +57,14 @@ public class PanierFragment extends Fragment {
     Button checkout;
     public TextView textcurncy;
 
+    public TextView getTotalCart() {
+        return totalCart;
+    }
+
     public PanierFragment(String email, PanierAdapter panierAdapter) {
         this.email =email;
         this.panierAdapter=panierAdapter;
+
     }
 
     public static PanierFragment newInstance(String param1,PanierAdapter panierAdapter) {
@@ -74,7 +79,8 @@ public class PanierFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         new GetCarFromCart().execute();
-        refreshT();
+        new GetTotalCart().execute();
+        //refreshT();
     }
 
     @Override
@@ -85,7 +91,7 @@ public class PanierFragment extends Fragment {
         totalCart = myView.findViewById(R.id.totalCart);
         checkout = myView.findViewById(R.id.addCheckout);
         textcurncy=myView.findViewById(R.id.textView11);
-
+        this.panierAdapter.setTotal(totalCart);
        checkout.setOnClickListener(new View.OnClickListener() {
             @Override
            public void onClick(View v) {
@@ -134,7 +140,7 @@ public class PanierFragment extends Fragment {
     }
 //Am trying to refresh the data total evrey seconde bech na voidiw lblan
 
-    public void refreshT(){
+    /*public void refreshT(){
        refreshTotal(1000);
     }
     public void refreshTotal(int milleSecondes){
@@ -148,7 +154,8 @@ public class PanierFragment extends Fragment {
             }
         };
         handler.postDelayed(r, milleSecondes);
-    }
+    }*/
+
 
     // Here ill try to handl the price changing while we click on USD for exp, i mean the total.
 

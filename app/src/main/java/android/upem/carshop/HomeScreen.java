@@ -107,6 +107,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         // hadi hiya li khasha tkon
         carActivity =CarActivity.newInstance(email_user);
         carAdapter=new CarAdapter(this,email_user,carActivity);
+
         panierAdapter=new PanierAdapter(this,email_user);
 
         homeScreeanAdapter = new HomeScreeanAdapter(this);
@@ -322,6 +323,13 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 }
                 if(panierFragmnt.textcurncy!=null){
                     panierFragmnt.textcurncy.setText(devise);
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    try {
+                        Double a=Double.parseDouble( panierFragmnt.getTotalCart().getText().toString())*Double.parseDouble(result);
+                        panierFragmnt.getTotalCart().setText(df.format(a)+"");
+                    }catch (Exception e){
+                        Log.println(Log.DEBUG,"getTotalCart",e.getMessage());
+                    }
                 }
 
                 if(panierAdapter.getCars()!=null){
