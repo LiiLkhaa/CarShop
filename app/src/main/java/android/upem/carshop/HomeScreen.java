@@ -109,7 +109,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         carAdapter=new CarAdapter(this,email_user,carActivity);
 
         panierAdapter=new PanierAdapter(this,email_user);
-
+        panierFragmnt=PanierFragment.newInstance(email_user,panierAdapter);
         homeScreeanAdapter = new HomeScreeanAdapter(this);
 
          new getUser().execute();
@@ -180,7 +180,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         switch (id) {
             case R.id.cart_panier:
-                Fragment panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
+                //Fragment panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -249,7 +249,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 txt.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
-                panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
+                //panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
