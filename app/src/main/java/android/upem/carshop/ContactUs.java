@@ -3,9 +3,13 @@ package android.upem.carshop;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.upem.carshop.models.Checkout;
 import android.upem.carshop.models.ContactUsModel;
 import android.util.Log;
 import android.view.MenuItem;
@@ -30,6 +34,9 @@ public class ContactUs extends AppCompatActivity {
     EditText message;
     Button sendContact;
     String url = "https://carsho.herokuapp.com/ContactUs/";
+
+    Dialog dialogContact;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +51,15 @@ public class ContactUs extends AppCompatActivity {
         message = findViewById(R.id.message_contact_us);
         sendContact = findViewById(R.id.sendContact);
 
+        dialogContact = new Dialog(this);
+
         sendContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ContactusSQL().execute();
+                new ContactUs.ContactusSQL().execute();
+                dialogContact.setContentView(R.layout.sucessful_send);
+                dialogContact.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialogContact.show();
             }
         });
     }
@@ -82,7 +94,7 @@ public class ContactUs extends AppCompatActivity {
             String msg = message.getText().toString().trim();
 
             try {
-                ContactUsModel contactUsModel = new ContactUsModel(name, mail, tele, msg);
+                ContactUsModel contactUsModel=new ContactUsModel(mail, msg, name, tele);
                 String data = contactUsModel.toJSON();
                 HttpURLConnection urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
                 urlConnection.setDoOutput(true);
@@ -115,6 +127,7 @@ public class ContactUs extends AppCompatActivity {
         @Override
         protected void onPostExecute(ContactUsModel contactUsModel) {
             Toast.makeText(ContactUs.this, "Successful", Toast.LENGTH_SHORT).show();
+
         }
     }
 
