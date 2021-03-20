@@ -56,6 +56,11 @@ public class PanierFragment extends Fragment {
     PanierAdapter panierAdapter;
     Button checkout;
     public TextView textcurncy;
+    public double totalD;
+
+    public double getTotal() {
+        return totalD;
+    }
 
     public TextView getTotalCart() {
         return totalCart;
@@ -135,6 +140,7 @@ public class PanierFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String total) {
+            //totalD=Double.parseDouble(total);
             totalCart.setText(total);
         }
     }

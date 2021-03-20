@@ -65,7 +65,7 @@ public class ContactUsModel {
                 "        \"fullName\": \"" + this.fullName + "\",\n" +
                 "        \"email\": \"" + this.email + "\",\n" +
                 "        \"phone\": \"" + this.phone + "\",\n" +
-                "        \"message\": \"" + this.message + "\",\n" +
+                "        \"message\": \"" + this.message + "\"\n" +
                 "    }";
     }
 

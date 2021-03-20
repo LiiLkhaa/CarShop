@@ -80,6 +80,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     TextView txt;
     TextView textPrice_CarActivity;
     private String devise;
+    double totalD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,7 +178,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         int id = item.getItemId();
-
+        new GetTotalCart().execute();
         switch (id) {
             case R.id.cart_panier:
                 //Fragment panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
@@ -322,13 +323,16 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                     carActivity.getPrice().setText((df.format(a) + "") + " " + devise);
                 }
                 if(panierFragmnt.textcurncy!=null){
+
                     panierFragmnt.textcurncy.setText(devise);
                     DecimalFormat df = new DecimalFormat("0.00");
                     try {
-                        Double a=Double.parseDouble( panierFragmnt.getTotalCart().getText().toString())*Double.parseDouble(result);
+                        new GetTotalCart().execute();
+                        Log.println(Log.DEBUG,"getTotalCart  ",totalD+"");
+                        Double a= totalD*Double.parseDouble(result);
                         panierFragmnt.getTotalCart().setText(df.format(a)+"");
                     }catch (Exception e){
-                        Log.println(Log.DEBUG,"getTotalCart",e.getMessage());
+                        Log.println(Log.ERROR,"getTotalCart",e.getMessage());
                     }
                 }
 
@@ -511,6 +515,40 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             }
         }
 
+    }
+    public class GetTotalCart extends  AsyncTask<Long, Void, String> {
+        HttpURLConnection urlConnection;
+
+        @Override
+        protected String doInBackground(Long... id) {
+            StringBuilder result = new StringBuilder();
+            try {
+                URL url = new URL("https://carsho.herokuapp.com/Cart/gatTotalCart/" + email_user);
+                Log.e("gatTotalCart ", " " + email_user);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                Log.e("JSON", "#" + line);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Eroor do", "################################ " + e.getMessage());
+            } finally {
+                urlConnection.disconnect();
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String total) {
+
+            totalD=Double.parseDouble(total);
+            Log.e("gatTotalCart ", " " + totalD);
+        }
     }
 
 }

@@ -29,7 +29,7 @@ public class ContactUs extends AppCompatActivity {
     EditText phone;
     EditText message;
     Button sendContact;
-    String url = "https://carsho.herokuapp.com/ContactUs/";
+    String url = "https://carsho.herokuapp.com/ContactUs";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
