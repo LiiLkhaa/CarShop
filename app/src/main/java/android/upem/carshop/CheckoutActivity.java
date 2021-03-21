@@ -20,6 +20,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.upem.carshop.models.Checkout;
 import android.util.Log;
 import android.view.MenuItem;
@@ -54,6 +59,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
     Button opencam;
     ImageView idcard;
+    // 
+    int count =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +70,13 @@ public class CheckoutActivity extends AppCompatActivity {
         this.setTitle("Checkout");
         email = getIntent().getStringExtra("Email");
 
+
         fullname = findViewById(R.id.fullname);
         adress = findViewById(R.id.adress);
         zipcode = findViewById(R.id.zipcode);
         city = findViewById(R.id.city);
         cc = findViewById(R.id.creditcard);
+
         ccv = findViewById(R.id.ccv);
         expdate = findViewById(R.id.expdate);
         pay = findViewById(R.id.payend);
@@ -94,20 +103,24 @@ public class CheckoutActivity extends AppCompatActivity {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
+        ruleCreditCard();
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        new sendEmailAsync().execute();
-                        new CheckoutActivity.CheckoutSQL().execute();
-                        String message = "Thank you for you purchase, Check your email for more information";
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(CheckoutActivity.this, "My notification");
-                        builder.setSmallIcon(R.drawable.eiffel_notif).setContentTitle("Eiffel Cars").setContentText(message).setAutoCancel(true);
-                        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(CheckoutActivity.this);
-                        notificationManagerCompat.notify(1, builder.build());
+
+                  if(rulesCreditCard()==false) {
+                      new sendEmailAsync().execute();
+                      new CheckoutSQL().execute();
+
+                      String message = "Thank you for you purchase, Check your email for more information";
+                      NotificationCompat.Builder builder = new NotificationCompat.Builder(CheckoutActivity.this, "My notification");
+                      builder.setSmallIcon(R.drawable.eiffel_notif).setContentTitle("Eiffel Cars").setContentText(message).setAutoCancel(true);
+                      NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(CheckoutActivity.this);
+                      notificationManagerCompat.notify(1, builder.build());
+                   }
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
@@ -117,7 +130,6 @@ public class CheckoutActivity extends AppCompatActivity {
             idcard.setImageBitmap(card);
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -129,7 +141,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 finish();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -187,7 +198,6 @@ public class CheckoutActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Checkout checkout) {
             Toast.makeText(CheckoutActivity.this, "Successful", Toast.LENGTH_SHORT).show();
-           
             setContentView(R.layout.thankyou);
         }
     }
@@ -230,7 +240,60 @@ public class CheckoutActivity extends AppCompatActivity {
                 Log.e("EROR","################################ " +e.getMessage());
             }
         }
-
     }
+    public boolean rulesCreditCard(){
+        if(TextUtils.isEmpty(fullname.getText().toString())){
+            fullname.setError("Full Name is required");
+            return true;
+        }
+        if(TextUtils.isEmpty(adress.getText().toString())){
+            adress.setError("Adress is required");
+            return true;
+        }
+        if(TextUtils.isEmpty(city.getText().toString())){
+            city.setError("City is required");
+            return true;
+        }
+        if(TextUtils.isEmpty(cc.getText().toString())){
+            cc.setError("Credit Card Digits is required");
+            return true;
+        }
+        if(TextUtils.isEmpty(zipcode.getText().toString())){
+            zipcode.setError("ZipCode is required");
+            return true;
+        }
+        if(TextUtils.isEmpty(ccv.getText().toString())){
+            ccv.setError("ccv is required");
+            return true;
+        }
+        if(TextUtils.isEmpty(expdate.getText().toString())){
+            expdate.setError("Expiration Date is required");
+            return true;
+        }
+        return false;
+    }
+    public void ruleCreditCard(){
 
+        expdate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int inputlength = expdate.getText().toString().length();
+                if (count <= inputlength && inputlength == 2 ){
+                    expdate.setText(expdate.getText().toString() + "/");
+                    int pos = expdate.getText().length();
+                    expdate.setSelection(pos);
+                }else if(count >= inputlength && inputlength == 2) {
+                    expdate.setText(expdate.getText().toString()
+                            .substring(0, expdate.getText()
+                                    .toString().length() - 1));
+                    int pos = expdate.getText().length();
+                    expdate.setSelection(pos);
+                }
+            }
+        });
+    }
 }

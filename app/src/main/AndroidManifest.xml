@@ -21,7 +21,9 @@
         android:roundIcon="@mipmap/eiffel_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarShop">
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".CheckoutActivity">
+
+        </activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,6 +52,7 @@
             android:name=".Login"
             android:theme="@style/Theme.CarShop.NoActionBar">
         </activity>
+
         <activity
             android:name=".HomeScreen"
             android:theme="@style/Theme.CarShop.NoActionBar"

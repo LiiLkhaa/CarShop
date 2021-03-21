@@ -25,8 +25,7 @@ public class Checkout {
         this.email=email;
     }
 
-    public Checkout() {
-    }
+
 
     public long getId() {
         return id;
