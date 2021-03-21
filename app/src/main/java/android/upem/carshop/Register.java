@@ -38,6 +38,7 @@ public class Register extends AppCompatActivity {
     EditText emailregister;
     EditText passregister;
     EditText fullname;
+
     Button buttonregister;
     DatabseHelper db;
     ImageView fingerprint, imageUser;
@@ -54,6 +55,7 @@ public class Register extends AppCompatActivity {
         emailregister = findViewById(R.id.emailregister);
         passregister = findViewById(R.id.passwordregister);
         fullname = findViewById(R.id.fullname);
+
         buttonregister = findViewById(R.id.register);
         fingerprint = findViewById(R.id.fingerprint);
         imageUser = findViewById(R.id.iconAccount);
@@ -85,6 +87,7 @@ public class Register extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)) {
                     emailregister.setError("Email is required");
                 }
+
                 if (TextUtils.isEmpty(pass)) {
                     passregister.setError("Password is required");
                 }
@@ -130,6 +133,7 @@ public void getInfoUserByGoogleAuth(){
             String name = fullname.getText().toString().trim();
             String email = emailregister.getText().toString().trim();
             String pass = passregister.getText().toString().trim();
+
             try {
                 User user=new User(name,email,pass);
                 String data = user.toJSON();

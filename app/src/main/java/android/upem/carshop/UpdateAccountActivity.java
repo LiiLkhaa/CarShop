@@ -87,6 +87,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
             String name = newFullName.getText().toString().trim();
             String email = newEmail.getText().toString().trim();
             String pass = newPassword.getText().toString().trim();
+
             try {
                 User user=new User(name,email,pass);
                 String data = user.toJSON();

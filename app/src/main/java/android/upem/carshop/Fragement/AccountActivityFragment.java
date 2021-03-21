@@ -21,7 +21,7 @@ public class AccountActivityFragment extends Fragment {
 
     View myView;
     ImageView imageView;
-    TextView toUpdateTextView, nameAccount, phoneNumberAccoount, emailAccount;
+    TextView toUpdateTextView, nameAccount,nameAccount1, phoneNumberAccoount, emailAccount;
     String emailUser;
 
     @Override
@@ -34,19 +34,17 @@ public class AccountActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        myView= inflater.inflate(R.layout.fragment_account_activity, container, false);
+        myView = inflater.inflate(R.layout.fragment_acount, container, false);
 
         toUpdateTextView = myView.findViewById(R.id.textViewUpdate);
 
         nameAccount = myView.findViewById(R.id.fullNameAccount);
         nameAccount.setText(getArguments().getString("Name"));
-
+        nameAccount1 = myView.findViewById(R.id.fullNameAccount1);
+        nameAccount1.setText(getArguments().getString("Name"));
         emailAccount = myView.findViewById(R.id.emailAccount);
         emailUser = getArguments().getString("Email");
         emailAccount.setText(emailUser);
-
-        phoneNumberAccoount = myView.findViewById(R.id.phoneNumberAccount);
-        phoneNumberAccoount.setText("0505050505");
 
 
 

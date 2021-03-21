@@ -1,5 +1,7 @@
 package android.upem.carshop.models;
 
+import android.widget.EditText;
+
 import org.json.JSONObject;
 
 public class User {
@@ -8,14 +10,22 @@ public class User {
     private String email;
     private String password;
 
+
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+
     }
 
     public User() {
     }
+
+
+
+
+
+
 
     public void setId(long id) {
         this.id = id;
