@@ -27,6 +27,7 @@ import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.handler.HttpHandler;
 import android.upem.carshop.models.Car;
 import android.upem.carshop.models.User;
+import android.upem.carshop.session.Logout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -265,7 +266,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 break;
 
             case R.id.logout:
-                Intent logout = new Intent(this, Login.class);
+                Intent logout = new Intent(this, Logout.class);
                 startActivity(logout);
                 break;
             case R.id.settings:

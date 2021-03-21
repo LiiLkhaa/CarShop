@@ -144,27 +144,6 @@ public class PanierFragment extends Fragment {
             totalCart.setText(total);
         }
     }
-//Am trying to refresh the data total evrey seconde bech na voidiw lblan
-
-    /*public void refreshT(){
-       refreshTotal(1000);
-    }
-    public void refreshTotal(int milleSecondes){
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                refreshT();
-                new GetTotalCart().execute();
-
-            }
-        };
-        handler.postDelayed(r, milleSecondes);
-    }*/
-
-
-    // Here ill try to handl the price changing while we click on USD for exp, i mean the total.
-
 
     public class GetCarFromCart extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;

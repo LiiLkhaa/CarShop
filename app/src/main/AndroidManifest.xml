@@ -21,9 +21,8 @@
         android:roundIcon="@mipmap/eiffel_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarShop">
-        <activity android:name=".CheckoutActivity">
-
-        </activity>
+        <activity android:name=".session.Logout"></activity>
+        <activity android:name=".CheckoutActivity"></activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,22 +43,20 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/eiffel_notif" />
+
         <activity
             android:name=".Login"
             android:theme="@style/Theme.CarShop.NoActionBar">
-        </activity>
 
+        </activity>
         <activity
             android:name=".HomeScreen"
             android:theme="@style/Theme.CarShop.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".Register">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Register"></activity>
         <activity android:name=".MapsActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CarActivity" />

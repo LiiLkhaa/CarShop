@@ -3,8 +3,10 @@ package android.upem.carshop;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.upem.carshop.models.User;
@@ -16,12 +18,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -29,11 +29,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,8 +40,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.concurrent.Executor;
 
 public class Login extends AppCompatActivity {
@@ -63,14 +59,18 @@ public class Login extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 0;
 
-   // Button googleSignIn;
+    SharedPreferences sharedPreferences;
+    public static final String SHARED_PREF_NAME = "myPref";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_PASS = "pass";
+    boolean test = false;
+
+    String userEmail, userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
 
         db = new DatabseHelper(this);
         emaillogin = findViewById(R.id.editTextTextEmailAddress);
@@ -87,11 +87,29 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+        userEmail = sharedPreferences.getString(KEY_EMAIL, null);
+        userPassword = sharedPreferences.getString(KEY_PASS, null);
+
+        if(userEmail != null && userPassword != null){
+            emaillogin.setText(userEmail);
+            passlogin.setText(userPassword);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    buttonlogin.performClick();
+                }
+            }, 10);
+        }
         buttonlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncLogin().execute();
-            }
+         if(saveToSharedPref() == true){
+             new AsyncLogin().execute();
+         }
+        }
         });
 
         BiometricManager biometricManager = BiometricManager.from(this);
@@ -168,6 +186,19 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    public boolean saveToSharedPref(){
+
+        if (!(emaillogin.getText().toString().isEmpty())){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_EMAIL, emaillogin.getText().toString());
+            editor.putString(KEY_PASS, passlogin.getText().toString());
+            editor.apply();
+            test = true;
+
+            return test;
+        }
+        return false;
+    }
     public void signIn(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -197,11 +228,11 @@ public class Login extends AppCompatActivity {
         String url="https://carsho.herokuapp.com/User/Login";
         @Override
         protected String doInBackground(Void... voids) {
-            String email = emaillogin.getText().toString().trim();
-            String pass = passlogin.getText().toString().trim();
+        String    emailUser = emaillogin.getText().toString().trim();
+             String    passUser = passlogin.getText().toString().trim();
             StringBuilder sb = new StringBuilder();
             try {
-                User user=new User("",email,pass);
+                User user=new User("",emailUser,passUser);
                 String data = user.toJSON();
                 HttpURLConnection urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
                 urlConnection.setDoOutput(true);
@@ -268,24 +299,13 @@ public class Login extends AppCompatActivity {
     }
     }
 
+
     public void forgetPassword(View view){
         Intent PassInt = new Intent(Login.this,PassForgotten.class);
         startActivity(PassInt);
     }
-    //test for getting the name of the user
-    public class AsyncNameUser extends AsyncTask<Void, Void, String> {
-        String url="https://carsho.herokuapp.com/User/getUserByName/imad";
-        @Override
-        protected String doInBackground(Void... voids) {
 
-          return null ;
-        }
 
-        @Override
-        protected void onPostExecute(String login) {
-
-        }
-    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
