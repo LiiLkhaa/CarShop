@@ -40,19 +40,17 @@
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/addCheckout"
         app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="$"
+        android:text="EUR"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/addCheckout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toEndOf="@+id/totalCart" />
-
     <TextView
         android:id="@+id/totalCart"
         android:layout_width="wrap_content"

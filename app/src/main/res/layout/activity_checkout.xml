@@ -134,6 +134,7 @@
         android:hint="Credit Card"
         android:inputType="numberDecimal"
         android:padding="10dp"
+        android:maxLength="19"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/ccv"
         app:layout_constraintEnd_toEndOf="parent"

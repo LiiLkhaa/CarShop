@@ -1,7 +1,10 @@
 package android.upem.carshop;
 
+import android.app.Dialog;
 import android.content.Context;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -40,6 +43,8 @@ public class CarActivity extends Fragment {
     String email;
     String id;
     Button pay;
+
+    Dialog dialogCart;
 
     // test Fragmnt from activity : button test
     Button btnAdd;
@@ -93,6 +98,8 @@ public class CarActivity extends Fragment {
         imageView = myView.findViewById(R.id.carimg);
         model.setText(car.getModel());
 
+        dialogCart = new Dialog(getContext());
+
         price.setText(String.valueOf(car.getPrice()));
         description.setText(car.getDescription());
         Picasso.with(getContext()).load(car.getImg()).into(imageView);
@@ -101,6 +108,9 @@ public class CarActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 addCarToCart(v);
+                dialogCart.setContentView(R.layout.sucessful_cart);
+                dialogCart.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialogCart.show();
             }
         });
         return myView;

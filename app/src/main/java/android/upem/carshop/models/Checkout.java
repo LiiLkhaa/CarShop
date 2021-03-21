@@ -12,8 +12,9 @@ public class Checkout {
     private long creditcard;
     private int ccv;
     private String expdate;
+    private String email;
 
-    public Checkout(String fullname, String adress, long zipcode, String city, long creditcard, int ccv, String expdate) {
+    public Checkout(String fullname, String adress, long zipcode, String city, long creditcard, int ccv, String expdate,String email) {
         this.fullname = fullname;
         this.adress = adress;
         this.zipcode = zipcode;
@@ -21,10 +22,10 @@ public class Checkout {
         this.creditcard = creditcard;
         this.ccv = ccv;
         this.expdate = expdate;
+        this.email=email;
     }
 
-    public Checkout() {
-    }
+
 
     public long getId() {
         return id;
@@ -90,6 +91,14 @@ public class Checkout {
         this.zipcode = zipcode;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String toJSON(){
         return "    {\n" +
                 "        \"fullname\": \"" + this.fullname + "\",\n" +
@@ -98,13 +107,14 @@ public class Checkout {
                 "        \"city\": \"" + this.city + "\",\n" +
                 "        \"creditcard\": \"" + this.creditcard + "\",\n" +
                 "        \"ccv\": \"" + this.ccv + "\",\n" +
-                "        \"expdate\": \"" + this.expdate + "\"\n" +
+                "        \"expdate\": \"" + this.expdate + "\",\n" +
+                "        \"email\": \"" + this.email + "\"\n" +
                 "    }";
     }
 
     public static Checkout UserParserJSON(JSONObject json){
         try {
-            return new Checkout(json.getString("fullname"),json.getString("adresse"),json.getInt("zipcode"),json.getString("city"),json.getInt("creditcard"),json.getInt("ccv"),json.getString("expdate"));
+            return new Checkout(json.getString("fullname"),json.getString("adresse"),json.getInt("zipcode"),json.getString("city"),json.getInt("creditcard"),json.getInt("ccv"),json.getString("expdate"),json.getString("email"));
         }
         catch (Exception e){
 

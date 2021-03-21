@@ -35,7 +35,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.navigation.NavigationView;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -68,8 +67,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     User myUser;
     SliderView sliderView;
     CardView slidercard;
-    NotificationBadge badge;
-    static NotificationBadge[] badges=new NotificationBadge[1];
+    TextView badge;
+    static TextView[] badges=new TextView[1];
     Fragment carFragment;
     PanierFragment panierFragmnt;
     HomeScreeanAdapter homeScreeanAdapter;
@@ -81,6 +80,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     TextView txt;
     TextView textPrice_CarActivity;
     private String devise;
+    double totalD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +108,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         // hadi hiya li khasha tkon
         carActivity =CarActivity.newInstance(email_user);
         carAdapter=new CarAdapter(this,email_user,carActivity);
-        panierAdapter=new PanierAdapter(this,email_user);
 
+        panierAdapter=new PanierAdapter(this,email_user);
+        panierFragmnt=PanierFragment.newInstance(email_user,panierAdapter);
         homeScreeanAdapter = new HomeScreeanAdapter(this);
 
          new getUser().execute();
@@ -141,7 +142,15 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
         View view = menu.findItem(R.id.cart_panier).getActionView();
-        badge = view.findViewById(R.id.badge_cart);
+        MenuItem filtermenu = menu.findItem(R.id.cart_panier);
+        filtermenu.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeScreen.this.onOptionsItemSelected(filtermenu);
+            }
+        });
+
+        badge = view.findViewById(R.id.nottifnumber);
         //badge.setText("3");
         badges[0]=badge;
         return true;
@@ -169,10 +178,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         int id = item.getItemId();
-
+        new GetTotalCart().execute();
         switch (id) {
             case R.id.cart_panier:
-                Fragment panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
+                //Fragment panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -241,7 +250,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 txt.setVisibility(View.INVISIBLE);
                 break;
             case R.id.panier:
-                panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
+                //panierFragmnt =  PanierFragment.newInstance(email_user,panierAdapter);
                 fragmentTransaction.replace(R.id.fragment_container, panierFragmnt);
                 fragmentTransaction.commit();
                 drawerLayout.closeDrawers();
@@ -290,8 +299,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             String url = "https://carsho.herokuapp.com/api/currency/"+arg0[0];
             HttpHandler sh = new HttpHandler();
             String result = sh.makeServiceCall(url);
-
-
             return result;
         }
 
@@ -314,6 +321,19 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                     DecimalFormat df = new DecimalFormat("0.00");
                     Double a = carActivity.getCar().getPrisfix()*Double.parseDouble(result);
                     carActivity.getPrice().setText((df.format(a) + "") + " " + devise);
+                }
+                if(panierFragmnt.textcurncy!=null){
+
+                    panierFragmnt.textcurncy.setText(devise);
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    try {
+                        new GetTotalCart().execute();
+                        Log.println(Log.DEBUG,"getTotalCart  ",totalD+"");
+                        Double a= totalD*Double.parseDouble(result);
+                        panierFragmnt.getTotalCart().setText(df.format(a)+"");
+                    }catch (Exception e){
+                        Log.println(Log.ERROR,"getTotalCart",e.getMessage());
+                    }
                 }
 
                 if(panierAdapter.getCars()!=null){
@@ -495,6 +515,40 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             }
         }
 
+    }
+    public class GetTotalCart extends  AsyncTask<Long, Void, String> {
+        HttpURLConnection urlConnection;
+
+        @Override
+        protected String doInBackground(Long... id) {
+            StringBuilder result = new StringBuilder();
+            try {
+                URL url = new URL("https://carsho.herokuapp.com/Cart/gatTotalCart/" + email_user);
+                Log.e("gatTotalCart ", " " + email_user);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                Log.e("JSON", "#" + line);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Eroor do", "################################ " + e.getMessage());
+            } finally {
+                urlConnection.disconnect();
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String total) {
+
+            totalD=Double.parseDouble(total);
+            Log.e("gatTotalCart ", " " + totalD);
+        }
     }
 
 }

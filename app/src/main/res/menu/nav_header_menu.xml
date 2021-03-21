@@ -14,10 +14,7 @@
             android:icon="@drawable/ic_panier"
             android:title="Cart"></item>
 
-        <item
-            android:id="@+id/logout"
-            android:icon="@drawable/ic_disco"
-            android:title="Log out"></item>
+
     </group>
 
     <item android:title="Other">
@@ -30,6 +27,10 @@
                 android:id="@+id/send"
                 android:icon="@drawable/ic_send"
                 android:title="Contact Us"></item>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_disco"
+                android:title="Log out"></item>
         </menu>
     </item>
 </menu>

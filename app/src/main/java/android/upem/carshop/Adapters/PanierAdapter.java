@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.upem.carshop.CheckoutActivity;
+import android.upem.carshop.Fragement.PanierFragment;
 import android.upem.carshop.HomeScreen;
 import android.upem.carshop.R;
 import android.upem.carshop.models.Car;
@@ -34,6 +35,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
     private Context context;
     private String email;
     private CarAdapter carAdapter;
+    private TextView total;
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageviewPanie;
         TextView name;
@@ -67,7 +69,17 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
                                 new DeleteCarPanierAsunc().execute(car.getId());
+                                try {
+                                    double t=Double.parseDouble(total.getText().toString());
+                                    double p=Double.parseDouble(car.getPrice().split(" ")[0]);
+                                    double a=t-p;
+                                    total.setText(""+a);
+                                }catch (Exception e){
+
+                                }
+
                                 cars.remove(getAdapterPosition());
+
                                 notifyDataSetChanged();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -165,4 +177,7 @@ public class PanierAdapter  extends RecyclerView.Adapter<PanierAdapter.ViewHolde
         this.cars = cars;
     }
 
+    public void setTotal(TextView total) {
+        this.total = total;
+    }
 }

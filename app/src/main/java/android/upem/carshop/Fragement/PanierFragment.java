@@ -1,10 +1,13 @@
 package android.upem.carshop.Fragement;
 
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,10 +19,12 @@ import android.upem.carshop.Adapters.PanierAdapter;
 import android.upem.carshop.CheckoutActivity;
 import android.upem.carshop.HomeScreen;
 import android.upem.carshop.R;
+import android.upem.carshop.handler.HttpHandler;
 import android.upem.carshop.models.Car;
 import android.upem.carshop.models.Cart;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,13 +41,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 //http://carsho.herokuapp.com/Cart/getCarFromCartByEmal/1@gmail.com
 public class PanierFragment extends Fragment {
-
-
 
     List<Car> carList;
     RecyclerView recyclerView;
@@ -51,12 +55,21 @@ public class PanierFragment extends Fragment {
     TextView totalCart;
     PanierAdapter panierAdapter;
     Button checkout;
-    //tst cout
-    int cp=0;
+    public TextView textcurncy;
+    public double totalD;
+
+    public double getTotal() {
+        return totalD;
+    }
+
+    public TextView getTotalCart() {
+        return totalCart;
+    }
 
     public PanierFragment(String email, PanierAdapter panierAdapter) {
         this.email =email;
         this.panierAdapter=panierAdapter;
+
     }
 
     public static PanierFragment newInstance(String param1,PanierAdapter panierAdapter) {
@@ -69,8 +82,10 @@ public class PanierFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         new GetCarFromCart().execute();
-        refreshT();
+        new GetTotalCart().execute();
+        //refreshT();
     }
 
     @Override
@@ -80,25 +95,31 @@ public class PanierFragment extends Fragment {
         recyclerView = (RecyclerView) myView.findViewById(R.id.recyclerViewPanier);
         totalCart = myView.findViewById(R.id.totalCart);
         checkout = myView.findViewById(R.id.addCheckout);
-
-        checkout.setOnClickListener(new View.OnClickListener() {
+        textcurncy=myView.findViewById(R.id.textView11);
+        this.panierAdapter.setTotal(totalCart);
+       checkout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+           public void onClick(View v) {
+              Intent intent = new Intent(getActivity(), CheckoutActivity.class);
                 intent.putExtra("Email", email);
                 startActivity(intent);
-            }
+                Toast.makeText(getContext(), "" +  totalCart.getText().toString(), Toast.LENGTH_LONG).show();
+          }
         });
         return myView;
+    }
+    public  TextView getTextCurency(){
+        return textcurncy;
     }
 
     public class GetTotalCart extends  AsyncTask<Long, Void, String> {
         HttpURLConnection urlConnection;
+
         @Override
         protected String doInBackground(Long... id) {
             StringBuilder result = new StringBuilder();
             try {
-                URL url = new URL("https://carsho.herokuapp.com/Cart/gatTotalCart/"+email);
+                URL url = new URL("https://carsho.herokuapp.com/Cart/gatTotalCart/" + email);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -107,31 +128,25 @@ public class PanierFragment extends Fragment {
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }
-                Log.e("JSON","#" +line);
-            }catch( Exception e) {
+                Log.e("JSON", "#" + line);
+            } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("Eroor do","################################ " +e.getMessage());
-            }
-            finally {
+                Log.e("Eroor do", "################################ " + e.getMessage());
+            } finally {
                 urlConnection.disconnect();
             }
-
             return result.toString();
         }
+
         @Override
         protected void onPostExecute(String total) {
-            try {
-                totalCart.setText(total);
-
-            } catch (Exception e) {
-                Log.e("EROR","################################ " +e.getMessage());
-            }
+            //totalD=Double.parseDouble(total);
+            totalCart.setText(total);
         }
-
     }
 //Am trying to refresh the data total evrey seconde bech na voidiw lblan
 
-    public void refreshT(){
+    /*public void refreshT(){
        refreshTotal(1000);
     }
     public void refreshTotal(int milleSecondes){
@@ -141,10 +156,16 @@ public class PanierFragment extends Fragment {
             public void run() {
                 refreshT();
                 new GetTotalCart().execute();
+
             }
         };
         handler.postDelayed(r, milleSecondes);
-    }
+    }*/
+
+
+    // Here ill try to handl the price changing while we click on USD for exp, i mean the total.
+
+
     public class GetCarFromCart extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection;
         @Override
@@ -190,6 +211,7 @@ public class PanierFragment extends Fragment {
         }
 
     }
+
 
 
 }

@@ -22,7 +22,7 @@ public class Car {
         this.name = name;
         this.model = model;
         this.img = img;
-        this.price = price+" EUR";
+        this.price = price + " EUR";
         this.description = description;
         this.adress = adress;
         this.prisfix=Double.parseDouble(price);
