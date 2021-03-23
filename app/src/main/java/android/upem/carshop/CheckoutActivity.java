@@ -197,7 +197,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Checkout checkout) {
-            Toast.makeText(CheckoutActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(CheckoutActivity.this, "Successful", Toast.LENGTH_SHORT).show();
             setContentView(R.layout.thankyou);
         }
     }

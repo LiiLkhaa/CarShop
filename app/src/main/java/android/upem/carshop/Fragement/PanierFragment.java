@@ -103,7 +103,7 @@ public class PanierFragment extends Fragment {
               Intent intent = new Intent(getActivity(), CheckoutActivity.class);
                 intent.putExtra("Email", email);
                 startActivity(intent);
-                Toast.makeText(getContext(), "" +  totalCart.getText().toString(), Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getContext(), "" +  totalCart.getText().toString(), Toast.LENGTH_LONG).show();
           }
         });
         return myView;

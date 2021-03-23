@@ -286,7 +286,7 @@ public class Login extends AppCompatActivity {
                 Intent carItem = new Intent(Login.this, HomeScreen.class);
                 carItem.putExtra("Email", email);
                 startActivity(carItem);
-                Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Login.this, "Successfull login", Toast.LENGTH_SHORT).show();
 
             }
             else {

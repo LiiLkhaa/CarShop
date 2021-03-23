@@ -99,7 +99,7 @@ public class CarActivity extends Fragment {
         model.setText(car.getModel());
 
         dialogCart = new Dialog(getContext());
-
+        name.setText(car.getName());
         price.setText(String.valueOf(car.getPrice()));
         description.setText(car.getDescription());
         Picasso.with(getContext()).load(car.getImg()).into(imageView);
