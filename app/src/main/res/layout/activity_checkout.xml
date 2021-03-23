@@ -132,7 +132,7 @@
         android:drawablePadding="16dp"
         android:ems="10"
         android:hint="Credit Card"
-        android:inputType="numberDecimal"
+        android:inputType="phone"
         android:padding="10dp"
         android:maxLength="19"
         android:textColor="#000000"

@@ -22,7 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarShop">
         <activity android:name=".session.Logout"></activity>
-        <activity android:name=".CheckoutActivity"></activity>
+        <activity android:name=".CheckoutActivity">
+
+        </activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,12 +9,12 @@ public class Checkout {
     private String adress;
     private long zipcode;
     private String city;
-    private long creditcard;
+    private String creditcard;
     private int ccv;
     private String expdate;
     private String email;
 
-    public Checkout(String fullname, String adress, long zipcode, String city, long creditcard, int ccv, String expdate,String email) {
+    public Checkout(String fullname, String adress, long zipcode, String city, String creditcard, int ccv, String expdate,String email) {
         this.fullname = fullname;
         this.adress = adress;
         this.zipcode = zipcode;
@@ -59,11 +59,11 @@ public class Checkout {
         this.city = city;
     }
 
-    public long getCreditcard() {
+    public String getCreditcard() {
         return creditcard;
     }
 
-    public void setCreditcard(long creditcard) {
+    public void setCreditcard(String creditcard) {
         this.creditcard = creditcard;
     }
 
@@ -114,7 +114,7 @@ public class Checkout {
 
     public static Checkout UserParserJSON(JSONObject json){
         try {
-            return new Checkout(json.getString("fullname"),json.getString("adresse"),json.getInt("zipcode"),json.getString("city"),json.getInt("creditcard"),json.getInt("ccv"),json.getString("expdate"),json.getString("email"));
+            return new Checkout(json.getString("fullname"),json.getString("adresse"),json.getInt("zipcode"),json.getString("city"),json.getString("creditcard"),json.getInt("ccv"),json.getString("expdate"),json.getString("email"));
         }
         catch (Exception e){
 

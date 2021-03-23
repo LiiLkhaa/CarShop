@@ -20,12 +20,14 @@ public class Logout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout);
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
-         SharedPreferences.Editor editor = sharedPreferences.edit();
-         editor.clear();
-          editor.commit();
-            finish();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+        finish();
         Intent goToLogin = new Intent(this, Login.class);
-         startActivity(goToLogin);
+        startActivity(goToLogin);
+
 
     }
 }
+

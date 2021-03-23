@@ -45,7 +45,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class CheckoutActivity extends AppCompatActivity {
-
+    private static final char space = ' ';
     EditText fullname;
     EditText adress;
     EditText zipcode;
@@ -160,7 +160,7 @@ public class CheckoutActivity extends AppCompatActivity {
             String dress = adress.getText().toString().trim();
             long zip = Long.parseLong(zipcode.getText().toString().trim());
             String ville = city.getText().toString().trim();
-            long cece = Long.parseLong(cc.getText().toString().trim());
+            String cece = cc.getText().toString().trim();
             int cecv = Integer.parseInt(ccv.getText().toString().trim());
             String xpDate = expdate.getText().toString().trim();
 
@@ -273,7 +273,29 @@ public class CheckoutActivity extends AppCompatActivity {
         return false;
     }
     public void ruleCreditCard(){
-
+        cc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0 && (s.length() % 5) == 0) {
+                    final char c = s.charAt(s.length() - 1);
+                    if (space == c) {
+                        s.delete(s.length() - 1, s.length());
+                    }
+                }
+                if (s.length() > 0 && (s.length() % 5) == 0) {
+                    char c = s.charAt(s.length() - 1);
+                    if (Character.isDigit(c) && TextUtils.split(s.toString(), String.valueOf(space)).length <= 3) {
+                        s.insert(s.length() - 1, String.valueOf(space));
+                    }
+                }
+            }
+        });
         expdate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -281,19 +303,21 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void afterTextChanged(Editable editable) {
-                int inputlength = expdate.getText().toString().length();
-                if (count <= inputlength && inputlength == 2 ){
-                    expdate.setText(expdate.getText().toString() + "/");
-                    int pos = expdate.getText().length();
-                    expdate.setSelection(pos);
-                }else if(count >= inputlength && inputlength == 2) {
-                    expdate.setText(expdate.getText().toString()
-                            .substring(0, expdate.getText()
-                                    .toString().length() - 1));
-                    int pos = expdate.getText().length();
-                    expdate.setSelection(pos);
+                if (editable.length() > 0 && (editable.length() % 3) == 0) {
+                    final char c = editable.charAt(editable.length() - 1);
+                    if ('/' == c) {
+                        editable.delete(editable.length() - 1, editable.length());
+                    }
+                }
+                if (editable.length() > 0 && (editable.length() % 3) == 0) {
+                    char c = editable.charAt(editable.length() - 1);
+                    if (Character.isDigit(c) && TextUtils.split(editable.toString(), String.valueOf("/")).length <= 2) {
+                        editable.insert(editable.length() - 1, String.valueOf("/"));
+                    }
                 }
             }
         });
     }
+
+
 }
