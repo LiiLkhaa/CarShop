@@ -21,6 +21,11 @@ Les technologies que nous avons utilisé :
 - SharedPrefereneces : pour mémoriser la session d'authentification
 - Google API : pour une authentification secondaires.
 
+Pour ce projet, nous avons utilsé une architecture client-serveur, notre serveur est héberger sur le serveur de heroku : https://carsho.herokuapp.com/ :
+- La base de données utilisé est MySQL AWS, pour que tous les membres de l'équipe travaillent sans problème.
+- Service web est codé avec Java 1.8, nous avons utilisé framework Spring, Hibernate . Lien GitHub : https://github.com/JANATI-IDRISSI-Imad/ServicesWebCarShop
+- Api utilisé pour convertir la monnaie est : https://apilayer.com/
+
 
 ## Informations:
 
