@@ -8,7 +8,7 @@ L’application permet aux utilisateurs d’acheter des voitures en toute sécur
 
 ## Technologies:
 
-Cette application Android est réalisé avec SDK 29, et la version minimale supporté SQK 23.
+Cette application Android est réalisé avec SDK 29, et la version minimale supporté SDK 23.
 
 Les technologies que nous avons utilisé :
 - BiometricManage : pour l'authentification avec empreinte.
