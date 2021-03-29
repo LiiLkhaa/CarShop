@@ -6,21 +6,20 @@ La société Eiffel Cars offre à ses utilisateurs la possibilité d'acheter les
 
 L’application permet aux utilisateurs d’acheter des voitures en toute sécurité et avec beaucoup de fonctionnalités. Premièrement, l’utilisateur peut s’authentifier soit avec son email et mot de passe, soit avec l’empreinte pour faciliter l’accès à l’application. Après l’authentification, l’utilisateur peut découvrir toutes les voitures disponibles en Euros, mais l’application permet à l’utilisateur de changer à la devise préférer dans l’interface des voitures et aussi chercher la voiture souhaitée par mot clé ou autre chose. Ensuite il peut ajouter la voiture au panier pour l’acheter. Dans le Checkout, l’utilisateur ajoute les informations nécessaires pour effectuer l’achat et aussi prendre une photo de la carte ID, Finalement, l’utilisateur reçoit une notification sur le téléphone et une facture par mail, qui contient le nom de voiture et le prix total.
 
----
 ## Technologies:
 
 Cette application Android est réalisé avec SDK 29, et la version minimale supporté SQK 23.
 
 Les technologies que nous avons utilisé :
--BiometricManage : pour l'authentification avec empreinte.
--Picasso : pour l'affichage des images à partir d'un URL.
--SmartiesImageSlider : pour affichages des images dans un slider view.
--SQLite Database : utilisé dans la première version d'authentification.
--RecyclerView: pour l'affichage dans une liste.
--HttpURLConnection : pour communiquer avec le service web.
--NotificationManager : pour recevoir les notifications.
--SharedPrefereneces : pour mémoriser la session d'authentification
--Google API : pour une authentification secondaires.
+- BiometricManage : pour l'authentification avec empreinte.
+- Picasso : pour l'affichage des images à partir d'un URL.
+- SmartiesImageSlider : pour affichages des images dans un slider view.
+- SQLite Database : utilisé dans la première version d'authentification.
+- RecyclerView: pour l'affichage dans une liste.
+- HttpURLConnection : pour communiquer avec le service web.
+- NotificationManager : pour recevoir les notifications.
+- SharedPrefereneces : pour mémoriser la session d'authentification
+- Google API : pour une authentification secondaires.
 
 
 ## Informations:
