@@ -37,3 +37,7 @@ Pour la partie de paiement avec la carte bancaire, pour le moment c'est juste un
 - [Imad JANATI-IDRISSI](https://github.com/JANATI-IDRISSI-Imad) ijanatii@etud.u-pem.fr
 - [Khalil BAKRI](https://github.com/LiiLkhaa) kbakri@etud.u-pem.fr
 - [Saad ZRIDI](https://github.com/Zsaad7) szridi@etud.u-pem.fr
+
+## License & copyright: 
+:copyright: 2021
+[Apache-2.0 License](LICENSE)
