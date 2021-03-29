@@ -1,35 +1,35 @@
-## Eiffel Cars makes your car purchase easier 
+## Eiffel Cars makes your car purchase easier ![eiffel_notif](https://user-images.githubusercontent.com/64874813/112875501-8f791900-90c4-11eb-8278-c9a13f5ef479.png)
 
 **Version 1.0.0** 
 
-This is a car service-based application created using android studio where you can buy your favorite car of the Eiffel cars company. 
+La société Eiffel Cars offre à ses utilisateurs la possibilité d'acheter les voitures en meilleures prix.
 
-This app gives you many features, such as login, display all the available cars, make a purchase, etc.
+L’application permet aux utilisateurs d’acheter des voitures en toute sécurité et avec beaucoup de fonctionnalités. Premièrement, l’utilisateur peut s’authentifier soit avec son email et mot de passe, soit avec l’empreinte pour faciliter l’accès à l’application. Après l’authentification, l’utilisateur peut découvrir toutes les voitures disponibles en Euros, mais l’application permet à l’utilisateur de changer à la devise préférer dans l’interface des voitures et aussi chercher la voiture souhaitée par mot clé ou autre chose. Ensuite il peut ajouter la voiture au panier pour l’acheter. Dans le Checkout, l’utilisateur ajoute les informations nécessaires pour effectuer l’achat et aussi prendre une photo de la carte ID, Finalement, l’utilisateur reçoit une notification sur le téléphone et une facture par mail, qui contient le nom de voiture et le prix total.
 
-Here are the main features of the application:
-- Login in :
-The customer can register or Login (with Email and password or with his google account).
-
-- Consult the vehicles:
-The customer can see all the vehicles available by brand or with a keyword in the search bar.
-A vehicle is displayed with a photo, description and price.
-
-- Manage the Cart:
-Each customer has a cart to be able to add the chosen vehicles, and he can modify his basket either delete a vehicle or modify the quantity of vehicles.
-In the basket the price will have an update every time there is a change.
-
-- Make a payment :
-After a basket validation, the customer must make a payment. The customer can choose the payment method either card payment or cash at the pick-up point.
 ---
-### Installation instructions
+## Technologies:
 
-### Demos 
-### Contributors: 
-- [Ghita MAKHLAS](https://github.com/ghitaMakhlas)
-- [Driss NFIFI](https://github.com/Driss-Nfifi)
-- [Imad JANATI-IDRISSI](https://github.com/JANATI-IDRISSI-Imad)
-- [Khalil BAKRI](https://github.com/LiiLkhaa)
-- [Saad ZRIDI](https://github.com/Zsaad7) 
+Cette application Android est réalisé avec SDK 29, et la version minimale supporté SQK 23.
 
-### License & copyright 
-:copyright: 2021 JC, Inc. All rights reserved. 
+Les technologies que nous avons utilisé :
+-BiometricManage : pour l'authentification avec empreinte.
+-Picasso : pour l'affichage des images à partir d'un URL.
+-SmartiesImageSlider : pour affichages des images dans un slider view.
+-SQLite Database : utilisé dans la première version d'authentification.
+-RecyclerView: pour l'affichage dans une liste.
+-HttpURLConnection : pour communiquer avec le service web.
+-NotificationManager : pour recevoir les notifications.
+-SharedPrefereneces : pour mémoriser la session d'authentification
+-Google API : pour une authentification secondaires.
+
+
+## Informations:
+
+Pour la partie de paiement avec la carte bancaire, pour le moment c'est juste une simulation de paiement, on ne prend pas d'argent à partir de votre carte bancaire :)
+
+## Contributeurs: 
+- [Ghita MAKHLAS](https://github.com/ghitaMakhlas) gmakhlas@etud.u-pem.fr
+- [Driss NFIFI](https://github.com/Driss-Nfifi) dnfifi@etud.u-pem.fr
+- [Imad JANATI-IDRISSI](https://github.com/JANATI-IDRISSI-Imad) ijanatii@etud.u-pem.fr
+- [Khalil BAKRI](https://github.com/LiiLkhaa) kbakri@etud.u-pem.fr
+- [Saad ZRIDI](https://github.com/Zsaad7) szridi@etud.u-pem.fr
