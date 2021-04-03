@@ -217,7 +217,7 @@ public class Login extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Intent homeIntent = new Intent(getBaseContext(), Register.class);
+            Intent homeIntent = new Intent(this, Register.class);
             startActivity(homeIntent);
         } catch (ApiException e) {
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());

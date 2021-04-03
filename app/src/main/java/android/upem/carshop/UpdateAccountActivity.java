@@ -46,14 +46,14 @@ public class UpdateAccountActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-               // Toast.makeText(getBaseContext(), "Name" + newFullName.getText().toString(), Toast.LENGTH_LONG).show();
+
             if((newPassword.getText().toString().equals(newConfrimedPassword.getText().toString()))){
 
               if( (!(newFullName.getText().toString().isEmpty()))){
                   if (doUpdateBool()) {
-                     // new UpdateUser().execute();
-                    //  clearTextesBoxes();
+
                       Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_LONG).show();
+                    //  startActivity(new Intent(getBaseContext(), UpdateAccountActivity.class));
                   }
                   else {
                       Toast.makeText(getBaseContext(), "The name shouldn't be empty", Toast.LENGTH_LONG).show();

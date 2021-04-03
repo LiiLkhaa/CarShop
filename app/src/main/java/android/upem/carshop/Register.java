@@ -2,6 +2,7 @@ package android.upem.carshop;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,8 +26,13 @@ import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -45,6 +51,7 @@ public class Register extends AppCompatActivity {
     DatabseHelper db;
     ImageView fingerprint, imageUser;
     String url="https://carsho.herokuapp.com/User/add/";
+    String email;
 
     //Get Infos from google api
     public GoogleSignInClient googleSignInClient;
@@ -70,10 +77,10 @@ public class Register extends AppCompatActivity {
         if(account != null){
             String persoName = account.getDisplayName();
             String emailPerson = account.getEmail();
-            String passwordPerson = account.getId();
+
             fullname.setText(persoName);
             emailregister.setText(emailPerson);
-            passregister.setText(passwordPerson);
+           // passregister.setText("Enter Your Password");
         }
         imageUser = findViewById(R.id.iconAccount);
         imageUser.setOnClickListener(new View.OnClickListener() {
@@ -113,9 +120,10 @@ public class Register extends AppCompatActivity {
                     return;
                 }
                 if (val > 0) {
-                    new Register.UserSQL().execute();
-                    Toast.makeText(Register.this, "Successfull Register", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), Login.class));
+
+                    new getUserByEmail().execute();
+
+
                 }
                 else {
                     Toast.makeText(Register.this, "Erreur Register", Toast.LENGTH_SHORT).show();
@@ -168,4 +176,48 @@ public class Register extends AppCompatActivity {
             return null;
         }
     }
+
+    public class getUserByEmail extends AsyncTask<Void, Void, String>{
+    HttpURLConnection urlConnection;
+
+    @Override
+    protected String doInBackground(Void... voids) {
+        StringBuilder result = new StringBuilder();
+        try {
+            email = emailregister.getText().toString().trim();
+            URL url = new URL("https://carsho.herokuapp.com/User/getByEmail/" + email);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Eroor", "################################ " + e.getMessage());
+        } finally {
+            urlConnection.disconnect();
+        }
+
+        return result.toString();
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        if(s.equals("null")){
+            new UserSQL().execute();
+            Toast.makeText(Register.this, "Successfull Register", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), Login.class));
+
+        }else{
+            emailregister.setError("Email Exist, try with another one");
+        }
+    }
+}
+
+
 }
