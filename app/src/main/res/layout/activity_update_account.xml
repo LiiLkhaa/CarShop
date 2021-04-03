@@ -7,7 +7,7 @@
     tools:context=".UpdateAccountActivity">
 
     <EditText
-        android:id="@+id/accountFullNameme"
+        android:id="@+id/accountFullName"
         android:layout_width="370dp"
         android:layout_height="50dp"
         android:layout_marginBottom="500dp"
@@ -41,7 +41,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountFullNameme" />
+        app:layout_constraintTop_toBottomOf="@+id/accountFullName" />
 
     <EditText
         android:id="@+id/accountPassword"

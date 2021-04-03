@@ -34,7 +34,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle("Update Profile");
 
-        newFullName = findViewById(R.id.accountFullNameme);
+        newFullName = findViewById(R.id.accountFullName);
         newEmail = findViewById(R.id.accountEmail);
         newEmail.setText(getIntent().getStringExtra("Email"));
 
@@ -43,13 +43,16 @@ public class UpdateAccountActivity extends AppCompatActivity {
 
         updateBtn = findViewById(R.id.updateButton);
         updateBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+               // Toast.makeText(getBaseContext(), "Name" + newFullName.getText().toString(), Toast.LENGTH_LONG).show();
             if((newPassword.getText().toString().equals(newConfrimedPassword.getText().toString()))){
 
               if( (!(newFullName.getText().toString().isEmpty()))){
                   if (doUpdateBool()) {
-                      clearTextesBoxes();
+                     // new UpdateUser().execute();
+                    //  clearTextesBoxes();
                       Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_LONG).show();
                   }
                   else {
@@ -121,13 +124,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
         }
     }
 
-    public void clearTextesBoxes(){
 
-        newFullName.setText("");
-        newConfrimedPassword.setText("");
-        newPassword.setText("");
-        //newEmail.setText("");
-    }
 
      public boolean doUpdateBool(){
         new UpdateUser().execute();
