@@ -121,10 +121,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         sliderView = findViewById(R.id.imageSlider);
 
         List<Integer> images = new ArrayList<>();
-        images.add(R.drawable.mercedescla);
-        images.add(R.drawable.porshe);
-        images.add(R.drawable.rang);
-        images.add(R.drawable.tesla);
+        images.add(R.drawable.pub2);
+        images.add(R.drawable.pub1);
+        images.add(R.drawable.pub3);
+        images.add(R.drawable.pub4);
         ImageAdapter imageAdapter = new ImageAdapter(images);
         sliderView.setSliderAdapter(imageAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
