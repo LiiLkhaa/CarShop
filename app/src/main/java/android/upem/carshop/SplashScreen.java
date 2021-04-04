@@ -8,6 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -24,7 +30,10 @@ public class SplashScreen extends AppCompatActivity {
 
         getSupportActionBar().hide();
         new LoadServer().execute();
+
+
     }
+
 
     public class LoadServer extends AsyncTask<Long, Void, String> {
         HttpURLConnection urlConnection;
